@@ -1,0 +1,46 @@
+\chapter{Additional Chapter}
+
+\section{$\mathbb{S}^1 \times \mathbb{S}^1 \not\cong \mathbb{S}^2$}
+
+\subsection{Method 1: Euler Characteristic}
+
+\subsection{Method 2: Simple Closed Curve}
+
+\begin{definition}{Simple Closed Curve (SCC)}\\
+A SCC in a topological space $X$ is a set $C \subseteq X$, s.t.: there exists a homeomorphism $h: \mathbb{S}^1 \rightarrow C$.
+\end{definition}
+
+\begin{theorem}{Jordan Curve Theorem}\\
+If $C$ is a SCC in $\mathbb{R}^2$, then $\mathbb{R}^2 - C$ has exactly two path-connected components.
+\end{theorem}
+
+\noindent\textbf{Remark:} Since $\mathbb{R}^2 \cup \{ \infty \}\cong \mathbb{S}^2$, then we have the following corollary.
+
+\begin{corollary}{Sphere version of Jordan Curve Theorem}\\
+If $C$ is a SCC in $\mathbb{S}^2$, then $\mathbb{S}^2 - C$ has exactly two path-connected components.
+\end{corollary}
+
+\begin{proposition}
+    Let $f: X \overset{\cong}{\rightarrow} Y$ be a homeomorphism. $f(C)$ is a SCC if $C$ is a SCC.
+\end{proposition}
+
+\begin{proof}
+    Let $h: \mathbb{S}^1 \overset{\cong}{\rightarrow} C (\subseteq X)$ be a homeomorphism by the def of SCC. Then it's easy to show that $f \circ h$ is a homeomorphism between $\mathbb{S}^1 \cong f(C)$.
+\end{proof}
+
+\begin{proposition}
+    For any $p\in \mathbb{S}^1$, define 
+    $$\gamma_p := \mathbb{S}^1 \times \{ p\}.$$
+    Then we have:
+    $$\mathbb{T}^2 - \gamma_p \cong \mathbb{S}^1 \times (0,1).$$
+\end{proposition}
+
+\begin{proposition}
+    $$\mathbb{S}^1 \times \mathbb{S}^1 \not\cong \mathbb{S}^2$$
+\end{proposition}
+
+\begin{proof}
+    Suppose on the contrary that $\mathbb{S}^1 \times \mathbb{S}^1 \cong \mathbb{S}^2$. Then $\mathbb{T}^2 \cong \mathbb{S}^2$. Then there is a homeomorphism $f:\mathbb{S}^2 \overset{\cong}{\rightarrow} \mathbb{T}^2$.
+
+    By proposition 1.4 and 1.5, $f^{-1}(\gamma_0)$ is NOT a SCC in $\mathbb{S}^2$. Hence, $f^{-1}(\gamma_0) = \{ q\}$ for some $q \in \partial \mathbb{S}^2$, contradicting the infectivity of $f$.
+\end{proof}

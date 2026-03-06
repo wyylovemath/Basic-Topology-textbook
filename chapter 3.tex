@@ -1,0 +1,346 @@
+\chapter{Properties of Topological Spaces}
+
+\section{Hausdorff Property}
+
+\begin{definition}{First Separation Axiom, $T_1$}\\
+A topological space $(X,\mathcal{T}_X)$ is said to satisfy the first separation axiom (or to be a $T_1$ space) if for every pair of distinct points $x,y \in X$, there exists an open set $U \subseteq X$, s.t.: $x \in U$ and $y \notin U$.
+\end{definition}
+
+\begin{proposition}
+A topological space $X$ satisfies the first separation axiom ($T_1$) iff every singleton set $\{x\}$ is closed in $X$. 
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Rightarrow$): Fix $x\in X$. For any $y \in X-\{x\}$, there is an open $U_y \ni y$ such that $x\notin U_y$. Then:
+        $$X- \{x\} = \bigcup_{y\neq x}\{y\} \subseteq \bigcup _{y \neq x} U_y \subseteq X- \{x\}.$$
+        Hence, $X- \{x\} = \bigcup _{y \neq x} U_y$, where $U_y$ is open. Therefore, $\{x\}$ is closed.
+        \item ($\Leftarrow$): For any $x,y \in X$ with $x\neq y$, set $U:= X-\{y\}$, which is open, containing $x$, and not containing $y$. Hence, $X$ is a $T_1$ space.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Hausdorff Space}\\
+A topological space $X$ is called Hausdorff (or said to satisfy the second separation axiom, $T_2$) if for every pair of distinct points $x,y \in X$, there exists open neighborhoods $U$ of $x$ and $V$ of $y$ such that $U\cap V= \emptyset$.
+\end{definition}
+
+\noindent\textbf{Example} (A topological space that is a $T_1$ space may not necessarily be second separable):\\
+Consider $\mathcal{T}_{co-finite}$. Then $X$ is a $T_1$ space but NOT Hausdorff if $X$ is infinite:\\
+Suppose on the contrary that for given $x \neq y$, there are two open sets $U,V$ such that $x\in U$ and $y\in V$, and let $U\cap V=\emptyset$, which implies $X = X- (U\cap V) = (X-U) \cup (X-V)$. Then the union of two finite sets equals $X$ which is infinite. Contradiction. \hfill$\square$
+
+\begin{proposition}
+    If the topological space $(X,\mathcal{T})$ is Hausdorff, then all sequences $\{x_n\}$ in $X$ has at most one limit.
+\end{proposition}
+
+\begin{proof}
+    Suppose on the contrary that $\{x_n\} \rightarrow a$ and $\{x_n\} \rightarrow b$ with $a \neq b$. Then by Hausdorff-ness, there are two open $U,V \in \mathcal{T}$ such that $U\cap V =\emptyset$ and $a \in U, b\in V$.
+    Then $\exists N,M>0$, s.t.: $\{x_N,x_{N+1},\cdots\} \subseteq U$ and $\{x_M,x_{M+1},\cdots\} \subseteq V$. Take $K :=\max \{M,N\}+1$. Then $x_K \in U \cap V = \emptyset$, contradiction.
+\end{proof}
+
+\begin{proposition}
+    Let $X,Y$ be two Hausdorff spaces. Then the product space $X\times Y$, equipped with the product topology, is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+    For any $(x_1,y_1) \neq (x_2,y_2) \in X\times Y$, either $x_1\neq x_2$ or $y_1 \neq y_2$. WLOG, let $x_1 \neq x_2$. By the Hausdorff-ness, there are two sets $U,V \subseteq X$, s.t.: $x_1 \in U$, $x_2 \in V$ and $U\cap V=\emptyset$. Then $(x_1,y_1) \in U\times Y$, $(x_2.y_2) \in V\times Y$, and $(U\times Y) \cap (V\times Y)=\emptyset$.
+\end{proof}
+
+\begin{definition}{Topological Embedding}\\
+A continuous injective map $f: (X,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ is called a topological embedding if $f: X \rightarrow f(X)$ is a homeomorphism onto its image, where $f(X)$ is equipped with the subspace topology from $Y$.
+\end{definition}
+
+\noindent\textbf{Remark:} Equivalently, $f$ is an embedding if it is cont, injective, and for every open set $U \subseteq X$, there exists an open set $V \subseteq Y$ such that $U = f^{-1}(V) \cap X$.
+
+\begin{proposition}
+    Let $f: (X,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ be a topological embedding. If $Y$ is Hausdorff, then $X$ is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+    $f$ is embedding implies that $f:X \rightarrow f(X)$ is homeomorphism onto its image, where $f(X)$ is equipped with the subspace topology from $Y$.
+    Take distinct points $a,b \in X$. Then $f(a) \neq f(b)$ in $Y$. 
+    
+    By the Hausdorff-ness of $Y$, there are two open sets $U,V \subseteq Y$, s.t.: $f(a) \in U$, $f(b) \in V$, and $U \cap V=\emptyset$.
+    
+    Hence, $U \cap f(X)$ and $V \cap f(X)$ are the open neighborhoods of $f(a)$ and $f(b)$ in $f(X)$, respectively, with $(U\cap f(X)) \cap (V \cap f(X))= \emptyset$.
+    
+    Since $f: X \rightarrow f(X)$ is a homeomorphism, then $f^{-1}(U \cap f(X))$ and $f^{-1}(U \cap f(X))$ are two open neighborhoods of $a$ and $b$, respectively, with $f^{-1}(U \cap f(X))\cap f^{-1}(U \cap f(X)) = \emptyset$.
+\end{proof}
+
+\noindent\textbf{Remark:} If $f$ is only cont and injective, the conclusion may fail. For example, let $X$ be any non-Hausdorff space and let $f: X\rightarrow\{*\}$ be the constant injective map into a one-point Hausdorff space. Then $f$ is cont and injective, but $X$ is NOT Hausdorff.
+
+\begin{corollary}
+    Let $f: X \rightarrow Y$ be a homeomorphism. Then $X$ is Hausdorff iff $Y$ is Hausdorff. In particular, Hausdorff-ness is a topological property, i.e: a property preserved under homeomorphism.
+\end{corollary}
+
+\section{Connectivity}
+
+\begin{definition}{Connected Space}\\
+A topological space $(X, \mathcal{T})$ is said to be disconnected if there exist non-empty open sets $U,V \in \mathcal{T}$ such that $U \cap V = \emptyset , U \cup V = X$.\\
+If no such pair exists, then $X$ is called connected.
+\end{definition}
+
+\begin{proposition}
+    For a topological space $(X, \mathcal{T})$, the following are equivalent:
+    \begin{enumerate}
+        \item $X$ is connected.
+        \item The only subsets of $X$ which are both open and closed are $\emptyset$ and $X$.
+        \item Every cont fct $f: X \rightarrow \{0,1\}$ (where $\{0,1\}$ is equipped with the discrete topology) is constant.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item (1 $\Rightarrow$ 2): Suppose $U \subseteq X$ is both open and closed. Then $U$ and $X-U$ are disjoint open sets with $U \cup (X-U) = X$. By connectivity of $X$, either $U=\emptyset$ or $X-U= \emptyset$. Hence, $U = \emptyset$ or $U=X$.
+        \item (2 $\Rightarrow$ 3): Let $f: X \rightarrow \{0,1\}$ be cont. Define $U:= f^{-1}(\{0\})$ and $V:= f^{-1}(\{1\})$. Then $U,V$ are open disjoint, and $U \cap V = X$. By 2, either $(U,V)= (X,\emptyset)$ or $(U,V)= (\emptyset,X)$. Thus, $f$ is constant.
+        \item (3 $\Rightarrow$ 2): Suppose $U \subseteq X$ is both open and closed. Define $$ f(x):=
+        \begin{cases}
+            0,& if \;\; x \in U\\
+            1,&otherwise.
+        \end{cases}$$
+        This map $f$ is cont. Then by 3, $f$ is constant. Hence, $U =\emptyset$ or $U=X$.
+        \item (2 $\Rightarrow$ 1): Suppose on the contrary that $X$ is disconnected, i.e.: there are disjoint non-empty open sets $U,V \subseteq X$ with $U \cup V=X$. Then $U=X-V$ is both open and closed, contradicting 2.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    The interval $[a,b] \subseteq \mathbb{R}$ is connected.
+\end{corollary}
+
+\begin{proof}
+    Suppose on the contrary that there exists a cont fct $f : [a,b] \rightarrow \{0,1\}$ that takes 2 values. Construct the mapping $\tilde{f} : [a,b] \overset{f}{\rightarrow} \{0,1\} \overset{i}{\rightarrow} \mathbb{R}$ with $\tilde{f} = i \circ f$.
+
+    Note that $\{0,1\} \subseteq \mathbb{R}$ denotes the subspace topology, we imply the inclusion mapping $i : \{0,1\} \rightarrow\mathbb{R}$ with $s \mapsto s$ is cont. Then the composition of cont mappings is cont, i.e.: $\tilde{f}$ is cont. Since $f$ can take two values, there are $p,q \in [a,b]$, s.t.: $\tilde{f}(p) = (i\circ f)(p) = 0$ and $\tilde{f}(q) = (i\circ f)(q) = 1$. Then by IVT, there is $r \in [a,b]$ such that $\tilde{f} (r) = (i \circ f)(r) = 1/2$. Hence, $f(r) = 1/2$, contradiction.
+\end{proof}
+
+\begin{definition}{Connected Subset}\\
+A non-empty subset $S \subseteq X$ is connected if $(S, \mathcal{T}_S)$, where $\mathcal{T} _S$ denotes the subspace topology on $S$, is a connected topological space.\\
+Equivalently, $S \subseteq X$ is connected if, whenever $U,V \subseteq X$ are open sets such that $S \subseteq U\cup V$, $(U \cap V) \cap S = \emptyset$, then it follows that either $U \cap S=\emptyset$ or $V \cap S=\emptyset$.
+\end{definition}
+
+\begin{proposition}
+    If $f:X \rightarrow Y$ is cont and $A \subseteq X$ is connected, then $f(A)$ is connected. In other words, the cont image of a connected set is connected.
+\end{proposition}
+
+\begin{proof}
+    Suppose $U,V \subseteq Y$ are open s.t.: $f(A) \subseteq U\cup V$ and $(U \cap V) \cap f(A) = \emptyset$. Then $A \subseteq f^{-1}(U) \cup f^{-1}(V)$ and $(f^{-1}(U) \cap A) \cap (f^{-1}(V) \cap A) = \emptyset$. By the connectivity of $A$, either $f^{-1}(U) \cap A = \emptyset$ or $f^{-1}(V) \cap A = \emptyset$. Therefore, either $f(A) \cap U = \emptyset$ or $f(A) \cap V = \emptyset$.
+\end{proof}
+
+\begin{proposition}
+    Let $B, A_i$ $i\in I$ be connected subsets of $X$, s.t.: $B \cap A_i \neq \emptyset$ for all $i\in I$. Then $B \cup (\bigcup_{i\in I}A_i)$ is connected.
+\end{proposition}
+
+\begin{proof}
+    Consider a cont fct $f : B \cup (\bigcup_{i\in I}A_i) \rightarrow \{0,1\}$. Let $f_i := \left. f \right| _{A_i} : A_i \overset{i}{\rightarrow} B \cup (\bigcup_{i\in I}A_i) \overset{f}{\rightarrow} \{0,1\}$ and $f_B := \left. f \right| _{B} : B \overset{i}{\rightarrow} B \cup (\bigcup_{i\in I}A_i) \overset{f}{\rightarrow} \{0,1\}$. Then by the connectivity of $B, A_i$, $f_i, f_B$ are constant fcts.
+    
+    Suppose $f_B \equiv 1$. Then $\left. f \right|_{B \cap A_i} \equiv 1$ for all $i \in I$. Hence, $f_i \equiv 1$ for all $i\in I$. Therefore, $f \equiv 1$ is a constant fct.
+\end{proof}
+
+\begin{corollary}
+    If $\{A_i\}_{i\in I}$ is a family of connected subsets of $X$ s.t.: for all $i,j \in I$,
+    $$A_i \cap A_j \neq \emptyset,$$
+    then the union $\bigcup_{i \in I}A_i$ is connected.
+\end{corollary}
+
+\begin{proposition}
+    If $X$ and $Y$ are connected spaces, then the product space $X \times Y$, equipped with the product topology, is connected.
+\end{proposition}
+
+\begin{proof}
+    Fix $y_0 \in Y$. The subset $B:= X\times \{y_0\} \subseteq X\times Y$ is homeomorphic to $X$, hence connected.For any $x \in X$, the subset $C_x := \{x\} \times Y \subseteq X\times Y$ is homeomorphic to $Y$, hence connected. Moreover, for any $x\in X$, $B \cap C_x =\{(x,y_0)\} \neq \emptyset$. Therefore, by proposition 3.14, the union $B \cup (\bigcup_{x \in X} C_x) = X\times Y$ is connected.
+\end{proof}
+
+\begin{definition}{Path-Connected}\\
+Let $(X,\mathcal{T})$ be a topological space.
+\begin{itemize}
+    \item (\textbf{Path}): A path between two points $x,y \in X$ is a cont map $p: [0,1] \rightarrow X$ with $p(0) =x$ and $p(1)=y$.
+    \item (\textbf{Path-connected Space}): $X$ is said to be path-connected if any two points in $X$ can be joined by a path.
+    \item (\textbf{Path-connected Subset}): A subset $A \subseteq X$ is path-connected if it is path-connected with respect to the subspace topology. Equivalently, $A$ is path-connected for every pair of points $x,y \in A$, there is a cont map $p: [0,1] \rightarrow X$ with $p(0) =x$ and $p(1)=y$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+    All path-connected spaces are connected.
+\end{proposition}
+
+\begin{proof}
+    Fix $x_0 \in X$. For any $y \in X$, by path-connected-ness, there is a cont map
+    $$p_y : [0,1] \rightarrow X \;\; with \;\; p_y (0)=x_0 \;\; and\;\; p_y(1) = y.$$
+    Define $C_y := p_y([0,1]) \subseteq X$. By proposition 3.13, each $C_y$ is connected. Moreover, for any $y_1,y_2\in X$, $\{x_0\} \subseteq C_{y_1} \cap C_{y_2} \neq \emptyset$. Hence, by corollary 3.15, $X = \bigcup_{y\in X} C_y$ is connected.
+\end{proof}
+
+\begin{proposition}
+    If $A \subseteq B \subseteq \bar{A}$ and $A$ is connected, then $B$ is connected.
+\end{proposition}
+
+\begin{proof}
+    Suppose on the contrary that $X$ is not connected. Then there are two disjoint non-empty open sets $U,V \subseteq X$, s.t.: $U \cup V =X$ (therefore, (*): $U$ and $V$ are closed in $X$).
+
+    Then $A =A\cap X = A \cap (U \cup V) = (A \cap U) \cup (A \cap V)$. Hence, by the connectivity of $A$, WLOG, $A \subseteq V$. Then $X =\bar{A} \cap X \subseteq \bar{V} \cap X \overset{(*)}{=} V$, contradiction.
+\end{proof}
+
+\noindent\textbf{Example} (Topologist's comb):\\
+The converse of proposition 3.18 is false.\\
+Consider the subset $X \subseteq \mathbb{R}^2$ defined by 
+$$X = ([0,1] \times \{0\}) \cup (\bigcup_{n \in \mathbb{N}_+} (\{\frac{1}{n}\} \times [0,1])) \cup \{(0,1)\}$$
+called Topologist's comb, which is connected but NOT path-connected.
+\begin{itemize}
+    \item $X$ is NOT path-connected:\\
+    Suppose that there is a path $p: [0,1] \rightarrow X$ with $p(0) = (0,1)$ and $p(1) = (x,y) \in X - \{(0,1)\}$. Define $A := \{ t\in [0,1] \mid p(t) = (0,1)\}$.
+    \begin{itemize}
+        \item $A$ is closed, since it is the preimage of the closed singleton $\{(0,1)\}$.
+        \item $A$ is open: fix $t_0 \in A$. By the continuity of $p$, there exists $\delta >0$ such that $\| p(t) - (0,1)\| < \frac{1}{2}$, $t \in [0,1] \cap (t_0 - \delta ,t_0+ \delta)$. Hence, $p(t)$ cannot lie on the x-axis. Therefore, by the def of $X$, x-coordinate of $p(t)$ must belong to $\{0\}\cup \{1/n \mid n\geq 1\}$. \\
+        Let $I:= [0,1] \cap (t_0 - \delta,t_0 + \delta)$. Consider the cont fct $f := \pi_x \circ p: I \rightarrow \mathbb{R}$ where $\pi_x(a,b) =a$ is the x-coordinate. Since $I$ is connected, then $f(I)$ is connected. But $f(I) \subseteq \{0\} \cup \{1/n \mid n \geq 1\}$, whose only connected subsets are singletons. Since $f(t_0)=0$, then we deduce $f(I) =\{0\}$. Hence, $p(t) =(0,1)$ for all $t \in I$, i.e.: $I \subseteq A$, which means $A$ is open.
+    \end{itemize}
+    Therefore, $A$ is non-empty, closed, and open in the connected interval $[0,1]$, so $A=[0,1]$. Hence, any such path is constant, and no path connects $(0,1)$ to another point of $X$.
+    \item $X$ is connected. The proof is omitted here, but it relies on showing that any separation would disconnect the horizontal interval from the vertical combs, which is impossible.
+\end{itemize}
+
+\section{Compactness}
+
+\begin{definition}{Cover}\\
+Let $X$ be a topological space. An open cover of $X$ is a collection of open sets $U_i$, $i\in I$, s.t.: $X= \bigcup_{i\in I} U_i$. 
+Moreover, a subcover of $X$ is a subcollection $\{U_j \mid j \in J \subseteq I\}$ s.t.: $X = \bigcup_{j\in J} U_j$.
+\end{definition}
+
+\begin{definition}{Compact}\\
+Let $X $ be a topological space. We say $X$ is compact if $\forall$ open cover of $X$, there is always a subcover with finitely many open sets.
+\end{definition}
+
+\noindent\textbf{Remark:} A compact set can be regarded as a point.
+
+
+\noindent\textbf{Example:} 
+\begin{itemize}
+    \item Heine-Borel Theorem:
+    $$X \subseteq \mathbb{R}^n \;\;cpt \Leftrightarrow X \;\; closed \;\; and \;\; bounded.$$
+    \item Let $K \subseteq \mathbb{R}^n$ be cpt and let $\mathcal{C}(K) := \{f:K \rightarrow \mathbb{R} \}$. Define a metric: 
+    $$d_\infty (f,g) := \sup_{x\in K} \{| f(x) -g(x) | \}.$$
+    Then we have Ascoli-Aizela Theorem:
+    $$A \subseteq \mathcal{C}(K) \;\; cpt \Leftrightarrow A \;\; closed, \;\; bounded,\;\; and \;\; equicontinuous.$$
+\end{itemize}
+
+\noindent\textbf{Remark:}\\
+$A \subseteq X$ is cpt if the following two equivalent conditions hold:
+\begin{itemize}
+    \item $A$ is cpt using subspace topology;
+    \item For any $\{U_i\}_{i\in I}$ open in $X$, s.t.: $A \subseteq \bigcup _{i\in I} U_i$, there is a finite subcover $A \in \bigcup_{j=1}^n U_{i_j}$.
+\end{itemize}
+
+\begin{proposition}
+    Let $f: X\rightarrow Y$ be a cont fct between two topological spaces. If $A \subseteq X$ is cpt, then $f(A)$ is cpt.
+\end{proposition}
+
+\begin{proof}
+    Suppose $f(A) \subseteq \bigcup_{i \in I} U_i$ open cover in $Y$. Then $A = f^{-1}(\bigcup_{i \in I} U_i) = \bigcup_{i \in I} f^{-1}(U_i)$.
+    By the cptness of $A$, $A \subseteq \bigcup_{j=1}^n f^{-1}(U_{i_j})$. Hence, $f(A) \subseteq \bigcup_{j=1}^n U_{i_j}$.
+\end{proof}
+
+\begin{corollary}
+    Let $K$ be cpt and let $f :K \rightarrow \mathbb{R}$ be cont. Then $f(K)$ is closed and bounded in $\mathbb{R}$. In particular, there are $m,M \in \mathbb{R}$, s.t.: $m \leq f(x) \leq M$ for all $x \in K$.
+\end{corollary}
+
+\begin{lemma}
+    Let $X$ be Hausdorff and let $K \subseteq X$ be cpt. Then for ant $x \in X-K$, there are two open sets $U \ni x$ and $V \supseteq K$, s.t.: $U \cap V =\emptyset$.
+\end{lemma}
+
+\begin{proof}
+    For any $k \in K$, clearly $x \neq k$, so we have $U_k \ni x$ and $V_k \ni k$ such that $U_k \cap V_k = \emptyset$, by the Hausdorff-ness of $X$. Therefore, $\{ V_k \mid k \in K\}$ is an open cover of $X$, i.e.: $\bigcup_{i=1}^n V_{k_i} \supseteq K$. Now take $U := \bigcap _{i=1}^n U_{k_i}$ and $V:= \bigcup_{i=1}^n V_{k_i}$. Then we're done.
+\end{proof}
+
+\begin{corollary}
+    Let $X$ be Hausdorff and let $K \subseteq X$ be cpt. Then $K$ is closed.
+\end{corollary}
+
+\begin{proof}
+    For any $x \in X-K$, by lemma 3.24, there exists an open set $U_x \ni x$ s.t.: $U_x \subseteq X-K$. Then $X-K$ is open.
+\end{proof}
+
+\begin{proposition}
+    If $X,Y$ are cpt, then $X \times Y$ is cpt using the product topology.
+\end{proposition}
+
+\begin{proof}
+    Suppose $A = \{W_i \} _{i\in I}$ is an open cover of $X\times Y$. Then $X\times Y = \bigcup_{i\in I} W_i$. We can write: 
+    $$X\times Y = \bigcup_{i\in I} W_i = \bigcup_{i\in I} \bigcup_{j\in J} U_{ij} \times V_{ij}$$
+    where $U_{ij} \in \mathcal{T}_X$ and $V_{ij} \in \mathcal{T}_Y$.
+
+    For each $y\in Y$, $X \times \{y\} \subseteq \bigcup_{i,j} U_{ij} \times V_{ij} =: \bigcup_{k} U_{k} \times V_{k}$ where $\{ k=(i,j) \mid i \in I, j \in J\}$. Since $X\times \{y\}$ is cpt, then $X \times \{y\} \subseteq \bigcup_{s \in F_y} U_{s} \times V_{s}$ where $|F_y| < \infty$. Then:
+    \begin{align*}
+        y \in \bigcap_{s \in F_y} V_s =: V_y &\Rightarrow Y= \bigcup_{y\in Y} V_y \\
+        &\overset{Y \; cpt}{\Rightarrow} Y= \bigcup _{l=1}^m V_{y_l}
+    \end{align*}
+    Hence,
+    $$X\times Y = \bigcup_{l=1}^m X\times V_{y_l} \subseteq \bigcup_{l=1}^m \bigcup_{s \in F_{}y_l} U_{s} \times V_{s} \subseteq \bigcup_{l=1}^m \bigcup_{s \in F_{}y_l} W_{s}. $$
+\end{proof}
+
+\begin{definition}{Product Topology for infinite product}\\
+Let $\{(X_i, \mathcal{T}_i)\}_{i\in I}$ topological spaces. Then the product topology of $\Pi_{i\in I} X_i := \{(x_i)_{i\in I} \mid x_i \in X_i\}$ has a basis of the form:
+
+$\{ \Pi_{i\in I} U_i \mid U_i \in \mathcal{T}_i$ for all $i\in I$ and $U_i=X_i$ for all but finitely many $i\in I\}$.\\
+Indeed, the product topology defined above is the coarsest topology satisfying the property that
+
+$p_i :\Pi_{j\in I} X_j \rightarrow X_i$ with $p_i(x_j) := x_i$ is cont for all $i\in I$.
+\end{definition}
+
+\begin{lemma}
+    Let $\mathcal{B}$ be a collection of open subsets of $X \times Y \times Z$ with $Y$ compact. Suppose that there exists a point $x_0 \in X$, s.t.: for any open neighborhood of $x_0$ $U$, $U \times Y \times Z$ is NOT finitely covered by $\mathcal{B}$. Then $\exists y_0 \in Y$, s.t.: $\forall \;open\;U\ni x_0,V\ni y_0$, $U \times V \times Z$ is NOT finitely covered by $\mathcal{B}$.
+\end{lemma}
+
+\begin{proof}
+    Suppose on the contrary that for any $y \in Y$, there exists an open $U_y \ni x_0,V_y \ni y$, s.t.:
+    $$U_y \times V_y \times Z \subseteq \bigcup_{j=1}^{m_y} W_{y,j}$$
+    where $W_{y,j} \in \mathcal{B}$.
+
+    Since $\{ V_y \mid y \in Y \}$ is an open cover of cpt $Y$, then there is an open finite subcover of $Y$ $\{ V_{y_{i}} \}_{i=1}^n$.
+    Then set $U := \bigcap_{i=1}^n U_{y_i}$. Then:
+    $$U \times Y \times Z \subseteq \bigcup_{i=1}^n (U_{y_i} \times V_{y_i} \times Z) \subseteq \bigcup_{i=1}^n \bigcup_{j=1}^{m_{y_i}} W_{y_i,j}$$
+    contradicting the hypothesis of lemma.
+\end{proof}
+
+\begin{theorem}{Tychonoff's Theorem}\\
+Let $\{X_i \mid i\in I \}$ be cpt topological spaces. Then $\Pi_{i\in I} X_i$ is cpt in product topology.
+\end{theorem}
+
+\noindent\textbf{Remark:} We'll only prove the case when $I$ is countable. For the case when $I$ is uncountable, we need axiom of choice (well-ordering).
+
+\begin{proof}
+    Let $\mathcal{B}$ be a collection of open sets of $X = \Pi_{i=1}^\infty X_i$, s.t.: $\mathcal{B}$ does NOT cover $X$ finitely.
+    \begin{itemize}
+        \item \textbf{Claim 1}: there exists a point $x_1 \in X_1$, s.t.: for any $U_1 \ni x_1$ open in $\mathcal{B}$, $\mathcal{B}$ does NOT cover $U_1 \times X_2 \times X_3 \times \cdots$ finitely.
+
+        \textit{Proof of claim 1}: Suppose on the contrary that for any $x \in X_1$, there exists $U_x \ni x$ open, s.t.:
+        $$U_x \times X_2 \times X_3 \times \cdots \subseteq \bigcup_{i=1}^{m_x} W_{x,i}.$$
+        Since $\{ U_x \}$ covers $X_1$, then we have $\{ U_{x_j}\}_{j=1}^{p}$ covers $X_1$. Hence,
+        $$X_1 \times X_2 \times \cdots \subseteq \bigcup_{j=1}^p U_{x_j} \times X_2 \times X_3 \times \cdots \subseteq \bigcup_{j=1}^p \bigcup_{i=1}^{m_{x_j}} W_{x_j ,i}.$$
+        Therefore, $\mathcal{B}$ covers $X_1 \times X_2 \times X_3 \times \cdots$ finitely, contradiction!
+    \end{itemize}
+    Then by claim 1 and lemma 3.28, if we regard $U_1$ in claim 1 as $X$ in lemma 3.28, $X_2$ as $Y$ in lemma 3.28, and $X_3 \times X_4 \times \cdots$ as $Z$ in lemma 3.28, then there exists an point $x_2 \in X_2$, s.t.: for any open $U_1, \ni x_1,U_2,\ni x_2$, $\mathcal{B}$ does NOT cover $U_1 \times U_2 \times X_3 \times X_4 \times \cdots$ finitely.
+
+    Repeat this procedure. Then we get (*): $\exists \mathbf{x} = (x_1, \cdots, x_n,\cdots) \in \Pi_{i=1}^\infty X_i$, s.t.: for any $n \in \mathbb{N}_+$, $\forall U_i \ni x_i,(i=1,\cdots n)$, $U_1 \times \cdots \times U_n \times X_{n+1} \times \cdots$ can NOt be covered by $\mathcal{B}$ finitely.
+    \begin{itemize}
+        \item \textbf{Claim 2}: $\mathbf{x} \notin \bigcup_{W \in \mathcal{B}}W$.
+
+        \textit{Proof of claim 2}: Suppose on the contrary that $\mathbf{x} \in W_b$ for some $W_b \in \mathcal{B}$. Then $\mathbf{x} \in W_b \subseteq \bigcup (\Pi_{i=1}^\infty U_i)$, where $(\Pi_{i=1}^\infty U_i)$ is in the basis of product topology of $X$. Hence, 
+        $$\mathbf{x} \in \Pi_{i=1}^\infty U_i \Rightarrow \mathbf{x} \in U_1 \times \cdots U_N \times X_{N+1} \times \cdots \subseteq W_b$$
+        contradicting (*).
+    \end{itemize}
+    Then by claim 2, we implies that $X$ is NOT contained in $\bigcup_{W \in \mathcal{B}} W$.
+\end{proof}
+
+\begin{lemma}
+    Any closed subset of a compact set is compact.
+\end{lemma}
+
+\begin{proof}
+    Suppose $X$ is cpt, $V$ is closed in $X$, and $\{ U_i \}_{i\in I}$ is an open cover of $V$. Then $\{ U_i \}_{i\in I} \cup (X-V)$ is an open cover of $X$. Hence, by the cpt-ness of $X$, $\{ U_{i_k} \} _{k=1} ^m \cup (X-V)$ covers $X$. Therefore, $\{ U_{i_k} \} _{k=1} ^m $ covers $V$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $X$ is compact, $Y$ is Hausdorff, and $f: X\rightarrow Y$ is cont and bijective. Then $f^{-1}$ is cont, and moreover, $f$ is a homeomorphism.
+\end{theorem}
+
+\begin{proof}
+    Take a closed set $V \subseteq X$, and by lemma 3.30, $V$ is cpt. Then by the continuity of $f$, $f(V)$ is cpt. Since $Y$ is Hausdorff, then $f(V)$ is closed. Therefore, $(f^{-1})^{-1}(V) = f(V)$ is closed whenever $V$ is closed, i.e.: $f^{-1}$ is cont.
+\end{proof}
+
+\noindent\textbf{Example:} Consider $f : S^1 \times S^1 \rightarrow \mathbb{R}^3$ with $f(\theta , \phi ) : = \{ (R + r\cos \theta) \cos \phi , (R + r\cos \theta) \sin \phi , r \sin \phi \}$, where $S ^1 := \{ (\cos\theta , \sin \theta) \mid \theta \in \mathbb{R} \}$. Then $f(S^1 \times S^1)$ forms a torus, which can be denoted by $T^2$.\\
+It's easy to check that $f$ is cont, $ S^1 \times S^1$ is cpt (i.e.: closed and bdd in $\mathbb{R} ^2$), and $f( S^1 \times S^1)$ is Hausdorff. Then by theorem 3.30, $ S^1 \times S^1 \cong  f(S^1 \times S^1) = T^2$ are homeomorphic.

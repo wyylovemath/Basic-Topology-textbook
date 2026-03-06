@@ -1,0 +1,402 @@
+\chapter{Foundations of Topology}
+
+\section{Topological Space}
+\begin{definition}{Topological Space}\\
+A topological space $(X,\mathcal{T})$ consists of a (nonempty) set $X$, and a family of subsets of $X$ s.t.:
+\begin{enumerate}
+    \item $\emptyset, X \in \mathcal{T}$.
+    \item $U,V \in \mathcal{T}$ implies $U\cap V \in \mathcal{T}$.
+    \item If $U_\alpha \in \mathcal{T}$ $\forall \alpha \in \mathcal{A}$, then $\bigcup_{\alpha \in \mathcal{A}}U_\alpha \in \mathcal{T}$.
+\end{enumerate}
+The elements in $\mathcal{T}$ are called open subsets of $X$. The $\mathcal{T}$ is called a topology on $X$.
+\end{definition}
+
+\begin{definition}{Metrizable}\\
+$(X,\mathcal{T})$ is metrizalbe if $\mathcal{T}$ is the family of open subsets in $(X,d)$.
+\end{definition}
+
+\noindent \textbf{Example:}
+\begin{itemize}
+    \item Consider the indiscrete topology $(X, \mathcal{T}_{indis})$, where $X$ contains more than one element and $\mathcal{T}_{indis}:= \{\emptyset , X\}$. Then $\mathcal{T}_{indis}$ is a topology on $X$, but $(X,\mathcal{T}_{indis})$ is NOT metrizable. The reason is: \\
+    For any metric $d$ defined on $X$, let $x,y \in X$ with $x\neq y$. Then take $\epsilon := d(x,y) >0$. Then $B_{\epsilon/2} (x)$ is open in $X$, where $x \in B_{\epsilon/2}, y \notin B_{\epsilon/2}$. Hence, $B_{\epsilon/2}$ is neither $\emptyset$ nor $X$. \qed
+    \item Consider the cofinite topology $(X,\mathcal{T}_{cofin})$:
+    $$\mathcal{T}_{cofin}:= \{U \mid X-U \; is \; a \; finite\; set\} \cup \{\emptyset\}.$$
+    Then, $(X, \mathcal{T}_{cofin})$ is NOT a metrizable topology.
+\end{itemize}
+
+\begin{definition}{Topological Equivalence}\\
+Two metric spaces are topologically equivalent if they give rise to the same topology.
+\end{definition}
+
+\noindent\textbf{Example:} 
+$(\mathbb{R}^n,d_1)$, $(\mathbb{R}^n,d_2)$, and $(\mathbb{R}^n,d_\infty)$ are topologically equivalent.
+
+\begin{definition}{Closed}\\
+Let $(X, \mathcal{T})$ be a topological space. Then $V\subset X$ is closed if $X-V \in \mathcal{T}$.
+\end{definition}
+
+\begin{proposition}
+    Let $(X,\mathcal{T})$ be a topological space. Then:
+    \begin{enumerate}
+        \item $\emptyset,X$ are closed in $X$.
+        \item $V_1,V_2$ are closed in $X$ implies $V_1\cup V_2$ are closed in $X$.
+        \item If $\{V_\alpha \mid \alpha \in \mathcal{A}\}$ is a collection of closed subsets in $X$, then $\bigcap_{\alpha \in \mathcal{A}}V_\alpha$ is closed in $X$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}{Convergence}\\
+A sequence $\{x_n\}$ of a topological space $(X,\mathcal{T})$ converges to $x \in X$ if $\forall$ open $U \ni x$, $\exists N$, s.t.: $x_n \in U$ $\forall n\geq N$.
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item The topological space induced from the metric space $(\mathbb{R}^n,d_2)$ is called a usual topology on $\mathbb{R}^n$. Then the convergence of sequence in $(\mathbb{R}^n, \mathcal{T}_{usual})$ is the usual convergence in analysis. For $\mathbb{R}^n$ or metric space, the limit of sequence (if exists) is unique. However, this is no longer true if the topology is NOT metrizable.
+    \item Consider $(X,\mathcal{T}_{indis})$. For each $\{x_n\}$ in $X$, it converges to $x\in X$. For an open $U \ni x$, by the definition of $\mathcal{T}_{indis}$, $U= X$. Therefore, $x_n \in  U = X$ $\forall n \geq1$.
+    \item Consider $(X,\mathcal{T}_{cofin})$, where $x$ is infinite. For each $\{x_n\}$ satisfying $x_m \neq x_n$ for any $m \neq n$. Then $\{x_n\} \rightarrow (\forall) x \in X$.
+    \item Consider $(X, \mathcal{T}_{discrete})$. Then $\{x_n\} \rightarrow x \Leftrightarrow x_n=x$ $\forall n \geq N$.
+\end{itemize}
+
+\noindent\textbf{Remark:} The limit of sequence may NOT be unique.
+
+\begin{proposition}
+    If $F \subset (X, \mathcal{T})$ is closed, then for any convergent sequence $\{x_n\}$ in $F$, the limit(s) are also in $F$.
+\end{proposition}
+
+\begin{proof}
+    Let $\{x_n\}$ be a sequence in $F$ that converges to $x$. Suppose that $x \in X-F$. Since $F$ is closed in $X$, then $X-F$ is open in $X$. Then $\exists N$, s.t.: $x_n \in X-F$ $\forall n \geq N$, contradiction!
+\end{proof}
+
+\noindent\textbf{Remark:} The converse may not be true. Furthermore, if $(X,\mathcal{T})$ is metrizable, then the converse holds.\\
+\textbf{Counterexample}( for the rmk): Consider the co-countable topological space ($X = \mathbb{R},\mathcal{T}_{co-countable}$) where $\mathcal{T}_{co-countable} = \mathcal{T}_{co-co}:=\{U \mid X-U \; is \; countable\} \cup \{\emptyset \}$, and $X =\mathbb{R}$ is uncountable. Then note that $F:=[0,1] \subset X =\mathbb{R}$ is uncountable. Then $\forall \{x_n\} \subset F$, $x_n \rightarrow x \in F$. But $X-F \notin \mathcal{T}_{co-co}$, i.e.: $F$ is NOT closed.
+
+\begin{definition}{Interior, Closure}\\
+Let $(X,\mathcal{T})$ be a topological space and $A \subset X$ a subset. Then:
+$$A^\circ := \bigcup_{U\subset A, U \; is \; open}U,$$
+$$\bar{A}:=\bigcap_{A \subset V, V \;is\;closed}V.$$
+Furthermore, if $\bar{A}$, then we say $A$ is dense in $X$.
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item For $[a,b)^\circ = (a,b)$, $\overline{[a,b)}=[a,b]$.
+    \item For $X=\mathbb{R}$, $\mathbb{Q}^\circ = \emptyset$ and $\overline{ \mathbb{Q}}= \mathbb{R}$.
+    \item Consider $(X,\mathcal{T}_{dicrete})$. $S^\circ =S$, $\bar{S}=S$, $\forall S \subset X$.
+\end{itemize}
+
+\begin{proposition}
+    \begin{enumerate}
+        \item $A^\circ$ is the largest open set of $X$ contained in $A$; $\bar{A}$ is the smallest closed subset of $X$ containing $A$.
+        \item If $A \subset B$, then $A^\circ \subset B^\circ$ and $\bar{A} \subset \bar{B}$.
+        \item $A$ is open in $X$ is equivalent to $A^\circ =A$; $A$ is closed is equivalent to $\bar{A}=A$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    $$\bar{A} = \{x \in X\mid \forall open\; U \ni x, U\cap A\neq \emptyset\}$$
+\end{proposition}
+
+\begin{proof}
+    Define $S:= \{x \in X \mid \forall open\; U\ni x, U\cap A \neq \emptyset\}$. Then we want to show: $\bar{A}=S$.
+    \begin{itemize}
+        \item Step 1: Show that $S$ is closed.\\
+        $X-S=\{x \in X\mid \exists open\; U_x \ni x,s.t.: U_x \cap A=\emptyset\}$. Take $x \in X-S$. Then $\exists U_x$ open, s.t.: $x \in U_x$ and $U_x \cap A=\emptyset$.\\
+        \\
+        Claim: $U_x \subset X-S$: $\forall y \in U_x$ open, there exists an open set $V_y \ni y$, s.t.: $y \in V_y \subseteq U_x$. Hence, by the def of $S$, $y \in X - S$. Therefore, $U_x \subset X-S$.\\
+        \\
+        Then $X-S=\{x \in X\mid \exists open\; U_x \ni x,s.t.: U_x \cap A=\emptyset\}= \bigcup_{x \in X-S}\{x\} \subset \bigcup_{x \in X-S}U_x \overset{claim}{\subset} X-S$. Hence, $X-S= \bigcup _{x\in X-S}U_x$. Since $U_x$ is open for all $x\in X-S$, then $X-S=\bigcup_{x\in X-S}U_x$ is open, i.e.: $S$ is closed. Therefore, $S=\bar{S}$.
+        \item Step 2: Show that $\bar{A} \subset S$.\\
+        By definition of $S$, $A \subset S$. Hence, $\bar{A} \subset \bar{S} \overset{step \;1}{=} S$.
+        \item Step 3: Show that $\bar{A}=S$.\\
+        Suppose $\exists z \in S-\bar{A} (\subset X-\bar{A})$. Then there exists an open set $W_z \ni z$, s.t.: $z \in W_z \subseteq X - \bar{A}$. Therefore, $y \notin S$ by the def of $S$. Contradiction!
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Accumulation Point}\\
+Let $A\subset X$ be a subset in a topological space $X$. We call $x \in X$ are an accumulation point (limit point) of $A$ if $\forall open\;U \subset X$ containing $x$, $U$ satisfies $(U-\{x\}) \cap A\neq \emptyset$. Furthermore, we define the set of accumulation points of $A$ by $A'$.
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item There are some points in $A$ but not in $A'$: $A=\{1,2,\cdots\}$, then any point in $A$ is not in $A'$.
+    \item There are some points in $A'$ but not in $A$: $A=\{\frac{1}{n} \mid n\geq 1\}$, then $0 \in A'$ but $0 \notin A$.
+\end{itemize}
+
+\begin{proposition}
+    $$\bar{A}= A \cup A'$$
+\end{proposition}
+
+\begin{definition}{Sequential Closure}\\
+Let $A_s$ be the set of limits of any convergent sequence in $A$. Then $A_s$ is called the sequential closure of $A$.
+\end{definition}
+
+\begin{lemma}
+    $$A\subset A_s\subset \bar{A}$$
+\end{lemma}
+
+\begin{proof}
+\begin{itemize}
+    \item $\forall a \in A$, $\{a_n=a\}\rightarrow a \in A_s$. Hence, $A\subset A_s$;
+    \item $\forall a \in A_s$, $\exists \{a_n\}\rightarrow a$, hence, $\forall open \; U\ni a, \exists N$, s.t.: $\{a_N,a_{N+1}, \cdots\} \subset U\cap A\neq \emptyset$. Then $a \in \bar{A}$. Therefore, $A_s \subset \bar{A}$.
+\end{itemize}
+\end{proof}
+
+\begin{proposition}
+    Let $(X,d)$ be a metric space. Then $A_s=\bar{A}$.
+\end{proposition}
+
+\begin{proof}
+    Let $a \in \bar{A}$. Then $\exists a_n \in B_\epsilon(a) \cap A$ for all $\epsilon >0$. Hence, $a_n \rightarrow a$ as $n \rightarrow \infty$, i.e.: $a \in A_s$. Therefore, $$\bar{A} \subset A_s \subset \bar{A}$$
+    which implies that $A_s=\bar{A}$.
+\end{proof}
+
+\begin{proposition}
+    \begin{enumerate}
+        \item $\overline{X-A} = X-A^\circ$;
+        \item $(X-B)^\circ = X-\bar{B}$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $x \in X-A^\circ \Leftrightarrow x \notin A^\circ \Leftrightarrow \forall open\; U \ni x$, $U \nsubseteq A \Leftrightarrow \forall open$ $U \ni x$, $U \cap (X-A) \neq \emptyset \Leftrightarrow x \in \overline{X-A}$.
+        \item $x\in (X-B)^\circ \Leftrightarrow \exists open$ $U \ni x$, s.t.: $U \subset (X-B) \Leftrightarrow U \nsubseteq B \Leftrightarrow x \notin \bar{B} \Leftrightarrow x \in X-\bar{B}$.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Boundary}\\
+The boundary of $A$ is defined as $\partial A:= \bar{A} - A^\circ$.
+\end{definition}
+
+\begin{proposition}
+    $\partial A = \bar{A} \cap \overline{X-A}$
+\end{proposition}
+
+\begin{proof}
+    $\partial A:= \bar{A} - A^\circ = \bar{A}  \cap (X-A^\circ) \overset{proposition \,2.16.1}{=} \bar{A} \cap \overline{X-A}$.
+\end{proof}
+
+\section{Functions on Topological space}
+
+\begin{definition}{Continuous Function}\\
+Let $f : (X ,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ be a map. Then the function $f$ is continuous, if 
+$$U \in \mathcal{T}_Y \Rightarrow f^{-1}(U) \in \mathcal{T}_X.$$
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item The identity map $id_X:(X,\mathcal{T})\rightarrow (X,\mathcal{T})$ defined as $id_X(x) = x$ is continuous.
+    \item The identity map $id:(X,\mathcal{T}_{discrete}) \rightarrow (X,\mathcal{T}_{indiscrete})$ defined as $x \mapsto x$ is continuous, since $id^{-1}(\emptyset)= \emptyset$ and $id^{-1}(X) = X$.
+    \item The identity map $id: (X,\mathcal{T}_{indiscrete}) \rightarrow (X,\mathcal{T}_{discrete})$ defined as $x \mapsto x$ is NOT continuous.
+\end{itemize}
+
+\begin{proposition}
+    If $f: X \rightarrow Y$ and $g: Y\rightarrow Z$ are cont, then $g \circ f$ is cont.
+\end{proposition}
+
+\begin{proof}
+    $\forall U \in \mathcal{T}_Z$, $g^{-1}(U) \in \mathcal{T}_Y$. Then $(g\circ f)^{-1}(U)= f^{-1}(g^{-1}(U)) \in \mathcal{T}_X$.
+\end{proof}
+
+\begin{proposition}
+    Suppose $f: X\rightarrow Y$ is cont between two topological spaces. Then $\{x_n\} \rightarrow x$ implies $\{f(x_n)\} \rightarrow f(x)$.
+\end{proposition}
+
+\begin{proof}
+    $\forall$ open $U\ni f(x)$, $f^{-1}(U) \ni x$ is open, then $\exists N>0$, s.t.: $\{x_N, x_{N+1}, \cdots\} \subseteq f^{-1}(U)$, i.e: $\{f(x_N), f(x_{N+1}), \cdots\} \subseteq U$. Hence, $\{f(x_n)\}_{n\geq 1} \rightarrow f(x)$.
+\end{proof}
+
+\begin{definition}{Homeomorphism}\\
+A homeomorphism between two topological spaces $(X, \mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ is a bijection $f: (X, \mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ such that $f$ and $f ^{-1}$ are both continuous.
+\end{definition}
+
+\section{Subspace Topology}
+
+\begin{definition}{Subspace Topology}\\
+Let $A\subset X$ be a nonempty set. The subspace topology of $A$ is defined as:
+\begin{enumerate}
+    \item $\mathcal{T}_A := \{U \cap A \mid U \in \mathcal{T}_X\}$.
+    \item The coarsest topology on $A$ such that the inclusion map $i : (A,\mathcal{T}_A) \rightarrow (X,\mathcal{T}_X)$, $i(x) =x$ is cont;
+    (We say the topology $\mathcal{T}_1$ is coarser than $\mathcal{T}_2$ or $\mathcal{T}_2$ is finer than $\mathcal{T}_1$ if $\mathcal{T}_1\subset \mathcal{T}_2$.\\
+    e.g.: $\mathcal{T}_{discrete}$ is the finest topology and $\mathcal{T}_{indiscrete}$ is the coarsest topology.)
+    \item $\mathcal{T}_A$ is the (unique) topology such that for all $(Y,\mathcal{T}_Y)$,
+    $$f: (Y,\mathcal{T}_Y) \rightarrow (X,\mathcal{T}_X) \;\; is \;\;cont \Leftrightarrow i\circ f:(Y,\mathcal{T}_Y) \rightarrow (X,\mathcal{T}_X) \;\; is \;\;cont.$$
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    The definition 1 and 2 of subspace topology are equivalent.
+\end{proposition}
+
+\begin{proof}
+    For all $S \subseteq X$, $i^{-1}(S) = S\cap A \Leftrightarrow \mathcal{T}_A = \{U \cap A \mid U\in \mathcal{T}_X\}$.
+\end{proof}
+
+\begin{proposition}
+    The definition 2 and 3 of subspace topology are equivalent.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item (2 $\Rightarrow$ 3): 
+        \begin{itemize}
+            \item ($\Rightarrow$): For any $U \in \mathcal{T}_X$, $(i\circ f)^{-1}(U) = f^{-1}(i^{-1}(U)) = f^{-1}(U \cap A) \in \mathcal{T}_Y$. Therefore, $f$ is cont.
+            \item ($\Leftarrow$): For any $U' \in \mathcal{T}_A$, $\exists U'' \in \mathcal{T}_X$, s.t.: $U'= U'' \cap A$. Hence, $$f^{-1}(U') = f^{-1} (U''\cap A) = f^{-1} (i^{-1} (U''))= (i \circ f)^{-1} (U'') \in \mathcal{T}_Y.$$
+            Therefore, $i\circ f$ is cont.
+        \end{itemize}
+        \item (3 $\Rightarrow$ 2): Take $Y=A$ and $f= id_A$. Since $id_A$ is cont, then we're done.
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    \begin{enumerate}
+        \item The definition 1 of subspace topology defines a topology of $A$.
+        \item Closed sets of $A$ under subspace topology are of the form $V\cap A$, where $V$ is closed in $X$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Suppose $(A,\mathcal{T}_A) \subseteq (X,\mathcal{T}_X)$ is a subspace topology and $B \subseteq A \subseteq X$. Then:
+    \begin{enumerate}
+        \item $\bar{B}^A = \bar{B}^X \cap A$;
+        \item $(B^\circ) ^X \subseteq (B^\circ) ^A$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item By proposition 2.26.2, $\bar{B}^X \cap A$ is closed in $A$. Hence, $\bar{B}^A \subseteq \bar{B}^X \cap A$, since $B =B\cap A \subseteq \bar{B}^X \cap A$.\\
+        On the other hand, since $\bar{B}^A$ is closed in $A$, then $\bar{B}^A = V\cap A$ for some closed $V$. Then $B \subseteq \bar{B}^A \subseteq V$. Hence, $\bar{B}^X \subseteq \bar{V}^X = V$. Therefore, $\bar{B}^X \cap A \subseteq V \cap A=\bar{B}^A$.\\
+        Then we have $\bar{B}^A = \bar{B}^X \cap A$.
+        \item For any $x \in (B^\circ)^X$, $\exists U_x \in \mathcal{T}_X$, s.t.: $x\in U_x \subseteq B$. Then $U_x \cap A \in \mathcal{T}_A$ and $x \in U_x \cap A \subseteq B$. Hence, $x \in (B^\circ)^A$. Therefore, $(B^\circ) ^X \subseteq (B^\circ) ^A$.
+    \end{enumerate}
+\end{proof}
+
+\section{Basis of Topology}
+
+\begin{definition}{Basis}\\
+Let $(X, \mathcal{T})$ be a topological space. A family of subsets $\mathcal{B}$ in $X$ is a basis of $\mathcal{T}$ if
+\begin{itemize}
+    \item $\mathcal{B} \subseteq \mathcal{T}$, i.e.: everything in $\mathcal{B}$ is open;
+    \item Every $U \in \mathcal{T}$ can be written as union of elements in $\mathcal{B}$, i.e.: $\forall U \in \mathcal{T}$, $\exists\{B_i\} \subseteq \mathcal{B}$, s.t.: $U= \bigcup_i B_i$.
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item $\mathcal{B}=\mathcal{T}$ is a basis of $\mathcal{T}$.
+    \item For $X=\mathbb{R}^n$, $\mathcal{B}:= \{B_r(\mathbf{x}) \mid \mathbf{x} \in \mathbb{Q} ^n, r \in \mathbb{Q}\cap (0,\infty)\}$ is a basis of the usual topology of $X$.
+    For any interval $(a,b) \subseteq \mathbb{R}^1$, $(a,b)= \bigcup_{i \in I}(p_i,q_i)$ for $p_i ,q_i \in \mathbb{Q}$. Therefore, $\mathcal{B}$ is countable.
+\end{itemize}
+
+\begin{proposition}
+    If $(X,\mathcal{T})$ is a countable basis, e.g.: $\mathbb{R}^n$, then $(X,\mathcal{T})$ has a second-countable space.
+\end{proposition}
+
+\begin{proposition}
+    Let $(X,\mathcal{T}_X),(Y,\mathcal{T}_Y)$ be topological spaces, and let $\mathcal{B}$ be a basis of $\mathcal{T}_Y$. Then:
+    $$f: X\rightarrow Y \;\; is \;\; cont \Leftrightarrow f^{-1}(B) \;\; is \;\; open \;\; in \;\; X \;\; \forall B\in \mathcal{B}.$$
+    In other words, to check whether $f$ is cont, it suffices to check $f^{-1}(B)$ is open for all $B \in \mathcal{B}$.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Rightarrow$): Since $\mathcal{B} \subseteq \mathcal{T}_Y$, then by the definition of continuity, $f^{-1}(B)$ is open for all $B \in \mathcal{B}$.
+        \item ($\Leftarrow$): Let $U \in \mathcal{T}_Y$. Then $U= \bigcup_{i\in I}B_i$, where $B_i \in \mathcal{B}$. Hence, $f^{-1}(U) = f^{-1}(\bigcup_{i\in I}B_i) = \bigcup_{i\in I} f^{-1}(B_i)$ is open, since $f^{-1}(B_i)$ are open.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    Let $f: (X,\mathcal{T}_X)\rightarrow (Y,\mathcal{T}_Y)$ be a bijection. Suppose there is a basis $B_X$ of $\mathcal{T}_X$ such that $\{f(B) \mid B \in \mathcal{B}_X\}$ forms a basis of $\mathcal{T}_Y$. Then $X \cong Y$ are homeomorphic.
+\end{corollary}
+
+\begin{proof}
+    Suppose $W \in \mathcal{T}_Y$. Then by hypothesis, $W = \bigcup_{i\in I}f(B_i)$, $B_i \in \mathcal{B}_X$, which can imply that $f^{-1}(W) = \bigcup_{i\in I}B_i \in \mathcal{T}_X$. Hence, $f$ is cont.\\
+    On the other hand, similarly, $f^{-1}$ is cont.
+\end{proof}
+
+\begin{proposition}
+    Let $X$ be a set, and let $\mathcal{B}$ be a collection of subsets satisfying:
+    \begin{enumerate}
+        \item $X$ is a union of sets in $\mathcal{B}$, i.e.: every $x \in X$ lies in some $B_x \in \mathcal{B}$.
+        \item The intersection $B_1 \cap B_2$ $\forall B_1,B_2 \in \mathcal{B}$ is a union of sets in $\mathcal{B}$, i.e.: $\forall B_1,B_2 \in \mathcal{B}$, $\forall x \in B_1\cap B_2$, $\exists B_x' \in \mathcal{B}$, s.t.: $x \in B_x' \subseteq B_1\cap B_2$.
+    \end{enumerate}
+    Then the collection of subsets $\mathcal{T}_\mathcal{B}$, formed by taking any union of sets in $\mathcal{B}$, is a topology, and $\mathcal{B}$ is a basis of $\mathcal{T}_\mathcal{B}$.
+\end{proposition}
+
+\begin{proof}
+    Firstly, for $x \in X$, $B_x \in \mathcal{B}$, by the hypothesis 1, $X = \bigcup_{x\in X} B_x \in \mathcal{T}_\mathcal{B}$.\\
+    Now we show that $\mathcal{T}_\mathcal{B}$ is closed under intersection: 
+
+    Let $T_1,T_2 \in \mathcal{T}_\mathcal{B}$ and let $x \in T_1 \cap T_2$. Then $T_i $ can be written as a union of subsets in $\mathcal{B}$. Hence, $x \in B_1 \subseteq T_1$ for some $B_1 \in \mathcal{B}$ and $x \in B_2 \subseteq T_2$ for some $B_2 \in \mathcal{B}$. Then $x \in B_1 \cap B_2$, and then $x \in B_x \subseteq B_1\cap B_2$ for some $B_x \in \mathcal{B}$. Therefore, $\bigcup_{x \in B_1\cap B_2} \{x\} \subseteq \bigcup_{x \in B_1 \cap B_2}B_x \subseteq B_1\cap B_2$. On the other hand, it's clear that $\bigcup_{x \in B_1 \cap B_2}B_x \supseteq B_1\cap B_2$. Therefore, $\bigcup_{x \in B_1 \cap B_2}B_x = B_1\cap B_2 \in \mathcal{T}_\mathcal{B}$.\\
+    Finally, the property that $\mathcal{T}_\mathcal{B}$ is closed under union operations can be checked directly, which completes the proof.
+\end{proof}
+
+\section{Product Space and Disjoint Union}
+
+\begin{definition}{Product Topology}\\
+Let $(X,\mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ be two topological spaces. Consider the family of subsets in $X \times Y$:
+$$\mathcal{B} _{X\times Y} := \{U\times V\mid U \in \mathcal{T}_X, V\in \mathcal{T}_Y\}.$$
+It forms a basis of a topology on $X\times Y$. The induced topology from $\mathcal{B}_{X\times Y}$ is called product topology.
+\end{definition}
+
+\begin{proposition}
+    $\mathcal{B}_{X\times Y}$ does form a basis of a topology of $X\times Y$.
+\end{proposition}
+
+\begin{proof}
+    We apply proposition 2.32 to check whether $B_{X\times Y}$ forms a basis:
+    \begin{enumerate}
+        \item For any $(x,y) \in X\times Y$, we imply $x \in X$ and $y \in Y$. Note that $X \in \mathcal{T}_X$ and $Y\in \mathcal{T}_Y$, we imply $(x,y) \in X\times Y \in \mathcal{B}_{X\times Y}$.
+        \item Suppose $U_1\times V_1, U_2\times V_2 \in \mathcal{B}_{X\times Y}$. Then $(U_1\times V_1) \cap (U_2 \times V_2) = (U_1\cap U_2) \times (V_1\cap V_2)$, where $(U_1\cap U_2) \in \mathcal{T}_X, (V_1\cap V_2) \in \mathcal{T}_Y$. Hence, $(U_1\times V_1) \cap (U_2 \times V_2) \in \mathcal{B}_{X\times Y}$.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $X\times Y$ be endowed with product topology. Then the projection mappings defined as:
+    $$p_X: X\times Y \rightarrow X \; \; with \;\; p_X(x,y) :=x \;\; and\;\; p_Y :X\times Y \rightarrow Y \;\; with\;\; p_Y(x,y):= y$$ 
+    are cont. Moreover,
+    \begin{enumerate}
+        \item The product topology is the coarsest topology on $X\times Y$ s.t.: $p_X$ and $p_Y$ are both cont.
+        \item Let $Z $ be a topological space. Then the product topology is the unique topology that the red and blue line in the diagram commutes:
+        \begin{tikzcd}[row sep=2cm, column sep=2.5cm]  
+        & Z \arrow[dl, "p_X \circ F" blue] \arrow[d, "F" red] \arrow[dr, "p_Y \circ F" blue] & \\ 
+        X & X \times Y \arrow[l, "p_X"] \arrow[r, "p_Y"] & Y 
+        \end{tikzcd}
+        , namely, the mapping $F: Z \rightarrow X\times Y$ is cont iff both $p_X \circ F: Z\rightarrow X$ and $p_Y \circ F: Z \rightarrow Y$ are cont.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    For any open $U$, $p_X^{-1}(U) = U\times Y \in \mathcal{B}_{X\times Y} \subseteq \mathcal{T}_{X\times Y}$, i.e.: $p_X^{-1}(U)$ is open. Similar for $p_Y$. Hence, $p_X$ and $p_Y$ are cont.
+    Moreover,
+    \begin{enumerate}
+        \item It suffices to show that any topology $\mathcal{T}$ meeting the condition in 2 must contain $\mathcal{T}_{product}$. Then For any $U \in \mathcal{T}_X$ and $V\in \mathcal{T}_Y$, $p_X^{-1} (U) = U\times Y \in \mathcal{T}$ and $p_Y^{-1}(V) = X\times V \in \mathcal{T}$. Hence, $(U\times Y) \cap (X\times V) =U\times V \in \mathcal{T}$, which implies $\mathcal{B}_{X\times Y} \subseteq \mathcal{T}$.
+        Since $\mathcal{T}$ is closed for union operation on subsets, we imply $\mathcal{T}_{prodact}\subseteq \mathcal{T}$.
+        \item \begin{itemize}
+            \item \textbf{Step 1:} Show that $\mathcal{T}_{product}$ satisfies the commutative diagram.
+            \begin{itemize}
+                \item ($\Rightarrow$): $F,p_X,p_Y$ are cont, which implies that $p_X\circ F$ and $p_Y \circ F$ are cont.
+                \item ($\Leftarrow$): For any $U\in \mathcal{T}_X$, $V\in \mathcal{T}_Y$, $F^{-1}(U\times V)= (p_X\circ F)^{-1}(U) \cap (p_Y\circ F)^{-1}(V)$. Since $p_X\circ F$ and $p_Y \circ F$ are cont, then $(p_X\circ F)^{-1}(U) $ and $ (p_Y\circ F)^{-1}(V)$ are open.
+            \end{itemize}
+            \item \textbf{Step 2:} Show that uniqueness of $\mathcal{T}_{product}$.\\
+            Let $\mathcal{T}$ be another topology $X\times Y$ satisfying the commutative diagram:
+            \begin{itemize}
+                \item Take $Z = (X\times Y,\mathcal{T})$ and consider the identity mapping $F=id: Z\rightarrow Z$, which is cont. Hence, $p_X\circ F$ and $p_Y \circ F$ are cont, i.e.: $p_X,p_Y$ are cont. By 1, $\mathcal{T}_{prodact}\subseteq \mathcal{T}$.
+                \item Take $Z = (X\times Y, \mathcal{T}_{product})$ and consider the identity mapping $F = id: Z \rightarrow Z$. Note that $p_X\circ F=p_X$ and $p_Y\circ F=p_Y$, which are cont. Hence, $F: (X\times Y, \mathcal{T}_{ptoduct}) \rightarrow (X\times Y, \mathcal{T})$ is a cont identity mapping, which implies $U= id^{-1} (U) \in \mathcal{T}_{product}$ for all $U \in \mathcal{T}$. Therefore, $\mathcal{T} \subseteq \mathcal{T}_{product}$.
+            \end{itemize}
+            Hence, $\mathcal{T} = \mathcal{T}_{product}$.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Disjoint Union}\\
+Let $X\times Y$ be two topological spaces. Then the disjoint union of $X$ and $Y$ is:
+$$X \sqcup Y := (X \times \{0\}) \cup (Y\times \{1\})$$
+where $\mathcal{T}_{X\sqcup Y}$ consists of all $U \subseteq X\sqcup Y$ satisfying:
+\begin{itemize}
+    \item $U \cap (X \times \{0\})$ is open in $X\times \{0\}$;
+    \item $U \cap (Y \times \{1\})$ is open in $Y\times \{1\}$,
+\end{itemize}
+is a topology.\\
+In other words, $S$ is open in $X\sqcup Y$ iff $S$ can be expressed as $S = (U \times \{0\}) \cup (V \times \{1\})$, where $U \subseteq X$ is open and $V \subseteq Y$ is open.
+\end{definition}

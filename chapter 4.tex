@@ -1,0 +1,331 @@
+\chapter{Quotient Space and Simplicial Complex}
+
+\section{Equivalence Relations and Equivalence Classes}
+
+\begin{definition}
+    \begin{itemize}
+        \item (\textbf{Equivalence Relation}): The equivalence relation on a set  $X$ is a relation such that:
+        \begin{itemize}
+            \item (Reflexive): $x \sim x$ for all $x \in X$;
+            \item (Symmetric): $x \sim y$ implies $y \sim x$;
+            \item (Transitive): $x \sim y,y\sim z$ implies $x\sim z$.
+        \end{itemize}
+        \item (\textbf{Partition}): Let $X$ be a non-empty set. A partition $\mathcal{P} := \{ P_i \mid i \in I \}$ of $X$ is a collection of subsets such that:
+        \begin{itemize}
+            \item $P_i \subseteq X$ is non-empty;
+            \item $P_i \cap P_j = \emptyset$ if $i\neq j$;
+            \item $\bigcup_{i \in I} P_i = X$.
+        \end{itemize}
+        \item (\textbf{Equivalence Class}): Let $X$ be a set with equivalence relation $\sim$. The equivalence class of $x\in X$ is defined by:
+        $$[x] := \{ y\in X \mid x \sim y \}.$$
+        \item (\textbf{Quotient Space}): The collection of all equivalence classes is called the equivalence space: 
+        $$X / \sim  \; := \{ [x] : x\in X \}.$$
+    \end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark:} If $\{ p_j \mid j \in J \}$ is a partition of $X$, we can define an equivalence relation by:
+$$x \sim y \Leftrightarrow x,y \in p_j \;\; for \;\; some \;\; j\in J.$$
+
+\noindent \textbf{Example} (Mobius Strip):\\
+Let $X = [0,1] \times [0,1]$. We define $(x_1,y_1) \sim (x_2,y_2)$ if
+\begin{itemize}
+    \item $x_1 = x_2, y_1 =y_2$ with $x_i \in (0,1)$;
+    \item $x_1 = 0, x_2 = 1$ and $y_1 = 1-y_2$;
+    \item $x_1 = 1,x_2=0$ and $y_1=1-y_2$.
+\end{itemize}
+Then the partition $X = \{ (x,y) \}_{x \in (0,1), y\in [0,1]} \cup \{ (1,y), (0,1-y) \}_{y\in [0,1]}$.
+
+\section{Quotient Topology}
+
+\begin{definition}{Quotient Topology}\\
+Suppose $(X,\mathcal{T})$ is a topological space, and that $\sim$ is an equivalence relation on $X$. Define the \textit{canonical projection map} by 
+$$p: X\rightarrow X/\sim \;\; with \;\; x \mapsto [x].$$
+Define a family of subsets $\widetilde{\mathcal{T}}$ on $X/\sim$ by:
+$$\widetilde{U} \subseteq X/\sim \;\; is \;\; in \;\; \widetilde{\mathcal{T}} \;\; if \;\; p^{-1} (\widetilde{U}) \in \mathcal{T}.$$
+Then $\widetilde{\mathcal{T}}$ is a topology for $X/\sim$ and we say $(X/\sim,\widetilde{\mathcal{T}})$ the quotient topology of the quotient space.
+\end{definition}
+
+\noindent\textbf{Verification:}
+\begin{itemize}
+    \item Since $p^{-1}(X/\sim) = X \in \mathcal{T}$ and $p^{-1} ( \emptyset) =\emptyset \in \mathcal{T}$, then $X/\sim ,\emptyset \in \widetilde{\mathcal{T}}$.
+    \item Suppose that $\widetilde{U} , \widetilde{V}\in \widetilde{\mathcal{T}}$, i.e.: $p^{-1}(\widetilde{U}), p^{-1}(V) \in \mathcal{T}$. 
+    Then $p^{-1} (\widetilde{U} \cap \widetilde{V}) = p^{-1} ( \emptyset) \;\; or \;\; p^{-1}(\widetilde{U}) \in \mathcal{T}$. 
+    Hence, $\widetilde{U} \cap \widetilde{V} \in \widetilde{\mathcal{T}}$.
+    \item Suppose that $\widetilde{U}_{i} \in \widetilde{\mathcal{T}}$ $\forall i \in I$, i.e.: $p^{-1}(\widetilde{U}_i) \in \mathcal{T}$ for all $i\in I$.
+    Hence, 
+    $$p^{-1} (\bigcup _{i\in I} \widetilde{U}_i) = \bigcup_{i\in I} p^{-1} (\widetilde{U}_i) \in \mathcal{T} \Rightarrow \bigcup _{i\in I} \widetilde{U}_i \in \widetilde{\mathcal{T}}.$$
+\end{itemize}
+
+\begin{definition}{Open Map}\\
+A function $f : (X,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ is an open map if for each open $U \in \mathcal{T}_X$, $f(U) \in \mathcal{T}_Y$.
+\end{definition}
+
+\begin{proposition}
+    $\widetilde{V} \subseteq X/\sim$ is closed $\Leftrightarrow$ $p^{-1} (\widetilde{V})$ is closed in $X$.
+\end{proposition}
+
+\begin{proof}
+    $$p^{-1} ((X/\sim) - \widetilde{V}) = X - p^{-1} (\widetilde{V})$$
+\end{proof}
+
+\begin{proposition}
+    Let $X,Z$ be two topological spaces, and let $\sim$ be an equivalence relation on $X$. Let $g : X/\sim \;\rightarrow Z$ be a function and let $p: X\rightarrow X/\sim$ be a projection map. Then:
+    $$g \;\; is \;\; cont \Leftrightarrow g\circ p : X\rightarrow Z \;\; is \;\; cont.$$
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Rightarrow$): $g,p$ cont $\Rightarrow$ $g\circ p$ cont.
+        \item ($\Leftarrow$): For any open $U \subseteq Z$, $(g\circ p)^{-1} (U) = p^{-1}g^{-1} (U)$ is open in $X$. Then by the def of quotient topology, $g^{-1} (U)$ is open in $X/\sim$. Hence, $g$ is cont.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Quotient Map}\\
+A map $q : (X,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ is a quotient map if
+\begin{itemize}
+    \item $q$ is surjective;
+    \item $q$ is cont;
+    \item for any $U \subseteq Y$ satisfying that $q^{-1}(U)$ is open in $X$, $U$ is open in $Y$.
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark:} It's easy to show that the canonical map is a quotient map.
+
+\begin{proposition}
+    Let $q: X \rightarrow Y$ be a quotient map, and let $g: Y \rightarrow Z$ be any map. Then
+    $g \;\; is\;\; cont \Leftrightarrow g\circ q \;\; is \;\; cont.$
+\end{proposition}
+
+\begin{proof}
+    Similar for proposition 4.5.
+\end{proof}
+
+\noindent\textbf{Example:} Consider $X = [0,1]$ and define $x_1\sim x_2$ if
+$$(x_1,x_2) = (0,1) \;\; or \;\; (1,0).$$
+Then $X= \{0,1\} \cup (\bigcup _{x\in (0,1)} \{ x\})$. Then intuitively, $X \cong S^1$ are homeomorphic.
+\begin{proof}
+    Define $f : [0,1] \rightarrow S^1$ by $f(t) := (\cos 2\pi t , \sin2\pi t)$. Then $f(0) = f(1) = (1,0)$. Hence, $f$ can induce a well-defined fct $g: [0,1] / \sim \;\rightarrow S^1$ with $g([t]) := f(t)$, i.e.: $f= g\circ p$. By the continuity of $f$ and proposition 4.7, we have $g$ is cont.\\
+    Therefore, now we have: $g$ is cont and bijective, $S^1$ is Hausdorff, and $[0,1]$ is cpt. Then by theorem 3.30, $[0,1] / \sim \; \cong S^1$.
+\end{proof}
+
+\begin{proposition}
+    Let $f: (X,\mathcal{T}_X) \rightarrow(Y,\mathcal{T}_Y)$ be a surjective cont map, and let $\sim$ be an equivalence relation on $X$ defined by the partition $\{ f^{-1} (y) \mid y \in Y\}$ (i.e.: $x\sim x'$ iff $f(x) = f(x')$). If $X$ is compact and $Y$ is Hausdorff, then $X/\sim \; \cong Y$ are homeomorphic.
+\end{proposition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item Consider $X = [0,1] \times [0,1]$ and define $(s_1 ,t_1) \sim (s_2,t_2)$ if
+    \begin{itemize}
+        \item $(s_1 ,t_1) = (s_2,t_2)$;
+        \item $\{ s_1,s_2\} = \{0,1\}$, $ t_1=t_2$;
+        \item $\{t_1,t_2\} = \{0,1\}$, $s_1=s_2$;
+        \item $\{ s_1,s_2\} = \{t_1,t_2\} = \{0,1\}$.
+    \end{itemize}
+    Define $f: X \rightarrow \mathbb{T}^2$ by $f(t_1,t_2) := (e^{2\pi it_1}, e^{2\pi it_2})$. Then we have: $f$ is surjective and cont, $\mathbb{T}^2$ is Hausdorff, $X$ is cpt, and 
+    $$\begin{cases}
+        (s_1,t_1) \sim (s_2,t_2) \Rightarrow f(s_1,t_1)=f (s_2,t_2)\\
+        f(s_1,t_1)=f (s_2,t_2) \Rightarrow (s_1,t_1) \sim (s_2,t_2).
+    \end{cases}$$
+    Then by proposition 4.8, $X/\sim \; = [0,1]\times [0,1] /\sim \; \cong \mathbb{T}^2$.
+    \item Consider $\mathbb{D}^2 := \{ (x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq 1 \}$, and define $(x_1,y_1) \sim (x_2,y_2)$ by:
+    \begin{itemize}
+        \item $(x_1,y_1) = (x_2,y_2)$;
+        \item $(x_1,y_1) , (x_2,y_2)\in \partial \mathbb{D}^2$.
+    \end{itemize}
+    Define $f:\mathbb{D}^2 \rightarrow \mathbb{S}^2$, where $\mathbb{S}^2 := \{ (x,y,z) \in \mathbb{R}^3 \mid x^2+y^2+z^2=1 \}$, by: 
+    \begin{align*}
+        &f(0,0) := (0,0,1)\\
+        &f(x,y) := (\frac{x}{\sqrt{x^2 +y^2}} \sin (\pi\sqrt{x^2 +y^2}), \frac{y}{\sqrt{x^2 +y^2}} \sin (\pi \sqrt{x^2 +y^2}) , \cos(\pi \sqrt{x^2 +y^2})).
+    \end{align*}
+    Then we have: $f$ is surjective and cont, $\mathbb{S}^2$ is Hausdorff, $\mathbb{D}^2$ is cpt, and
+    $$\begin{cases}
+        (x_1,y_1) \sim (x_2,y_2) \Rightarrow f(x_1,y_1)=f (x_2,y_2)\\
+        f(x_1,y_1)=f (x_2,y_2) \Rightarrow (x_1,y_1) \sim (x_2,y_2).
+    \end{cases}$$
+    Then by proposition 4.8, $\mathbb{D}^2 \cong \mathbb{S}^2$ are homeomorphic.
+\end{itemize}
+
+\begin{proposition}
+    Suppose $q : X \rightarrow Y$ is a quotient map, and that $\sim$ is an equivalence relation on $X$, given by the partition $\{ q^{-1} (y) \mid y \in Y\}$. Then $X/\sim \; \cong Y$ are homeomorphic.
+\end{proposition}
+
+\begin{proof}
+    Construct $h : X/\sim \;\rightarrow Y$ by $h([x]) := q(x)$. Then $h$ is bijective and well-defined. By proposition 4.7, since $q = h\circ p$ is cont, then $h$ is cont.\\
+    Now we need to show that $h^{-1}$ is cont.\\
+    For any open $\widetilde{U} \subseteq X/\sim$, $q^{-1}(h(\widetilde{U})) = p^{-1} h^{-1} (h (\widetilde{U})) = p^{-1} (\widetilde{U})$ is open, by the def of quotient topology. Then by the def of quotient map, $h(\widetilde{U}) = (h^{-1})^{-1} (\widetilde{U})$ is open, i.e.: $h^{-1}$ is cont.
+\end{proof}
+
+\noindent\textbf{Example:} Consider $X =\mathbb{R}$ and define $\sim$ by $x \sim y \Leftrightarrow x-y \in \mathbb{Z}$. Then consider $q : \mathbb{R} \rightarrow \mathbb{S}^1$ with $q(x) := (\cos 2\pi x, \sin 2\pi x)$. Then $q$ is a cont surjective open map. Therefore, $\mathbb{R} / \mathbb{Z := \mathbb{R}/\sim \; \cong \mathbb{S}}^1$.
+
+\section{Simplicial Complex}
+
+\begin{definition}{n-simplex}\\
+$$ \Delta ^n :=\{ (x_1, \cdots , x_{n+1}) \in \mathbb{R}^{n+1} \mid x_i \geq 0, \sum _{i=1}^{n+1} x_i =1 \}$$
+\begin{itemize}
+    \item Vertice of $\Delta ^n := \{ (x_1, \cdots , x_{n+1}) \in  \Delta^n \mid x_i = 1$ for some $i \}$.
+    \item For any given $\mathcal{A} \subseteq \{ 1, \cdots ,n+1 \}$, the face of $\Delta ^n$ is defined by $\{ (x_1, \cdots , x_{n+1}) \in \Delta^n \mid x_i = 0, \forall i \in \mathcal{A} \}$.
+    \item Interior of $\Delta ^n := \{ (x_1, \cdots , x_{n+1}) \in  \Delta^n \mid x_i \neq 0, \forall i \}$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Face Inclusion}\\
+Let $m<n$. A face inclusion of $\Delta^m$ into $\Delta ^n$ is an injective map $f: \Delta^m \rightarrow \Delta^n$ which maps vertices to vertices and is the restriction of an injective linear map $T : \mathbb{R}^{m+1} \rightarrow \mathbb{R} ^{n+1}$.
+\end{definition}
+
+\noindent\textbf{Remark:}\\
+$\{$all face inclusion$\}$ $\xleftrightarrow{1:1}$ $\{$injective map $g: \{ 1,\cdots, m+1 \} \rightarrow  \{ 1,\cdots, n+1 \}$$\}$.
+
+\noindent\textbf{Example:} Linear map $f: \mathbb{R}^2 \rightarrow \mathbb{R} ^3$ with $T(1,0) = (0,1,0)$ and $T(0,1) = (0,0,1)$ is a face inclusion.
+
+\begin{definition}{Simplicial Complex}\\
+A simplicial complex is a pair $K= (V, \Sigma)$, where
+\begin{itemize}
+    \item $V$ is a (finite most of times) set of vertices;
+    \item $\Sigma$ is a collection of non-empty finite subsets of $V$, called simplices, satisfying:
+    \begin{itemize}
+        \item For any $v \in V$, $\{ v \} \in \Sigma$;
+        \item If $\sigma \in \Sigma$, then $(P(\sigma) - \{ \emptyset \}) \subseteq \Sigma$.
+    \end{itemize}
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:} If $V = \{ 1,2,3,4\}$, then one can take:
+$$\Sigma = \{ \{ 1\}, \cdots, \{ 4\}, \{ 1,3,4\}, \{ 1,3\} , \{ 3,4\}, \{ 1,4\} \}.$$
+
+\begin{definition}{Topological Realization}\\
+Let $K = (V , \Sigma)$ be a simplicial complex. The topological realization of $K$ is a topological space, denoted by $|K|$ or $|(V,\Sigma)|$, given by identifying $\Delta ^n$ simplices, i.e.:
+\begin{itemize}
+    \item For any $\sigma \in \Sigma$ with $|\sigma| = n+1$, take a copy of n-simplex and denote it as $\Delta_{\sigma}$;
+    \item Whenever $\sigma \subseteq \tau \in \Sigma$, identify $\Delta_\sigma$ with a face of $\Delta_\tau$ through face inclusion.
+\end{itemize}
+Or equivalently, $|K|$ is a quotient space of the disjoint union $\bigsqcup _{\sigma \in \Sigma} \Delta_\sigma$, by the equivalence relation which identifies a point $y\in \sigma$ with its image under the face inclusion $\sigma \rightarrow \tau$, for any $\sigma \subseteq \tau$.
+\end{definition}
+
+\begin{definition}{Triangulation}\\
+A triangulation of a topological space $X$ is a simplicial complex $K = (V,\Sigma)$ together with a choice homeomorphism $f: |K| \xrightarrow{\cong} X$.
+\end{definition}
+
+\begin{definition}{Euler Characteristic}\\
+For any simplicial complex $(V,\Sigma)$, the Euler characteristic is defined by
+$$\chi (V,\Sigma) := \sum_{i=1}^\infty (-1)^i \cdot \#\{ subsets\;\;in\;\;\Sigma\;\;with\;\;(i+1)-element \}.$$
+\end{definition}
+
+\begin{proposition}
+    $$\chi(V_1,\Sigma_1) = \chi(V_2,\Sigma_2) \Leftrightarrow |(V_1,\Sigma_1)| = |(V_2,\Sigma_2)|$$
+\end{proposition}
+
+\begin{definition}
+    For any topological space $X$ with $X \cong |(V,\Sigma)|$, by proposition 4.16, we can define
+    $$\chi (X) := \chi (V,\Sigma).$$
+\end{definition}
+
+\section{Properties of Simplicial Complex}
+
+\begin{definition}{Simplicial Subcomplex}\\
+A subcomplex of a simplicial complex $K = (V,\Sigma)$ is a simplicial complex $K' = (V',\Sigma')$ such that
+$$V' \subseteq V, \Sigma' \subseteq \Sigma.$$
+\end{definition}
+
+\begin{proposition}
+    Let $K' = (V',\Sigma')$ be a subcomplex of $K=(V,\Sigma)$ and let $i: (X':=) \bigsqcup _{\sigma' \in \Sigma'} \sigma' \rightarrow (X:=) \bigsqcup_{\sigma\in \Sigma}\sigma$ be an inclusion map. Then we can get a map
+    $$\widetilde{i} := (p')^{-1} \circ i \circ p \;\; with\;\; \widetilde{i}([x']) = [i(x')].$$
+    Then the map $\widetilde{i}$ is injective, well-defined, and continuous.\\
+    Moreover, $\widetilde{i} (|K'|) $ is closed in $|K|$.
+\end{proposition}
+
+\begin{proof}
+    Note that for $x',y' \in X'$, 
+    $$x' \sim y' \Leftrightarrow i(x') \sim i(y').$$
+    Hence, $\widetilde{i}$ is injective and well-defined. Also, since $p\circ i: X' \rightarrow X/\sim$ is cont, then $\widetilde{i}$ is cont.
+
+    To see that $\widetilde{i} (|K'|) $ is closed in $|K|$, by the def of $\widetilde{i}$, we only need to show that $p\circ i(X')$ is closed in $|K|$:\\
+    For any $y \in p^{-1}((p\circ i)(X'))$, $y \in \Delta_\tau$ for some $\tau \in \Sigma$. Then $y \in \Delta_\tau$ must lie on a face of $\Delta_\tau$ which is "glued" to $\Delta_{\tau \cap \sigma'}$ by face inclusion for some $\sigma' \in \Sigma '$.\\
+    Let $\Delta_{\tau \cap \Sigma'}$ be the union of faces of $\Delta_\tau$ given by face inclusion $\Delta_{\tau \cap \sigma'} \overset{i}{\rightarrow} \Delta_{\tau}$ for some $\sigma' \in \Sigma'$. Then $\Delta_{\tau \cap \Sigma'}$ is closed in $\Delta_\tau$ (a face on $\Delta_\tau$ is the zero set of some linear equations $f_1, \cdots,f_n$, so it is equal to $\bigcap_{i=1}^n f_i^{-1}(0)$,) and $p^{-1} (p \circ i (X')) = \bigsqcup_{\tau \in \Sigma} \Delta_{\tau \cap \Sigma'}$ is closed. Then by the def of $p$, canonical projection map, we're done
+\end{proof}
+
+\begin{definition}
+    Let $K = (V,\Sigma)$ be a simplicial complex and let $V' \subseteq V$. Then the subcomplex spanned by $V'$ is $(V',\Sigma')$ such that
+    \begin{itemize}
+        \item $V'$ denotes the vertex set;
+        \item the simplices $\Sigma'$ is given by $$\{ \sigma \in \Sigma \mid \sigma \subseteq V' \}.$$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Let $K= (V,\Sigma)$ be a simplicial complex.
+    \begin{itemize}
+        \item (\textbf{Link}): The link of $v \in V$, denoted as $lk(v)$, is the subcomplex with vertex set
+        $$\{ w\in V-\{v\} \mid \{v,w\} \in \Sigma \}$$
+        and simplices
+        $$\{ \sigma \in \Sigma \mid v \notin \sigma, \sigma \cup \{v\} \in \Sigma \}.$$
+        \item (\textbf{Star}): The star of $v$, denoted as $st(v)$, is
+        $$\bigcup_{\sigma \in \Sigma,v \in \sigma} inside(\sigma),$$
+        where $inside(\Delta^n) := \{ (x_1,\cdots,x_{n+1}) \in \Delta^n \mid x_i > 0, \forall i \}$ for n-simplex $\Delta^n$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    $st(v)$ is open and $v \in st(v)$.
+\end{proposition}
+
+\begin{proposition}
+    Let $K =(V,\Sigma)$ with $|V| < \infty$. Then $K$ is compact.
+\end{proposition}
+
+\begin{proof}
+    Let $p: D\rightarrow K$ be a canonical map, which is cont. Since $D$, the finite disjoint union of $\Delta_\sigma$'s, is compact, then $p(D) = |K|$ is compact.
+\end{proof}
+
+\begin{proposition}
+    For any $K=(V,\Sigma)$ with $|V|<\infty$, there is a continuous injection: for some $n$,
+    $$f: |K| \rightarrow \mathbb{R}^n.$$
+\end{proposition}
+
+\begin{proof}
+    Let $K^\Pi := (V,\Sigma^\Pi)$ where $\Sigma^\Pi = P(V)$. Then
+    $$|K^\Pi| = \Delta^{|V|-1} \subseteq \mathbb{R}^{|V|}.$$
+    Consider $D := \bigsqcup_{\sigma\in \Sigma} \Delta_\sigma$ and $D':= \bigsqcup_{\Delta_{\Sigma^\Pi}\in \Sigma^\Pi} \Delta_{\Sigma^\Pi}$ in $(V,\Sigma)$ and $(V,\Sigma^\Pi)$. Then construct the map $\widetilde{i} : D \overset{i}{\rightarrow} D' \overset{p'}{\rightarrow} |K|$, which can descend to an inclusion $i :D/\sim \; \rightarrow |K^\Pi|$.
+    Therefore, $|K| \overset{i}{\rightarrow} |K^\Pi|$.
+\end{proof}
+
+\begin{corollary}
+    If $K=(V,\Sigma)$ with $|V|<\infty$, then $|K|$ is Hausdorff.
+\end{corollary}
+\begin{proof}
+    Let $g: |K| \rightarrow \mathbb{R}^n$. Consider the bijective $g: |K| \rightarrow g(|K|)$, which is cont. Since $|K|$ is compact, and $g(|K|)$ is Hausdorff, then $|K| \cong g(|K|)$. Therefore, $|K|$ is Hausdorff.
+\end{proof}
+
+\begin{definition}{Edge Path}\\
+An edge path of $K=(V,\Sigma)$ is a sequence of vertices $(v_1,\cdots,v_n)$, $v_i \in V$, s.t.: $\{ v_i ,v_{i+1} \} \in \Sigma$ for all $i$.
+\end{definition}
+
+\begin{proposition}
+    Let $K=(V,\Sigma)$ be a simplicial complex. The followings are equivalent:
+    \begin{enumerate}
+        \item $|K|$ is connected;
+        \item $|K|$ is path-connected;
+        \item Any two vertices $V$ can be joined by an edge path, i.e.: $\forall u,v \in V$, $\exists v_1,\cdots,v_k \in V$, s.t.: $(u,v_1,\cdots,v_k,v)$ is an edge path.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item (2 $\Rightarrow$ 1): Clearly.
+        \item (3 $\Rightarrow$ 2): For any $y,x \in |K| = |(V,\Sigma)|$, there exist $\sigma ,\tau \in \Sigma$, s.t.: $$x \in \Delta_\sigma,y \in \Delta_\tau.$$
+        Since $\Delta_\sigma,\Delta_\tau$ path-connected can join $x$ to a vertex $v_x$ in $\Delta_\sigma$, and $y$ to a vertex $v_y$ in $\Delta_\tau$. By 3, there exists a edge path joining $v_x$ to $v_y$. Hence, there exists a path joining $x$ to $y$.
+        \item (1 $\Rightarrow$ 3): Suppose on the contrary that fix $v \in V$, and there exists $w \in V$, s.t.: there are NO edge path joining $v,w$. Define:\\
+        $V' := \{ v' \in V \mid v,v'$ can be joined by an edge path $\}$ and \\
+        $V'' := \{ v'' \in V \mid v,v''$ can NOT be joined by any edge path $\}$.\\
+        Then we have $V',V'' \neq \emptyset$ (by assumption) is disjoint (by the def of $V',V''$) and $V = V' \cup V''$.\\
+        Consider $K' :=$ subcomplex of $K$ spanned by $V'$ and\\
+        $K'' :=$ subcomplex of $K$ spanned by $V''$.\\
+        Then it's clear that $|K'|$ and $|K''|$ are disjoint in $|K|$.
+        \begin{itemize}
+            \item \textbf{Claim:} $|K| = |K'| \cup |K''|$.\\
+            \textit{Proof of claim:} Suppose on the contrary that there exists $x \in |K| - (|K'| \cup |K''|)$. Then there exists $\pi \in \Sigma$, s.t.: $x \in \Delta_\pi$. Then $\pi$ must contain vertices in both $V'$ and $V''$, otherwise $\Delta_\pi$ is in $|K'|$ or $|K''|$. Hence, there exist $w' \in V'$, $w'' \in V''$, s.t.:
+            $$w' , w'' \in \Delta_\sigma.$$
+            But then $\{ w',w''\} \in \Sigma$, which means that there exists an edge path joining $w' \in V'$ and $w'' \in V''$, contradicting to the def of $V'$ and $V''$. $\square$
+        \end{itemize}
+        Since $|K'|$ and $|K''|$ are closed in $|K|$, then by claim, $|K''| = |K| - |K'|$ and $|K'| = |K| - |K''|$ are open in $|K|$. Therefore, $|K|$ is disconnected, contradicting 1.
+    \end{itemize}
+\end{proof}

@@ -1,0 +1,38 @@
+\chapter{Homotopy}
+
+\noindent\textbf{General Idea:} To understand a space $X$, we can study continuous maps $f: A \rightarrow X$ or $g: X\rightarrow B$. For example, $A = [0,1] \leftrightarrow$ path-connected; $A = \mathbb{S}^1 \leftrightarrow$ loops.
+
+\begin{definition}{Homotopy}\\
+Let $X,Y$ be two topological spaces. A homotopy between two continuous maps $f,g :X \rightarrow Y$ is a continuous map $H : X\times [0,1] \rightarrow Y$, s.t.:
+$$H(x,0) = f(x) \;\;\;\;and\;\;\;\;  H(x,1) = g(x).$$
+If such $H$ exists, we say $f$ and $g$ are homotopic, denoted as
+$$f \simeq g.$$
+\end{definition}
+
+\noindent\textbf{Example:} $Y= \mathbb{R}^2$. Consider two arbitrary cont maps $f,g: X \rightarrow Y$. Then define:
+$$H(x,t) := (1-t) f(x) + tg(x),$$
+an interpolate. The well-defined-ness of $H$ is by the convexivity of $\mathbb{R}^2$, i.e.: for all $x,t$, $H(x,t) \in Y$.
+
+\begin{proposition}
+    Homotopy is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item Take $H(x,t) = f(x)$ for all $t$. Then $f \simeq f$.
+        \item If $f \simeq g$, then there exists $H$ in the definition of homotopy. Then define $H': X \times [0,1] \rightarrow Y$ by $H' (x,t) := H(x,1-t)$. Hence, $g \simeq f$.
+        \item It $f\simeq g$ and $g \simeq f$, then there are two continuous maps $H:X \times [0,1] \rightarrow Y$ and $K: X\times [0,1] \rightarrow Y$ with $H(x,0) = f(x)$, $H(x,1) = K(x,0) = g(x)$, and $K(x,1)=h(x)$. Then define
+        $$J(x,t) := \begin{cases}
+            H(x,2t), &0\leq t \leq \frac{1}{2}\\
+            K(x,2t-1) &\frac{1}{2} \leq t \leq 1
+        \end{cases}$$
+        It's clear that $J$ is cont. Then $f \simeq h$.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Homotopy Class}\\
+Let $f: X \rightarrow Y$ be a continuous map. A homotopy class $[f]$ is the collection of continuous maps homotopic to $f$:
+$$[f] := \{ g: X \rightarrow Y \mid g \simeq f \}.$$
+\end{definition}
+
+\noindent\textbf{Example:} If $Y = \mathbb{R}^2$, then $[f] = \mathcal{C}(X \rightarrow \mathbb{R}^2)$.

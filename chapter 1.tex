@@ -1,0 +1,115 @@
+\chapter{From Metric to Topology}
+
+\begin{definition}{Topology}\\
+The \textit{topology} induced from $(X,d)$ is the collection of all open sets in $(X,d)$, denoted as $\mathcal{T}$.
+\end{definition}
+
+\begin{proposition}
+    All open balls $B_r(x)$ are open in $(X,d)$.
+\end{proposition}
+
+\begin{proposition}
+    All open $U \subset X$ can be written as union of open balls.
+\end{proposition}
+
+\begin{proof}
+    Take $u \in U$. $\exists\epsilon_{u}>0$, s.t.: $\{u\} \subset B_{\epsilon_u} (u)\subset U$. Hence, 
+    $$U=\bigcup_{u\in U}\{u\} \subset \bigcup_{u\in U}B_{\epsilon_u}(u) \subset \bigcup_{u\in U}U=U.$$
+    Then we have: $U=\bigcup_{u\in U}B_{\epsilon_u}(u)$, which is the desired union of open balls.
+\end{proof}
+
+\begin{proposition}
+    Let $(X,d)$ be a metric space, and let $\mathcal{T}$ be the topology induced from $(X,d)$. Then:
+    \begin{enumerate}
+        \item Let $\{G_\alpha \mid \alpha \in \mathcal{A}\}$ be a collection of open sets, i.e.: $G_\alpha \in \mathcal{T}$. Then $\bigcup_{\alpha \in \mathcal{A}} G_\alpha \in \mathcal{T}$.
+        \item Let $G_1, \cdots, G_n \in \mathcal{T}$. Then $\bigcap_{i=1}^nG_i \in \mathcal{T}$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $\forall x\in \bigcup_{\alpha \in \mathcal{A}} G_\alpha$, $\exists \beta \in \mathcal{A}$, s.t.: $x \in G_\beta$. Since $G_\beta$ is open, then $\exists\epsilon_x >0$, s.t.: 
+        $$B_{\epsilon_x} \subset G_\beta \subset \bigcup_{\alpha \in \mathcal{A}} G_\alpha.$$
+        \item $\forall x \in \bigcap_{i=1}^nG_i$, i.e.: $x\in G_i$ $\forall i= 1,\cdots,n$. Then $\exists \epsilon_i >0$, s.t.: $B_{\epsilon_i}(x) \subset G_i$ for $i=1,\cdots,n$. Take $\epsilon := \min\{\epsilon_1,\cdots, \epsilon_n\}$. Then $B_\epsilon(x) \subset B_{\epsilon_i} \subset G_i$ for all $i$. Therefore, $B_\epsilon (x) \subset \bigcap_{i=1}^nG_i$.
+    \end{enumerate}
+\end{proof}
+
+\noindent \textbf{Example:}
+\begin{itemize}
+    \item Denote the topologies induced from $(\mathbb{R}^n,d_2)$ and $(\mathbb{R}^n,d_\infty)$ by $\mathcal{T}_2$ and $\mathcal{T}_\infty$, respectively, where $d_2(x,y):= \sqrt{\sum_{i=1}^n(x_i-y_i)^2}$ and $d_\infty (x,y):= \max_{1\leq i\leq n}\{x_i,-y_i\}$. Then $\mathcal{T}_2 =\mathcal{T}_\infty$.
+    \item Let $\mathcal{T}$ be a topology induced from $(X,d_{dicrete})$, where $d_{discrete}(x,y) := \begin{cases}
+        0 &,if\;\; x=y\\
+        1 &,if\;\; x\neq y
+    \end{cases}$. Then $\mathcal{T}=${all subsets of $X$}.
+\end{itemize}
+
+\begin{definition}{Closed}\\
+A subset $V \subset X$ is closed if $X-V$ is open.
+\end{definition}
+
+\noindent\textbf{Example:} Let $X=\mathbb{R}$ equipped with $d_1(x,y):= |x-y|$.$$\mathbb{R}-[a,b] = (-\infty,a) \cup (b,\infty) \; is \; open \Rightarrow [a,b] \; is \; closed.$$
+
+\begin{proposition}
+    Let $X$ be a metric space. Then:
+    \begin{enumerate}
+        \item $\emptyset,X$ are closed in $X$.
+        \item If $F_\alpha$ is closed in $X$, then $\bigcap _{\alpha \in \mathcal{A}}F_\alpha$ is closed in $X$.
+        \item If $F_1,\cdots,F_k$ is closed, then $\bigcup_{i=1}^kF_i$ is closed in $X$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Since $X$ is open, then $\emptyset = X-X$ is closed in $X$. Since $\emptyset$ is open, then $X=X-\emptyset$ is closed.
+        \item Since $F_\alpha$ is closed in $X$, then $\exists U_\alpha \subset X$ open, s.t.: $F_\alpha = X-U_\alpha$. Then:
+        $$\bigcap_{\alpha\in \mathcal{A}}F_\alpha=\bigcap_{\alpha \in \mathcal{A}}(X-U_\alpha) = X-(\bigcup_{\alpha \in \mathcal{A}}U_\alpha)$$
+        is closed, since $\bigcup_{\alpha \in \mathcal{A}}U_\alpha$ is open.
+        \item Since $F_i$ is closed in $X$, then $\exists U_i \subset X$ open, s.t.: $F_i=X-U_i$. Then:
+        $$\bigcup _{i=1}^kF_i=\bigcup_{i=1}^k(X-U_i)=X-(\bigcap _{i=1}^kU_i)$$
+        is closed, since $\bigcap _{i=1}^kU_i$ is open.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Convergence}\\
+Let $(X,d)$ be a metric space. Then $\{x_n\} \rightarrow x$ means $\forall \epsilon>0$, $\exists N$, s.t.: $d(x_n,x) < \epsilon$ $\forall n \geq N$.
+\end{definition}
+
+\begin{proposition}
+    Let $(X,d)$ be a metric space. Then $\{x_n\} \rightarrow x$ iff $\forall$ open set $U$ containing $x$, $\exists N$, s.t.: $x_n \in U$ $\forall n\geq N$.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Leftarrow$): $\forall$ given $\epsilon>0$, take $U:= B_\epsilon (x) \ni x$. Then $\exists N$, s.t.: $x_n \in U =B_\epsilon (x)$ $\forall n \geq N$.
+        \item ($\Rightarrow$): For any open $U \ni x$, $\exists \epsilon>0$, s.t.: $B_\epsilon (x) \subset U$. Since $\{x_n\} \rightarrow x$, then $\exists N$, s.t.: $x_n \in B_\epsilon (x)$ $\forall n \geq N$. Hence, $x_n \in B_\epsilon(x) \subset U$.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Continuity}\\
+Let $(X,d)$ and $(Y,\rho )$ be metric spaces. Then $f: X \rightarrow Y$ is continuous at $x_0 \in X$ if $\forall \epsilon>0$, $\exists \delta >0$, s.t.: $d(x,x_0) < \delta \Rightarrow \rho (f(x),f(x_0))< \epsilon$.\\
+Furthermore, we say $f$ is continuous on $X$ if $f$ is continuous at all points in $X$.
+\end{definition}
+
+\begin{lemma}
+    $f$ is continuous at x iff $\forall \{x_n\} \rightarrow x$, $\{f(x_n)\} \rightarrow f(x)$.
+\end{lemma}
+
+\begin{proposition}
+    \begin{enumerate}
+        \item f is cont at x $\Leftrightarrow$ $\forall$ open $U\ni f(x)$, $\exists \delta >0$, s.t.: $B_\delta (x) \subset f^{-1}(U)$.
+        \item f is cont on X $\Leftrightarrow$ $f^{-1}(U)$ is open in X for each open set.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item ($\Rightarrow$): For any open $U$ containing $f(x)$, there is a positive $\epsilon$, s.t.: $B_\epsilon (f(x)) \subset U$. Then by the continuity of $f$, there exists a positive $\delta$, s.t.: $f(B_\delta (x)) \subset B_\epsilon(f(x)) \subset U$, which implies that $B_\delta(x) \subset f^{-1}(U)$.
+            \item ($\Leftarrow$): For any $\epsilon$, take $\{x_n\} \rightarrow x$. Then $x_n \in B_\delta \subset f^{-1}(B_\epsilon (f(x)))$ $\forall n \geq N$ for some $N$. Hence, $f(x_n) \in B_\epsilon (f(x))$. Then by lemma 1.9, $f$ is cont at $x$.
+        \end{itemize}
+        \item \begin{itemize}
+            \item ($\Rightarrow$): For any $x$ in $f^{-1}(U)$, by proposition 2.11.1, there exists a positive $\delta>0$, s.t.: $B_\delta (x) \subset f^{-1}(U)$. Hence, $f^{-1}(U)$ is open.
+            \item ($\Leftarrow$): For any $x \in X$, every open $U$ containing $f(x)$ can imply $f^{-1}(U)$ is open in $X$. Therefore, there is a positive $\delta$, s.t.: $B_\delta(x) \subset f^{-1}(U)$.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
