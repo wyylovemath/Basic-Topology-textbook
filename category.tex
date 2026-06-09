@@ -1,0 +1,739 @@
+\chapter{Preliminaries of Category Theory}
+
+\section{Category}
+
+\begin{definition}{Category}\\
+A \textit{category} $\mathcal{C}$ consists of the followings:
+\begin{itemize}
+    \item \textit{Objects}: a class $Ob(\mathcal{C})$, the collection of all elements in $\mathcal{C}$.
+    \item \textit{Morphisms}: for any $X,Y\in Ob(\mathcal{C})$, there exists a set $Mor_\mathcal{C} (X,Y)$ consisting of maps from $X$ to $Y$ with the following properties:
+    \begin{itemize}
+        \item If $f \in Mor_\mathcal{C}(X,Y)$, $g \in Mor_\mathcal{C}(Y,Z)$, then
+        $$g \circ f \in Mor_\mathcal{C}(X,Z)$$
+        \item For any $f \in Mor_\mathcal{C}(W,X)$, $g \in Mor_\mathcal{C}(X,Y)$, $h \in Mor_\mathcal{C}(Y,Z)$,
+        $$(h \circ g) \circ f = h \circ (g \circ f)$$
+        \item For any $X \in Ob(\mathcal{C})$, there exists $id_X \in Mor_\mathcal{C} (X,X)$, s.t.:
+        \begin{align*}
+            &id_X \circ f=f\;\;\;\forall W\in Ob(\mathcal{C}),\forall f \in Mor_\mathcal{C}(W,X)\\
+            &g \circ id_X=g\;\;\;\forall Y\in Ob(\mathcal{C}),\forall g \in Mor_\mathcal{C}(X,Y)
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category. For any $X \in Ob(\mathcal{C})$, the identity morphism of $Mor_\mathcal{C}(X,X)$ exists and is unique.
+\end{proposition}
+
+\begin{proof}
+    The existence of $id_X$ is from the def of category. As for the uniqueness, suppose that $id_X,id_X'$ are both the identity morphism of $Mor_\mathcal{C}(X,X)$. Then
+    $$id_X = id_X \circ id_X' = id_X'$$
+\end{proof}
+
+\begin{definition}{Examples of Categories}\\
+\begin{itemize}
+    \item The category $\mathcal{S}et$ of sets:
+    \begin{itemize}
+        \item $Ob(\mathcal{S}et)$ consists of all sets
+        \item $Mor_{\mathcal{S}et}(X,Y)$ consists of all maps from $X$ to $Y$.
+    \end{itemize}
+    
+    \item The category $\mathcal{T}op$ of topological spaces:
+    \begin{itemize}
+        \item $Ob(\mathcal{T}op)$ consists of all topological spaces
+        \item $Mor_{\mathcal{T}op}(X,Y)$ consists of all continuous maps from $X$ to $Y$.
+    \end{itemize}
+
+    \item The category $\mathcal{V}ec_\mathbb{F}$ of vector spaces over $\mathbb{F}$:
+    \begin{itemize}
+        \item $Ob(\mathcal{V}ec_\mathbb{F})$ consists of all vector spaces over $\mathbb{F}$
+        \item $Mor_{\mathcal{V}ec_{\mathbb{F}}}(X,Y)$ consists of all linear transformation from $X$ to $Y$.
+    \end{itemize}
+
+    \item The category $\mathcal{G}roup$ of groups:
+    \begin{itemize}
+        \item $Ob(\mathcal{G}roup)$ consists of all groups
+        \item $Mor_{\mathcal{G}roup}(X,Y)$ consists of all group homomorphisms from $X$ to $Y$.
+    \end{itemize}
+    Similarly for defining the category $\mathcal{A}b\mathcal{G}roup$ of abelian groups, the category $\mathcal{R}ing$ of rings and the category $\mathcal{CR}ing$ of commutative rings.
+
+    \item \textit{A pair of sets} is a pair $(X,A)$ where $X$ is a set and $A$ is a subset of $X$. Then we define the category $\mathcal{P}air\mathcal{S}et$ of pairs of sets:
+    \begin{itemize}
+        \item $Ob(\mathcal{P}air\mathcal{S}et)$ consists of all pairs of sets
+        \item $Mor_{\mathcal{P}air\mathcal{S}et} ((X,A),(Y,B))$ consists of all maps $f$ from $X$ to $Y$ with $f(A) \subseteq B$.
+    \end{itemize}
+
+    \item Let $(P,\leq)$ be a \textit{partially ordered set}. Fix a set $\{ *\}$ consisting of a single element. We define the order category $\mathcal{O}rder_{(P,\leq)}$ to be the category given by
+    \begin{itemize}
+        \item $Ob(\mathcal{O}rder_{(P,\leq)}) := P$
+        \item $Mor_{\mathcal{O}rder_{(P,\leq)}} (x,y) := \begin{cases}
+            \{*\} &,if\; x \leq y\\
+            \emptyset &,otherwise
+        \end{cases}$
+    \end{itemize}
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Opposite Category}\\
+Let $\mathcal{C}$ be a category. The \textit{opposite category $\mathcal{C}^{op}$ of $\mathcal{C}$} is defined as
+\begin{itemize}
+    \item $Ob(\mathcal{C}^{op}) := Ob(\mathcal{C})$
+    \item $Mor_{\mathcal{C}^{op}}(X,Y) := Mor_{\mathcal{C}}(Y,X)$
+\end{itemize}
+with the composition given by $f \circ _{\mathcal{C}^{op}} g := g \circ _\mathcal{C} f$.
+\end{definition}
+
+\begin{definition}{Subcategory}\\
+Let $\mathcal{C}$ be a category. A \textit{subcategory} is a category $\mathcal{D}$ satisfying that
+\begin{itemize}
+    \item $Ob(\mathcal{D}) \subseteq Ob(\mathcal{C})$
+    \item for any $X,Y \in Ob(\mathcal{D})$, $Mor_{\mathcal{D}}(X,Y) \subseteq Mor_{\mathcal{C}}(X,Y)$.
+\end{itemize}
+Furthermore, we say that $\mathcal{D}$ is a \textit{full subcategory} if $Mor_{\mathcal{D}}(X,Y) = Mor_{\mathcal{C}}(X,Y)$ for all objects $X,Y$.
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item $\mathcal{A}b\mathcal{G}roup$ is a full subcategory of $\mathcal{G}roup$.
+    \item Let $\mathcal{C}$ be given by $Ob(\mathcal{C}) = Ob(\mathcal{G}roup)$ and $Mor_{\mathcal{C}} (X,Y)$ consists of all group isomorphisms from $X$ to $Y$. Then $\mathcal{C}$ is a subcategory of $\mathcal{G}roup$.
+\end{itemize}
+
+\section{Isomorphisms}
+
+\begin{definition}
+    Let $\mathcal{C}$ be a category and let $X,Y \in Ob(\mathcal{C})$.
+
+    \begin{itemize}
+        \item Let $f \in Mor_\mathcal{C} (X,Y), g\in Mor_{\mathcal{C}} (Y,X)$
+        \begin{itemize}
+            \item $g$ is said to be a \textit{left inverse} of $f$ if $g \circ f = id_X$.
+            \item $g$ is said to be a \textit{right inverse} of $f$ if $f \circ g = id_X$.
+            \item $g$ is said to be a \textit{inverse} of $f$ if $g$ is both a left and a right inverse of $f$.
+        \end{itemize}
+        
+        \item If $f \in Mor_\mathcal{C}(X,Y)$ admits an inverse, then we say $f$ is \textit{invertible} or that $f$ is an \textit{isomorphism}.
+        \item We denote by $Mor_\mathcal{C}(X,Y)_{inv}$ the set of all invertible morphisms.
+        \item $X,Y \in Ob(\mathcal{C})$ are called \textit{isomorphic} if $Mor_\mathcal{C}(X,Y)_{inv} \neq \emptyset$.
+        \item For any $X \in Ob(\mathcal{C})$, we define the \textit{isomorphism type} of $X$ as the class of all objects that are isomorphic to $X$.
+    \end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item In $\mathcal{V}ec_\mathbb{F}$, the invertible morphisms are precisely the isomorphisms which are the same as in linear algebra.
+    \item In $\mathcal{S}et$, the isomorphisms are precisely the bijections.
+    \item In $\mathcal{T}op$, the isomorphisms are precisely the homeomorphisms.
+    \item Consider a category $\mathcal{C}$ given by
+    \begin{itemize}
+        \item $Ob(\mathcal{C}) :=$ the set with unique element $*$
+        \item $Mor_\mathcal{C}(*,*) := G$
+    \end{itemize}
+    where $G$ denotes an fixed arbitrary group, with the component
+    $$g \circ f:= g \cdot f$$
+    where $\cdot$ denotes the multiplication in $G$. By the def of group, every morphism is an isomorphism.
+\end{itemize}
+
+\begin{definition}{Groupoids}\\
+Categories in which every morphism is an isomorphism are called \textit{groupoids}.
+\end{definition}
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category, let $X,Y \in Ob(\mathcal{C})$ and let $f \in Mor_\mathcal{C} (X,Y)$.
+    \begin{enumerate}
+        \item If $f$ admits a left inverse $\overline{g}$ and a right inverse $g$, then they agree, i.e.: $g = \overline{g}$. In particular, $f$ is invertible.
+        \item If $f$ admits an inverse, then the inverse is unique.
+        \item $Mor_\mathcal{C}(X,X)_{inv}$ forms a group under the composition of morphisms.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $g=id_X \circ g = (\overline{g} \circ f) \circ g = \overline{g} \circ (f \circ g) = \overline{g} \circ id_Y = \overline{g}$.
+        \item Let $g,g'$ be inverses of $f$. Then $g$ is a left inverse of $f$ and $g'$ is a right inverse of $f$. Hence, by 1, $g=g'$.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    We denote the inverse of $f$ as $f^{-1}$.
+\end{definition}
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category.
+    \begin{enumerate}
+        \item Let $f \in Mor_\mathcal{C} (X,Y), g \in Mor_\mathcal{C} (Y,Z)$. If two morphisms out of $f,g,g \circ f$ are invertible, then so is the third and one has $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$.
+        \item "Being isomorphic" gives an equivalence relation in the class of objects of $\mathcal{C}$.
+    \end{enumerate}
+\end{proposition}
+
+\section{Monomorphisms and Epimorphisms}
+
+\begin{definition}
+    Let $\mathcal{C}$ be a category.
+    \begin{itemize}
+        \item A morphism $g \in Mor_\mathcal{C}(X,Y)$ is called a \textit{monomorphism} if $f_1,f_2 \in Mor_\mathcal{C} (W,X)$ with $g \circ f_1 = g\circ f_2$ can imply that $f_1=f_2$.
+        \item A morphism $g \in Mor_\mathcal{C}(X,Y)$ is called a \textit{epimorphism} if $h_1,h_2 \in Mor_\mathcal{C}(Y,Z)$ with $h_1 \circ g= h_2 \circ g$ can imply that $h_1=h_2$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Monomorphism Proposition}\\
+Let $\mathcal{C}$ be one of the following categories: 1.$\mathcal{G}roup$, 2.$\mathcal{A}b\mathcal{G}roup$, 3.$\mathcal{V}ec_\mathbb{F}$, 4.$\mathcal{R}ing$. If $\varphi: G\to H$ is a monomorphism in $\mathcal{C}$, then $\varphi$, viewed as a map between sets, is injective.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item \textbf{Step} 1: $\mathcal{C}$ is the first three categories. Consider $$K:= \ker \varphi := \{ g \in G \mid \varphi (g) =e \}$$
+        where $e$ denotes the identity of group or the zero element in the vector space. Note that $K \in Ob(\mathcal{C})$. Now consider the trivial homomorphism $\alpha: K \to G$ and the inclusion map $i: K \to G$. Then $\varphi \circ \alpha = \varphi \circ i$. Since $\varphi$ is monomorphism, then $\alpha= i$. Hence, $K = \{e\}$ $\Leftrightarrow$ $\varphi$ is injective.
+
+        \item \textbf{Step} 2: $\mathcal{C} = \mathcal{R}ing$. Let $a_1,a_2 \in G$ be such that $\varphi (a_1) = \varphi (a_2)$. Consider the polynomial ring $\mathbb{Z}[x]$ and the two homomorphisms $f_1,f_2: \mathbb{Z}[x] \to G$ given by $f_1(x) := a_1$ and $f_2(x) := a_2$. Then 
+        $$(\varphi \circ f_1)(x) = (\varphi \circ f_2)(x)$$
+        and hence $\varphi \circ f_1 = \varphi \circ f_2$. Since $\varphi$ is monomorphism, then $f_1 = f_2$. Therefore, $a_1 = a_2$.
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}{Epimorphism Proposition}\\
+Let $\mathcal{C}$ be one of the following categories: 1.$\mathcal{G}roup$, 2.$\mathcal{A}b\mathcal{G}roup$, 3.$\mathcal{V}ec_\mathbb{F}$. If $\varphi: G\to H$ is a epimorphism in $\mathcal{C}$, then $\varphi$, viewed as a map between sets, is surjective.
+\end{proposition}
+
+\begin{proof}
+    The case when $\mathcal{C} = \mathcal{A}b\mathcal{G}roup$ and $\mathcal{V}ec_\mathbb{F}$ are similarly as in the \textit{step 1} of monomorphism proposition. As for $\mathcal{C} = \mathcal{G}roup$, consider
+    $$H/ \varphi(G) := \{ h \varphi (G) \mid h \in H \}$$
+    Let $\{ * \}$ be a set of single element which is NOT an element in $H / \varphi(G)$. Set
+    $$Y:= \{ *\} \cup H/\varphi(G)$$
+    and denote by $Bij(Y)$ the group of bijections$: Y \to Y$. Consider $\alpha: H \to Bij(Y)$ given by
+    $$\alpha(h) (y) := \begin{cases}
+        (h \cdot k) \varphi (G) &, if \; y = k \varphi (G) \in H / \varphi (G)\\
+        * &,if\; y=*
+    \end{cases}$$
+    It's easy to show that $\alpha$ is a homomorphism. Let $\sigma \in Bij(Y)$ be the bijection that swaps $e\varphi (G) \in Y$ with $* \in Y$ and that keeps all other elements of $Y$ fixed, i.e.:
+    $$\sigma(y):= \begin{cases}
+        * &,if\;y=e\varphi(G)\\
+        e\varphi(G) &,if\; y=*\\
+        y &otherwise
+    \end{cases}$$
+    Define $\beta: H \to Bij(Y)$ by $\beta (h) := \sigma \circ \alpha(h) \circ \sigma^{-1}$.
+
+    \begin{itemize}
+        \item \textbf{Claim:} $\alpha \circ \varphi = \beta \circ \varphi: G \to Bij (Y)$
+        \item \begin{proof}
+            For any $g \in G$, $(\alpha \circ \varphi) (g) = \alpha (\varphi(g)) \in Bij(Y)$. Since $\alpha (\varphi(g))(*) := *$ and $\alpha (\varphi(g))(e\varphi(G)) := e \varphi(G)$, then by the def of $\sigma$, $\alpha(\varphi(g)) \neq \sigma \Leftrightarrow \alpha(\varphi(g))$ and $\sigma$ commute. Hence
+            $$\alpha(\varphi(g)) = \sigma^{-1} \circ (\sigma \circ \alpha (\varphi(g))) = \sigma^{-1} \circ \alpha( \varphi(g)) \circ \sigma := \beta (\varphi(g))$$
+            Therefore, $\alpha \circ \varphi= \beta \circ \varphi$
+        \end{proof}
+    \end{itemize}
+    Since $\varphi$ is an epimorphism, then $\alpha = \beta : H \to Bij(Y)$. For any $h \in H$, $\alpha(h) = \beta (h) := \sigma^{-1} \circ \alpha(h) \circ \sigma \Rightarrow \alpha(h)$ and $\sigma$ commute $\Leftrightarrow \alpha(h) (e \varphi(G)) = e\varphi(G)$. Hence, 
+    $$h \varphi(G) =e\varphi(G) \Rightarrow h \in \varphi(G) \Rightarrow H \subseteq \varphi(G) (\subseteq H) \Rightarrow \varphi (G)=H$$
+\end{proof}
+
+\noindent\textbf{Example:} Note that in the epimorphism proposition doesn't say anything about $\mathcal{R}ing$, so here's the counterexample:
+
+the inclusion map $i:\mathbb{Z} \to \mathbb{Q}$ is an epimorphism but $|\mathbb{Z}| < |\mathbb{Q}| \Leftrightarrow$ it can NOT be surjective.
+
+\section{Initial and Terminal Objects}
+
+\begin{definition}
+    Let $\mathcal{C}$ be a category.
+    \begin{itemize}
+        \item An object $X \in Ob(\mathcal{C})$ is said to be \textit{initial} if for any $Y \in Ob(\mathcal{C})$, there uniquely exists a morphism from $X$ to $Y$.
+        \item An object $X \in Ob(\mathcal{C})$ is said to be \textit{terminal} if for any $Y \in Ob(\mathcal{C})$, there uniquely exists a morphism from $Y$ to $X$.
+    \end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:} 
+\begin{itemize}
+    \item In $\mathcal{S}et$ and $\mathcal{T}op$, $\emptyset$ is intial and $\{*\}$ is terminal.
+    \item In $\mathcal{G}roup$ and $\mathcal{A}b\mathcal{G}roup$, $\{*\}$ is both initial and terminal.
+    \item The initial object of a category $\mathcal{C}$ is a terminal object of the opposite category $\mathcal{C}^{op}$.
+\end{itemize}
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category. If an initial object exists, then it is unique up to isomorphism. Same as terminal object.
+\end{proposition}
+
+\section{Functors}
+
+\subsection{Covariant Functors}
+
+\begin{definition}{Covariant Functors}\\
+Let $\mathcal{C}$ and $\mathcal{D}$ be two categories. A \textit{covariant functor} $F: \mathcal{C} \to \mathcal{D}$ consists of a map $F: Ob(\mathcal{C}) \to Ob(\mathcal{D})$ and $\forall X,Y \in Ob(\mathcal{C})$ of a map $F: Mor_\mathcal{C} (X,Y) \to Mor_\mathcal{D} (F(X), F(Y))$, satisfying the following axioms:
+\begin{itemize}
+    \item For any $X \in Ob(\mathcal{C})$, 
+    $$F(id_X) = id_{F(X)}$$
+    \item For any $\varphi \in Mor_\mathcal{C} (X,Y)$, $\psi \in Mor_\mathcal{C}(Y,Z)$
+    $$F(\psi \circ \varphi) = F(\psi) \circ F(\varphi) \in Mor_\mathcal{D} (F(X), F(Z))$$
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark} (\textit{Convention}): If the covariant functor $F$ is understood from the context, then given a morphisms $\varphi \in Mor_\mathcal{C} (X,Y)$, we often write $\varphi_*$ instead of $F(\varphi)$. Then the axioms become:
+$$(id_X)_* = id_{F(X)} \;\;\&\;\; (\psi \circ \varphi)_* = \psi_* \circ \varphi_*$$
+
+\begin{proposition}{Fixed Domain-Covariant Functor Proposition}\\
+Let $\mathcal{D}$ be a category, let $\mathcal{S}et$ be the category of sets and let $W \in Ob(\mathcal{D})$. The map $F: \mathcal{D} \to \mathcal{S}et$ given by the map
+$$\substack{Ob(\mathcal{D}) \; \to \; Ob(\mathcal{S}et)\\
+X \; \mapsto \; Mor_\mathcal{D} (W,X)}$$
+together with the map
+$$\substack{Mor_\mathcal{D} (X,Y) \; \to \; Mor_{\mathcal{S}et} (Mor_\mathcal{D} (W,X), Mor_\mathcal{D} (W,Y)) \\
+\varphi \; \mapsto \; \begin{pmatrix}
+    \substack{Mor_\mathcal{D} (W,X) \; \to\; Mor_\mathcal{D} (W,Y)\\
+    g \; \mapsto \; \varphi \circ g}
+\end{pmatrix} }$$
+is a covariant functor from the category $\mathcal{D}$ to the category $\mathcal{S}et$.
+\end{proposition}
+
+\subsection{Contravariant Functors}
+
+\begin{definition}{Contravariant Functors}\\
+Let $\mathcal{C}$ and $\mathcal{D}$ be two categories. A \textit{contravariant functor} $F: \mathcal{C} \to \mathcal{D}$ consists of a map $F: Ob(\mathcal{C}) \to Ob(\mathcal{D})$ and $\forall X,Y \in Ob(\mathcal{C})$ of a map $F: Mor_\mathcal{C}(X,Y) \to Mor_\mathcal{D} (F(Y) , F(X))$, satisfying the following axioms:
+\begin{itemize}
+    \item For any $X \in Ob(\mathcal{C})$,
+    $$F(id_X) = id_{F(X)}$$
+    \item For any $\varphi \in Mor_\mathcal{C} (X,Y)$, $\psi \in Mor_\mathcal{C}(Y,Z)$
+    $$F(\psi \circ \varphi) = F(\varphi) \circ F(\psi) \in Mor_\mathcal{D} (F(Z), F(X))$$
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark} (\textit{Convention}): If the contravariant functor $F$ is understood from the context, then given a morphisms $\varphi \in Mor_\mathcal{C} (X,Y)$, we often write $\varphi^*$ instead of $F(\varphi)$. Then the axioms become:
+$$(id_X)^* = id_{F(X)} \;\;\&\;\; (\psi \circ \varphi)^* = \varphi^* \circ \psi^* $$
+
+\begin{proposition}{Fixed Target-Contravariant Functor Proposition}\\
+Let $\mathcal{D}$ be a category, let $\mathcal{S}et$ be the category of sets and let $W \in Ob(\mathcal{D})$. The map $F: \mathcal{D} \to \mathcal{S}et$ given by the map
+$$\substack{Ob(\mathcal{D}) \; \to \; Ob(\mathcal{S}et)\\
+X \; \mapsto \; Mor_\mathcal{D} (X,W)}$$
+together with the map
+$$\substack{Mor_\mathcal{D} (X,Y) \; \to \; Mor_{\mathcal{S}et} (Mor_\mathcal{D} (Y,W), Mor_\mathcal{D} (X,W)) \\
+\varphi \; \mapsto \; \begin{pmatrix}
+    \substack{Mor_\mathcal{D} (Y,W) \; \to\; Mor_\mathcal{D} (X,W)\\
+    g \; \mapsto \; g \circ \varphi }
+\end{pmatrix} }$$
+is a contravariant functor from the category $\mathcal{D}$ to the category $\mathcal{S}et$.
+\end{proposition}
+
+\begin{proposition}{Functor-Opposite Category Proposition}\\
+Let $\mathcal{C}$ and $\mathcal{D}$ be categories. If 
+$$F: \substack{\mathcal{C} \;\to\; \mathcal{D}\\
+X \; \mapsto \; F(X)\\
+(X \overset{\varphi}{\to} Y) \; \mapsto \; (F(X) \overset{F(\varphi)}{\to} F(Y))}$$
+is a contravariant functor between two categories, then 
+$$F: \substack{\mathcal{C} \;\to\; \mathcal{D}^{op}\\
+X \; \mapsto \; F(X)\\
+(X \overset{\varphi}{\to} Y) \; \mapsto \; (F(Y) \overset{F(\varphi)}{\to} F(X))}$$
+is a covariant functor. The same statement also with the roles of "covariant" and "contravariant" swapped.
+\end{proposition}
+
+\begin{proposition}{Functor Composition Proposition}\\
+Let $\mathcal{C},\mathcal{D}$ and $\mathcal{E}$ be three categories.
+\begin{enumerate}
+    \item Let $F: \mathcal{C} \to \mathcal{D}$ and $G: \mathcal{D} \to  \mathcal{E}$ be covariant functors. The map
+    $$\substack{Ob(\mathcal{C}) \; \to \; Ob(\mathcal{E})\\
+    X \; \mapsto \; G(F(X))}$$
+    and the maps
+    $$\substack{Mor_\mathcal{C} (X,Y) \; \to \; Mor_\mathcal{E} (G(F(X)) , G(F(Y)))\\
+    \varphi \; \to \; G(F(\varphi))}$$
+    define a covariant functor from $\mathcal{C}$ to $\mathcal{E}$, denoted by $G \circ F$.
+
+    \item Let $F: \mathcal{C} \to \mathcal{D}$ and $G: \mathcal{D} \to  \mathcal{E}$ be contravariant functors. The map
+    $$\substack{Ob(\mathcal{C}) \; \to \; Ob(\mathcal{E})\\
+    X \; \mapsto \; G(F(X))}$$
+    and the maps
+    $$\substack{Mor_\mathcal{C} (X,Y) \; \to \; Mor_\mathcal{E} (G(F(X)) , G(F(Y)))\\
+    \varphi \; \to \; G(F(\varphi))}$$
+    define a covariant functor from $\mathcal{C}$ to $\mathcal{E}$, denoted by $G \circ F$.
+    \item Similarly, one can define the composition of a covariant functor with a contravariant functor and one obtains a contravariant functor.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proposition}
+    Every functor (regardless of whether it is covariant or contravariant) sends invertible morphisms to invertible morphisms.
+\end{proposition}
+
+\section{Natural Transformations}
+
+\begin{definition}
+    Let $\mathcal{C}$ and $\mathcal{D}$ be two categories and let $F,G: \mathcal{C} \to \mathcal{D}$ be two covariant functors.
+    \begin{itemize}
+        \item A \textit{natural transformation} between the functors $F$ and $G$ assigns to each $X \in Ob(\mathcal{C})$ a morphism $\Phi_X: F(X) \to G(X)$ in $\mathcal{D}$, s.t.: $\forall \mu \in Mor_\mathcal{C} (X,Y)$, the following diagram of morphisms in $\mathcal{D}$ commutes:
+        $$\begin{tikzcd}
+            F(X) & \xrightarrow[]{F(\mu)} & F(Y) \\
+            \downarrow \Phi_X && \downarrow \Phi_Y\\
+            G(X) & \xrightarrow[]{G(\mu)} & G(Y)
+        \end{tikzcd}$$
+        
+        \item If $\forall X \in Ob(\mathcal{C})$, the morphism $\Phi_X : F(X) \to G(X)$ is an isomorphism, then we refer to the natural transformation as a \textit{natural isomorphism}. In this case, given $X \in Ob(\mathcal{C})$, we often say that $F(X)$ and $G(X)$ are \textit{naturally isomorphic}.
+    \end{itemize}
+    The same way one can also define the notion of a natural transformation and a natural isomorphism between two contravariant functors.
+\end{definition}
+
+\noindent\textbf{Example:} 
+\begin{itemize}
+    \item Consider $\mathcal{V}ec_\mathbb{F}$. Given $V \in \mathcal{V}ec_\mathbb{F}$, we write
+    $$V^* := Hom_\mathbb{F} (V,\mathbb{F})$$
+    and given $f: V \to W$ where $W \in \mathcal{V}ec_\mathbb{F}$, we denote by $f^*: W^* \to V^*$ the induced map. We consider two covariant functors from $\mathcal{V}ec_\mathbb{F}$ to $\mathcal{V}ec_\mathbb{F}$:
+    $$id:\substack{V \; \mapsto \; V\\
+    (f: V \to W) \; \mapsto \; (f: V \to W)} , F: \substack{V \; \mapsto \; V^{**}\\
+    (f: V \to W) \; \mapsto \; ((f^{*})^{*} : V^{**} \to W^{**})}$$
+    For each $V$, we define $\Phi_V: V \to V^{**}$ by
+    $$\Phi_V : \substack{V \; \to \; V^{**}\\
+    \mathbf{v} \; \mapsto \; \begin{pmatrix}
+        \substack{V^* \; \to \; \mathbb{F}\\
+        (\varphi : V \to \mathbb{F}) \; \mapsto \; \varphi(\mathbf{v})}
+    \end{pmatrix}}$$
+    These maps $(\Phi_V)$ define a natural transformation from $id$ to $F$. Furthermore, if we restrict $\mathcal{V}ec_\mathbb{F}$ to $\mathcal{V}ec^{\dim < \infty}$, then the above $\Phi_V$'s show that any finite-dimensional $\mathbb{F}$-vector space $V$ is naturally isomorphic to its double dual $V^{**}$.
+
+    \item Let $\mathbb{F}$ be a field. Denote by $\mathcal{E}pi$ the following category:
+    \begin{itemize}
+        \item $Ob(\mathcal{E}pi)$ consists of all epimorphisms $\varphi: V \to W$ between two vector spaces over $\mathbb{F}$
+        \item $Mor_{\mathcal{E}pi} (\varphi : V \to W, \varphi': V' \to W')$ consists of all pairs of $\mathbb{F}$-linear maps $(\alpha: V \to V', \beta: W \to W')$ satisfying that the following diagram commutes:
+        $$\begin{tikzcd}
+            V &\xrightarrow[]{\varphi}& W\\
+            \downarrow \alpha && \downarrow \beta\\
+            V' &\xrightarrow[]{\varphi'}& W'
+        \end{tikzcd}$$
+        The composition of $(\alpha, \beta)$ and $(\alpha' ,\beta')$ is defined as $(\alpha, \beta) \circ (\alpha', \beta') := (\alpha' \circ \alpha , \beta' \circ \beta)$ provided $\alpha' \circ \alpha$ and $\beta' \circ \beta$ are defined.
+    \end{itemize}
+    The following maps define covariant functors from $\mathcal{E}pi$ to $\mathcal{V}ec_\mathbb{F}$:
+    $$F: \substack{\mathcal{E}pi \; \to \; \mathcal{V}ec_\mathbb{F}\\
+    (\varphi: V \to W) \; \mapsto \; V/\ker \varphi\\
+    (\alpha,\beta) \; \mapsto \; \begin{pmatrix}
+        \substack{V/\ker \varphi \; \to \; V'/\ker \varphi'\\
+        [\mathbf{v}] \; \mapsto \; [\alpha (\mathbf{v})]}
+    \end{pmatrix}} , G: \substack{\mathcal{E}pi \; \to \; \mathcal{V}ec_\mathbb{F}\\
+    (\varphi: V \to W) \; \mapsto \; W\\
+    (\alpha,\beta) \; \mapsto \; \beta}$$
+    It's easy to verify that the maps $\substack{V/\ker \varphi \; \to \; W\\
+    [\mathbf{v}] \; \mapsto \; \varphi(\mathbf{v})}$ are well-defined and form a natural isomorphism from $F$ to $G$.
+
+    \item Consider the covariant functors
+    $$F: \substack{\mathcal{R}ing \; \to \; \mathcal{R}ing\\
+    R \; \mapsto \; \mathbb{Z}\\
+    (f:R \to S) \; \mapsto \;(id_\mathbb{Z}:\mathbb{Z} \to \mathbb{Z})} , id: \substack{\mathcal{R}ing \; \to \; \mathcal{R}ing\\
+    R \; \mapsto \; R\\
+    (f: R \to S) \; \mapsto \; (f: R \to S)}$$
+    For each commutative unital ring $R$, consider the ring homomorphism:
+    $$\Phi_R: \substack{\mathbb{Z} \; \to \; R\\
+    n \; \mapsto \; n \cdot 1_R}$$
+    For unital ring homomorphism $f: R \to S$, i.e.: $f(1_R) = 1_S$, the following diagram commutes:
+    $$\begin{tikzcd}
+        F(R) = \mathbb{Z} & \xrightarrow[]{F_*(f) = id} &\mathbb{Z} = F(S)\\
+        \downarrow \Phi_R && \downarrow \Phi_S\\
+        id(R) = R & \xrightarrow[]{id_*(f) = f} &S= id(S)
+    \end{tikzcd}$$
+    Hence, $\Phi_R$'s define a natural transformation from $F$ to $id$. Therefore, given a commutative unital ring, we refer to this ring homomorphism $\mathbb{Z} \to R$ as the natural ring homomorphism.
+\end{itemize}
+
+\section{Equivalence of Categories}
+
+\begin{definition}
+    Let $\mathcal{C}$ and $\mathcal{D}$ be two categories.
+    \begin{itemize}
+        \item An \textit{equivalence} of the categories $\mathcal{C}$ and $\mathcal{D}$ is a tuple $(F,G,\mu,\nu)$ where $F: \mathcal{C} \to \mathcal{D}$ and $G: \mathcal{D} \to \mathcal{C}$ are two covariant functors and $\mu : G \circ F \to id_\mathcal{C}$ and $\nu: F \circ G \to id_\mathcal{D}$ are natural isomorphisms.
+
+        \item A \textit{weak equivalence} of the categories $\mathcal{C}$ and $\mathcal{D}$ is a covariant functor $F: \mathcal{C} \to \mathcal{D}$ that admits a covariant functor $G: \mathcal{D} \to \mathcal{C}$ and two natural isomorphisms $\mu: G \circ F \to id_\mathcal{C}$ and $\nu: F \circ G \to id_\mathcal{D}$, s.t.: $(F,G,\mu,\nu)$ is an equivalence of categories.
+
+        \item We say that $\mathcal{C}$ and $\mathcal{D}$ are \textit{equivalent categories} if there exists an equivalence of categories $\mathcal{C}$ and $\mathcal{D}$.
+    \end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark:} Given a weak equivalence $F$ of $\mathcal{C}$ and $\mathcal{D}$, the corresponding $G,\mu,\nu$ may NOT be uniquely defined.
+
+\begin{proposition}{Weak Equivalence of Categories Proposition}\\
+Let $\mathcal{C}$ and $\mathcal{D}$ be two categories and let $F: \mathcal{C} \to \mathcal{D}$ be a covariant functor. The following statements are equivalent:
+\begin{itemize}
+    \item $F: \mathcal{C} \to \mathcal{D}$ is a weak equivalence of categories $\mathcal{C}$ and $\mathcal{D}$.
+    \item The following three statements hold:
+    \begin{itemize}
+        \item $F$ is \textit{full}, i.e.: $\forall C_1,C_2 \in Ob(\mathcal{C})$, the map $Mor_\mathcal{C} (C_1,C_2) \to Mor_\mathcal{D} (F(C_1) ,F(C_2))$ is surjective.
+        \item $F$ is \textit{faithful}, i.e.: $\forall C_1,C_2 \in Ob(\mathcal{C})$, the map $Mor_\mathcal{C} (C_1,C_2) \to Mor_\mathcal{D} (F(C_1) ,F(C_2))$ is injective.
+        \item $F$ is \textit{essentially surjective} (or \textit{dense}), i.e.: each $D \in \mathcal{
+        D
+        }$ is isomorphic to an object of the form $F(C)$ for some object $C \in Ob(\mathcal{C})$.
+    \end{itemize}
+\end{itemize}
+\end{proposition}
+
+\section{Product and Coproduct}
+
+\begin{definition}{Product}\\
+Let $\mathcal{C}$ be a category and let $\{ X_i \}_{i \in I}$ be a family of objects in $\mathcal{C}$. A \textit{product} of $\{ X_i \}_{i \in I}$ in the category $\mathcal{C}$ is an object $P \in Ob(\mathcal{C})$ together with a family of morphisms $\{ p_i: P \to X_i \}_{i \in I}$, s.t.: the following universal property is satisfied:
+\noindent given an object $Z \in Ob(\mathcal{C})$ and a family of morphisms $\{ f_i: Z \to X_i\}_{i \in I}$, there exists a unique morphism $\Phi: Z \to P$, s.t.: $\forall i \in I$, $f_i = p_i \circ \Phi$, i.e.: the following diagral commutes:
+$$\begin{tikzcd}[row sep=large, column sep=large]
+    Z \arrow[r, dashed, "\exists! \Phi"] \arrow[dr, "f_i"'] & P \arrow[d, "p_i"] \\
+    & X_i
+\end{tikzcd}$$
+\end{definition}
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category and let $\{ X_i\}_{i \in I}$ be a family of objects in $\mathcal{C}$. If we have products $(P, \{ p_i: P \to X_i\}_{i \in I})$ and $(P', \{ p_i': P' \to X_i\}_{i \in I})$, then there exist unique isomorphisms $\Phi: P' \to P$ and $\Phi': P \to P'$ which are inverses of one another and such that $\forall i \in I$, the following diagram commutes:
+
+    $$\begin{tikzcd}[row sep=large, column sep=large]
+        P' \arrow[r, shift left=0.7ex, "\Phi"] \arrow[dr, "p_i'"'] & P \arrow[l, shift left=0.7ex, "\Phi'"] & \arrow[dl, "p_i"] \\
+        & X_i
+    \end{tikzcd}$$
+\end{proposition}
+
+\noindent\textbf{Remark} (\textit{Notation}): Let $\mathcal{C}$ be a category and let $\{ X_i\}_{i \in I}$ be a family of objects in $\mathcal{C}$ such that a product exists.
+\begin{itemize}
+    \item We usually denote the product by $\Pi_{i \in I} X_i$ and we refer to the morphisms $\Pi_{i \in I} X_i \to X_i$ as \textit{natural projections}. Furthermore, given morphisms $f_i :Z \to X_i$, we denote the corresponding morphism $Z \to \Pi_{i \in I}X_i$ by $\Pi_{i\in I}f_i$.
+
+    \item If $I=\{1,\cdots,k\}$, then we often denote the product by $X_1 \times \cdots \times X_k$. Furthermore, given morphisms $f_i: Z \to X_i$, $i= 1,\cdots,k$, we denote the corresponding morphism $Z \to X_1 \times \cdots \times X_k$ by $(f_1 ,\cdots, f_k)$.
+\end{itemize}
+
+\begin{proposition}{Product-of-Sets-and-Groups Proposition}\\
+\begin{enumerate}
+    \item Let $\mathcal{S}et$ be the category of sets and let $\{ X_i\}_{i \in I}$ be a family of sets. The product in $\mathcal{S}et$ is precisely the product:
+    $$\Pi_{i \in I} X_i:= \{f: I\to \bigcup_{i \in I} X_i \mid f(i) \in X_i, \forall i \in I \}$$
+    together with maps $\{ f \mapsto f(i) \}_{i\in I}$.
+    \item Let $\mathcal{G}roup$ be the category of groups and let $\{ X_i\}_{i \in I}$ be a family of groups. If $I \neq \emptyset$, then the product in $\mathcal{S}et$ is precisely the product:
+    $$\Pi_{i \in I} X_i:= \{f: I\to \bigcup_{i \in I} X_i \mid f(i) \in X_i, \forall i \in I \}$$
+    together with group homomorphisms $\{ f \mapsto f(i) \}_{i\in I}$.
+    \item The same approach as in 2 also applies to $\mathcal{A}b\mathcal{G}roup$ and $\mathcal{V}ec_\mathbb{F}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $Z \in Ob(\mathcal{S}et)$ and let $\{f_i: Z \to X_i\}_{i \in I}$ be a family of maps between sets. Define 
+        $$\Phi: \substack{Z \;\to\; \Pi_{i \in I} X_i\\
+        z \;\mapsto\; \begin{pmatrix}
+            \substack{I \;\to\; \bigcup_{i \in I}X_i\\
+            i\;\mapsto\; f_i(z)}
+        \end{pmatrix} }$$
+        Then it follows immediately from the def that $\forall i \in I$, $f_i = p_i \circ\Phi$. For the uniqueness of $\Phi$, let $\Psi: Z \to \Pi_{i \in I}X_i$ be a continuous map, s.t.: $\forall i \in I$, $f_i = p_i \circ \Psi$. Then for any $z \in Z$, any $i \in I$,
+        $$\Phi(z) (i) = p_i (\Phi(z)) = f_i(z) =  p_i (\Psi(z))$$
+    \end{enumerate}
+\end{proof}
+
+\noindent\textbf{Example:} Let $(P,\leq)$ be a partially ordered set. Consider the corresponding order category $\mathcal{O}rder_{(P,\leq)}$. Given a family $\{X_i\}_{i \in I}$ of objects in $\mathcal{O}rder_{(P,\leq)}$, i.e.: given a family $\{X_i\}_{i \in I}$ of elements of $P$, one can show that 
+$$\Pi_{i \in I} X_i := \begin{cases}
+    \inf (\{X_i\}_{i \in I}) \\
+    \emptyset &,if \;no\; such\; infimum\; exist
+\end{cases}$$
+is the product.
+
+\begin{definition}{Coproducts}\\
+Let $\mathcal{C}$ be a category and let $\{ X_i\}_{i \in I}$ be a family of objects in $\mathcal{C}$. A \textit{coproduct} of $\{ X_i \}_{i \in I}$ in the category $\mathcal{C}$ is an object  $C \in Ob(\mathcal{C})$ together with a family of morphisms $\{ \iota_i: X_i \to C\} _{i \in I}$ satisfying the following property:
+\noindent given an object $Z \in Ob(\mathcal{C})$ and a family of morphisms $\{ f_i : X_i \to Z\}_{i \in I}$, there exists a unique morphism $\Phi: C \to Z$, s.t.: $f_i= \Phi \circ \iota_i$ for any $i$, s.t.: the following diagram commutes:
+$$
+\begin{tikzcd}[row sep=large, column sep=large]
+    X_i \arrow[d, "\iota_i"'] \arrow[dr, "f_i"]\\
+    C \arrow[r, dashed, "\exists ! \Phi"'] &Z
+\end{tikzcd}
+$$
+\end{definition}
+
+\noindent\textbf{Remark:} Note that by def, coproducts in $\mathcal{C}$ are products in the opposite category $\mathcal{C}^{op}$.
+
+\begin{proposition}
+    Let $\mathcal{C}$ be a category and let $\{ X_i \}_{i \in I}$ be a family of objects in $\mathcal{C}$. Given two coproducts $(C,\{ \iota_i: X_i \to C\}_{i \in I})$ and $(C',\{ \iota_i': X_i \to C'\}_{i \in I})$, there exist unique isomorphisms $\Phi: C \to C'$ and $\Phi': C' \to C$ which are inverses of one another and such that $\forall i \in I$, the following digram commutes:
+    $$\begin{tikzcd}[row sep=large, column sep=large]
+        & X_i \arrow[dl, "\iota_i"'] \arrow[d, "\iota_i'"]\\
+        C \arrow[r, shift left=0.7ex, "\Phi"] &  C' \arrow[l, shift left=0.7ex, "\Phi'"] 
+    \end{tikzcd}$$
+\end{proposition}
+
+\noindent\textbf{Remark} (\textit{Notation}): Let $\mathcal{C}$ be a category and let $\{X_i\}_{i \in I}$ be a family of objects in $\mathcal{C}$, s.t.: a coproduct exists. Often we denote the coproduct by
+$$\bigsqcup_{i \in I} X_i$$
+and we refer to the morphisms $X_i \to \bigsqcup_{i \in I} X_i$ as \textit{natural injections}.
+
+\begin{proposition}{Coproduct-of-Sets-and-Abelian Groups Proposition}\\
+\begin{enumerate}
+    \item Let $\mathcal{S}et$ be the category of sets and let $\{X_i\}_{i \in I}$ be a family of sets. The coproduct in $\mathcal{S}et$ is the disjoint union
+    $$\bigsqcup_{i \in I} X_i := \bigcup_{i \in I} (X_i \times \{i\})$$
+    together with the natural injection of $X_i$.
+
+    \item Let $\mathcal{A}b\mathcal{G}roup$ be the category of abelian groups and let $\{X_i\}_{i \in I}$ be a family of groups. The coproduct in $\mathcal{A}b\mathcal{G}roup$ is given by 
+    $$\bigsqcup_{i \in I}X_i = \bigoplus_{i \in I} X_i:= \{ (g_i)_{i \in I} \in \Pi_{i \in I} X_i \mid all\;but\; finitely\; many\; g_i\; are\;trivial\}$$
+    with the homomorphisms 
+    $$\substack{X_i \; \to \; \bigoplus_{i \in I} X_i\\
+    x \;\mapsto\; \begin{pmatrix}
+        \substack{I \;\to\; \bigcup_{i \in I}X_i\\
+        j\;\mapsto\; \begin{cases}
+            x_i &,if\;i=j\\
+            e_{X_j} &,if\;i\neq j
+        \end{cases} }
+    \end{pmatrix} }$$
+
+    \item The same approach as in 2 also applies to $\mathcal{V}ec_\mathbb{F}$.
+\end{enumerate}
+\end{proposition}
+
+\section{Limits and Colimits}
+
+\begin{definition}{Diagram}\\
+Let $(P,\leq)$ be a partially ordered set and let $\mathcal{C}$ be a category. A \textit{diagram} in $\mathcal{C}$ over $(P,\leq)$ is a covariant functor from $\mathcal{O}rder_{(P,\leq)}$ to $\mathcal{C}$.
+\end{definition}
+
+\begin{definition}{Limits}\\
+Let $(P,\leq)$ be a partially ordered set, let $\mathcal{C}$ be a category and let $F$ be a diagram in $\mathcal{C}$ over $(P,\leq)$. A \textit{limit} of $F$ consists of an object $L \in Ob(\mathcal{C})$ together with morphisms $f_x : L \to F(x), \;\forall x \in P$ satisfying the following two conditions:
+\begin{itemize}
+    \item $\forall x\leq y$, $f_y = F(x \to y) \circ f_x: L \to F(y)$.
+    \item The following universal property holds: if $Z \in Ob(\mathcal{C})$ and if we are given morphisms $g_x: Z \to F(x), \;\forall x \in P$, s.t.: 1 is satisfied, then $\exists !$ morphism $\Phi: Z \to L$, s.t.: $g_x = f_x \circ \Phi \;\;\forall x \in P$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}{Uniqueness of Limit}\\
+Let $(P,\leq)$ be a partially ordered set, let $\mathcal{C}$ be a category and let $F$ be a diagram in $\mathcal{C}$ over $(P,\leq)$. Suppose that we're given two limits $(L, \{f_x: L \to F(x)\}_{x\in P})$ and $(L', \{f_x': L' \to F(x)\}_{x\in P})$. Then there exist uniquely determined isomorphisms $\Phi:L' \to L$ and $\Phi': L \to L'$ which are inverses of one another and such that $\forall x \in P$, the following diagram commutes:
+$$\begin{tikzcd}[row sep=large, column sep=large]
+    L' \arrow[r, shift left=0.7ex, "\Phi"] \arrow[dr, "f_x'"'] & L \arrow[l, shift left=0.7ex, "\Phi'"] & \arrow[dl, "f_x"] \\
+    & F(x)
+\end{tikzcd}$$
+\end{proposition}
+
+\noindent\textbf{Remark} (\textit{Notation}): If a limit exists, then often we denote it by $\lim F$.
+
+\begin{definition}{Pullback}\\
+Cosider $P= \{0,x,y\}$ with the partial order $\leq$ that is given by the trivial relations $0\leq 0, x\leq x, y\leq y$ and the nontrivial relations $x \leq 0, y\leq 0$. If $(P,\leq)$ gives rise to the digram:
+$$\begin{tikzcd}
+    &x \arrow[d]\\
+    y \arrow[r] &0
+\end{tikzcd} \Rightarrow
+\begin{tikzcd}
+    &X \arrow[d, "\varphi_X"]\\
+    Y \arrow[r, "\varphi_Y"] &A
+\end{tikzcd}$$
+then the corresponding limit is called a \textit{pullback}:
+$$\begin{tikzcd}
+    {pullback}\;L \arrow[r, "f_X"] \arrow[d, "f_Y"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &X \arrow[d, "\varphi_X"] \\
+    Y \arrow[r, "\varphi_Y"] &A
+\end{tikzcd}$$
+Here the symbol "$\lrcorner$" indicates that $L$ is the pullback of the "$\lrcorner$-shaped" diagram.
+\end{definition}
+
+\noindent\textbf{Example:} In $\mathcal{G}roup$,
+$$\begin{tikzcd}
+    &G \arrow[d, "\varphi"]\\
+    \{e\} \arrow[r] &H
+\end{tikzcd} \Rightarrow \begin{tikzcd}
+    \ker \varphi \arrow[r] \arrow[d] \arrow[dr, phantom, "\lrcorner", pos=0.15] &G \arrow[d, "\varphi"]\\
+    \{e\} \arrow[r] &H
+\end{tikzcd}$$
+
+\begin{proposition}{Pullback Proposition}\\
+Let $\mathcal{C}$ be a category.
+\begin{enumerate}
+    \item Suppose that $\mathcal{C}$ admits a terminal object $*$. Then the pullback of the diagram:
+    $$\begin{tikzcd}
+        X\times Y \arrow[r, "p_X"] \arrow[d, "p_Y"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &X \arrow[d, "\varphi_X"]\\
+        Y \arrow[r, "\varphi_Y"] &*
+    \end{tikzcd}$$
+    is given by the product $X \times Y$.
+
+    \item Let 
+    $$\begin{tikzcd}
+        L \arrow[r, "f_X"] \arrow[d, "f_Y"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &X \arrow[d, "\varphi_X"]\\
+        Y \arrow[r, "\varphi_Y"] &A
+    \end{tikzcd}$$
+    be a pullback.
+    \begin{enumerate}
+        \item If $\varphi_X$ is an isomorphism, then so is the "opposite" morphism $f_Y$.
+        \item If $\varphi_X$ is a monomorphism, then so is the "opposite" morphism $f_Y$.
+    \end{enumerate}
+
+    \item Given pullbacks
+    $$\begin{tikzcd}
+        L \arrow[r, "f_X"] \arrow[d, "f_Y"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &X \arrow[d, "\varphi_X"]\\
+        Y \arrow[r, "\varphi_Y"] &A
+    \end{tikzcd} \;\;and\;\; \begin{tikzcd}
+        X \arrow[r, "\theta"] \arrow[d, "\varphi_X"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &Z \arrow[d, "\psi_Z"]\\
+        A \arrow[r, "\psi_A"] &B
+    \end{tikzcd}$$
+    the "composition"
+    $$\begin{tikzcd}
+        L \arrow[r, "\theta \circ f_X"] \arrow[d, "f_Y"'] \arrow[dr, phantom, "\lrcorner", pos=0.15] &Z \arrow[d, "\psi_Z"]\\
+        Y \arrow[r, "\psi_A \circ \varphi_Y"] &B
+    \end{tikzcd}$$
+    is also a pullback.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $(b)$ Let $\alpha: Z \to L$ and $\beta: Z \to L$ be two morphisms such that $f_Y \circ \alpha = f_Y \circ \beta$. Hence,
+        $$\varphi_X \circ f_X \circ \alpha = \varphi_Y \circ f_Y \circ \alpha = \varphi_Y \circ f_Y \circ \beta = \varphi_X \circ f_X \circ \beta$$
+        Since $\varphi_X$ is monomorphism, then $f_X \circ \alpha = f_X \circ \beta$. By the universal property of limit, $\exists ! \Phi: Z \to L$, s.t.:
+        $f_Y \circ \Phi = f_Y \circ \alpha = f_Y \circ \beta$
+        and s.t.: $f_X \circ \Phi = f_X \circ \alpha = f_X \circ \beta$
+        Hence, $\Phi = \alpha = \beta$.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Colimits}\\
+Let $(P,\leq)$ be a partially ordered set, let $\mathcal{C}$ be a category and let $F$ be a diagram in $\mathcal{C}$ over $(P,\leq)$. A \textit{colimit} of $F$ consists of an object $C \in Ob(\mathcal{C})$ together with morphisms $f_x :  F(x) \to C, \;\forall x \in P$ satisfying the following two conditions:
+\begin{itemize}
+    \item $\forall x\leq y$, $f_x = f_y \circ F(x \to y):  F(x) \to C$.
+    \item The following universal property holds: if $Z \in Ob(\mathcal{C})$ and if we are given morphisms $g_x: F(x) \to Z, \;\forall x \in P$, s.t.: 1 is satisfied, then $\exists !$ morphism $\Phi: C \to Z$, s.t.: $g_x = f_x \circ \Phi \circ f_x  \;\;\forall x \in P$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}{Uniqueness of Colimit}\\
+Let $(P,\leq)$ be a partially ordered set, let $\mathcal{C}$ be a category and let $F$ be a diagram in $\mathcal{C}$ over $(P,\leq)$. Suppose that we're given two colimits $(C, \{f_x: C \to F(x)\}_{x\in P})$ and $(C', \{f_x': C' \to F(x)\}_{x\in P})$. Then there exist uniquely determined isomorphisms $\Phi:C \to C'$ and $\Phi': C' \to C$ which are inverses of one another and such that $\forall x \in P$, the following diagram commutes:
+$$\begin{tikzcd}[row sep=large, column sep=large]
+    F(x) \arrow[d, "f_x"'] \arrow[dr, "f_x'"]\\
+    C \arrow[r, shift left=0.7ex, "\Phi"] &C' \arrow[l, shift left=0.7ex, "\Phi'"]
+\end{tikzcd}$$
+\end{proposition}
+
+\noindent\textbf{Remark:} If a colimit exists, then often we denote it by colim $F$.
+
+\begin{definition}{Pushout}\\
+Cosider $P= \{0,x,y\}$ with the partial order $\leq$ that is given by the trivial relations $0\leq 0, x\leq x, y\leq y$ and the nontrivial relations $0 \leq x, 0\leq y$. If $(P,\leq)$ gives rise to the digram:
+$$\begin{tikzcd}
+    0 \arrow[r] \arrow[d] &x\\
+    y
+\end{tikzcd} \Rightarrow \begin{tikzcd}
+    A \arrow[r, "\varphi_X"] \arrow[d, "\varphi_Y"'] &X\\
+    Y
+\end{tikzcd}$$
+then the corresponding colimt is called a \textit{pushout}:
+$$\begin{tikzcd}
+    A \arrow[r, "\varphi_X"] \arrow[d, "\varphi_Y"'] &X \arrow[d, "f_X"] \\
+    Y \arrow[r, "f_Y"'] &pushout \; C \arrow[ul, phantom, "\ulcorner", pos=0.1]
+\end{tikzcd}$$
+Here the symbol "$\ulcorner$" indicates that $C$ is the pushout of the "$\ulcorner$-shaped" diagram.
+\end{definition}
+
+\noindent\textbf{Example:} Let $G$ be a group and let $A \triangleleft G$ be a normal group of $G$. Consider the following pushout diagram in $\mathcal{G}roup$:
+$$\begin{tikzcd}
+    A \arrow[r] \arrow[d, hook] &\{e\}\\
+    G
+\end{tikzcd} \Rightarrow \begin{tikzcd}
+    A \arrow[r] \arrow[d, hook] &\{e\} \arrow[d] \\
+    G \arrow[r] &G/A \arrow[ul, phantom, "\ulcorner", pos=0.15]
+\end{tikzcd}$$
+
+\begin{proposition}{Pushout Proposition}\\
+Let $\mathcal{C}$ be a category.
+\begin{enumerate}
+    \item Suppose that $\mathcal{C}$ admits a initial object $*$. Then the pushout of the diagram:
+    $$\begin{tikzcd}
+        *\arrow[r, "\varphi_X"] \arrow[d, "\varphi_Y"'] &X \arrow[d, "\iota_X"]\\
+        Y \arrow[r, "\iota_Y"] &X \sqcup Y \arrow[ul, phantom, "\ulcorner", pos=0.15] 
+    \end{tikzcd}$$
+    is given by the coproduct $X \sqcup Y$.
+
+    \item Let 
+    $$\begin{tikzcd}
+        A \arrow[r, "\varphi_X"] \arrow[d, "\varphi_Y"']  &X \arrow[d, "f_X"]\\
+        Y \arrow[r, "f_Y"] &C \arrow[ul, phantom, "\ulcorner", pos=0.15]
+    \end{tikzcd}$$
+    be a pushout.
+    \begin{enumerate}
+        \item If $\varphi_X$ is an isomorphism, then so is the "opposite" morphism $f_Y$.
+        \item If $\varphi_X$ is a monomorphism, then so is the "opposite" morphism $f_Y$.
+    \end{enumerate}
+
+    \item Given pushouts
+    $$\begin{tikzcd}
+         A \arrow[r, "\varphi_X"] \arrow[d, "\varphi_Y"']  &X \arrow[d, "f_X"]\\
+        Y \arrow[r, "f_Y"] &C \arrow[ul, phantom, "\ulcorner", pos=0.15]
+    \end{tikzcd} \;\;and\;\; \begin{tikzcd}
+        X \arrow[r, "\theta"] \arrow[d, "f_X"'] &Z \arrow[d, "g_Z"]\\
+        L \arrow[r, "g_L"] &W \arrow[ul, phantom, "\ulcorner", pos=0.15]
+    \end{tikzcd}$$
+    the "composition"
+    $$\begin{tikzcd}
+        A \arrow[r, "\theta \circ \varphi_X"] \arrow[d, "\varphi_Y"'] &Z \arrow[d, "g_Z"]\\
+        Y \arrow[r, "g_L \circ f_Y"'] &W \arrow[ul, phantom, "\ulcorner", pos=0.15]
+    \end{tikzcd}$$
+    is also a pushout.
+\end{enumerate}
+\end{proposition}

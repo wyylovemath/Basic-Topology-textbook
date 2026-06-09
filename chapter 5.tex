@@ -1,5 +1,7 @@
 \chapter{Homotopy}
 
+\section{Basic Concepts for Homotopy}
+
 \noindent\textbf{General Idea:} To understand a space $X$, we can study continuous maps $f: A \rightarrow X$ or $g: X\rightarrow B$. For example, $A = [0,1] \leftrightarrow$ path-connected; $A = \mathbb{S}^1 \leftrightarrow$ loops.
 
 \begin{definition}{Homotopy}\\
@@ -37,6 +39,318 @@ $$[f] := \{ g: X \rightarrow Y \mid g \simeq f \}.$$
 
 \noindent\textbf{Example:} If $Y = \mathbb{R}^2$, then $[f] = \mathcal{C}(X \rightarrow \mathbb{R}^2)$.
 
-\begin{definition}{Homotopic Equivalence}
-Anyway a tempt for learning github.
+\begin{proposition}
+    Consider four continuous maps
+    $$W \overset{f}{\rightarrow}X, X \overset{g}{\rightarrow}Y, X \overset{h}{\rightarrow}Y, Y \overset{k}{\rightarrow}Z.$$
+    If $g \simeq h$, then
+    $$g \circ f \simeq h \circ f\;\;\;\&\;\;\; k \circ g \simeq k \circ h.$$
+\end{proposition}
+
+\begin{proof}
+    Let $H : X \times [0,1] \rightarrow Y$ be a homotopy between $g$ and $h$. Then
+    \begin{itemize}
+        \item $(H \circ id_{[0,1]}) : W \times [0,1] \rightarrow Y$ gives a homotopy between $g \circ f $ and $ h \circ f$;
+        \item $k \circ H : X \times [0,1] \rightarrow Z$ gives a homotopy between $k \circ g $ and $ k \circ h$.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Homotopy Equivalence}\\
+Two topological spaces $X$ and $Y$ are homotopy equivalent if there exist two continuous maps $f : X \rightarrow Y$ and $g : Y \rightarrow X$, s.t.:
+\begin{align*}
+    &g \circ f \simeq id_X\\
+    &f \circ g \simeq id_Y
+\end{align*}
+denoted by $X \simeq Y$.
 \end{definition}
+
+\begin{proposition}
+    Let $X$ and $Y$ be topological spaces. Then
+    \begin{enumerate}
+        \item if $X \cong Y$, then $X \simeq Y$;
+        \item the homotopy equivalence $X \simeq Y$ gives a bijetion between $\{ h: W \rightarrow X \mid h\;\;cont\}$ and $\{ k: W \rightarrow Y \mid k\;\;cont\}$, for any topological space $W$;
+        \item the homotopy equivalence $X \simeq Y$ forms an equivalence relation between topological spaces.
+    \end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+    \begin{enumerate}
+        \item If $X \cong Y$, then $g \circ f = id_X \simeq id_X$ and $f \circ g = id_Y \simeq id_Y$. Hence, $X \simeq Y$.
+        \item Construct $\alpha : \{ h: W \rightarrow X \mid h\;\;cont\}/\sim \rightarrow \{k: W \rightarrow Y \mid k\;\;cont\}/\sim$ by $\alpha ([h]) := [f\circ h]$ and $\beta : \{k: W \rightarrow Y \mid k\;\;cont\}/\sim \rightarrow \{ h: W \rightarrow X \mid h\;\;cont\}/\sim$ by $\beta([k]) := [g \circ k]$.
+
+        \textbf{Check:} $\alpha$ and $\beta$ are well-defined.
+        \begin{itemize}
+            \item If $h_1 \sim h_2$, then there exists a homotopy $H : W \times [0,1] \rightarrow X$. Then by proposition 6.4, $f \circ H$ gives a homotopy between $f \circ h_1$ and $f \circ h_2$. Hence, 
+            $$f \circ h_1 \simeq f \circ h_2 \Rightarrow \alpha ([h_1]) = \alpha([h_2]).$$
+            Therefore, $\alpha$ is well-defined.
+            \item Similarly for the well-defined-ness of $\beta$.
+        \end{itemize}
+        Then:
+        \begin{itemize}
+            \item for any $k \in \{k: W \rightarrow Y \mid k\;\;cont\}$, we have
+            $$(\alpha \circ \beta) ([k]) := [f \circ g \circ k] = [id_{Y} \circ k] = [k]$$
+            i.e.: $\alpha \circ \beta = id$;
+            \item similarly for $\beta \circ \alpha = id$.
+        \end{itemize}
+        Hence, $\{ h: W \rightarrow X \mid h\;\;cont\}$ and $\{ k: W \rightarrow Y \mid k\;\;cont\}$ have one-to-one correspondence.
+        \item \begin{itemize}
+            \item It's easy to check reflexivity and symmetry.
+            \item If $X \simeq Y,Y\simeq Z$, then there exist cont maps
+            \begin{align*}
+                &X \overset{f}{\rightarrow}Y, Y \overset{g}{\rightarrow}X\\
+                &Y \overset{h}{\rightarrow}Z,Z \overset{k}{\rightarrow}Y
+            \end{align*}
+            s.t.:
+            \begin{align*}
+                &f \circ g \simeq id_Y, g\circ f \simeq id_X\\
+                &h \circ k \simeq id_Z, k\circ h \simeq id_Y.
+            \end{align*}
+            Then $(h \circ f) : X \rightarrow Z$ and $(g \circ k) : Z \rightarrow X$ satisfy that
+            \begin{itemize}
+                \item \begin{align*}
+                    (h \circ f) \circ (g \circ k) &= h \circ (f \circ g) \circ k\\
+                    &\simeq h \circ id_Y \circ k\\
+                    &= h\circ k\\
+                    &\simeq id_Z
+                \end{align*}
+                \item \begin{align*}
+                    (g \circ k) \circ (h \circ f) &= g \circ (k \circ h) \circ f\\
+                    &\simeq g \circ id_Y \circ f\\
+                    &= g\circ f\\
+                    &\simeq id_X.
+                \end{align*}
+            \end{itemize}
+            Therefore, $X \simeq Z$.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Contractible}\\
+A topological space $X$ is called contractible if for any single point $*$, $X \simeq \{ * \}$.
+
+In other words, there exist continuous maps $f,g$, s.t.:
+\begin{align*}
+    &\{ * \} \overset{f}{\rightarrow} X \overset{g}{\rightarrow} \{*\}, g \circ f \simeq id_{\{*\}}\\
+    &X \overset{g}{\rightarrow} \{*\} \overset{f}{\rightarrow} X, f \circ g \simeq id_{X}.
+\end{align*}
+\end{definition}
+
+\begin{proposition}
+    The def of $X$ being contractible can be simplified by:
+    \begin{enumerate}
+        \item $X$ is contractible if there exists $\{ * \}$, s.t.: $X \simeq \{ *\}$; or,
+        \item $X$ is contractible if $id_X \simeq$ some constant map.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item By proposition 6.6.3, it suffices to show that $\{ c_1 \} \simeq \{ c_2 \}$ for all single points $c_1,c_2$, which is easy to show.
+        \item \begin{itemize}
+            \item $g \circ f: \{ *\} \rightarrow \{*\}$ must be a identity map.
+            \item For any $x \in X$, 
+            $$x \overset{g}{\longmapsto} * \overset{f}{\longmapsto} y$$
+            for the same $y \in X$. Hence, if we define $c_y : X \rightarrow Y$ by $c_y (x) := y$ for any $x \in X$, then
+            $$c_y = f \circ g \simeq id_X.$$
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    $X = \mathbb{R}^2$ is contractible.
+\end{proposition}
+
+\begin{proof}
+    By proposition 6.8.2, it suffices to show that $id_X \simeq c_{(0,0)}$. Consider $H : \mathbb{R}^2 \times [0,1] \rightarrow \mathbb{R}^2$ be given by
+    $$H ( \mathbf{x}, t) := t\cdot id_X = t \cdot \mathbf{x}.$$
+    Then
+    \begin{align*}
+        &H(\mathbf{x},0) := (0,0) = c_{(0,0)} (\mathbf{x})\\
+        &H(\mathbf{x},1) := id_X (\mathbf{x}).
+    \end{align*}
+    Therefore, $c_{(0,0)} \simeq id_X$.
+\end{proof}
+
+\begin{corollary}
+    Any convex subset of $\mathbb{R}^2$ is contractible.
+\end{corollary}
+
+\noindent\textbf{Example:} $\mathbb{S}^1$ is NOT contractible.
+
+\begin{definition}{Homotopy Retract}\\
+Let $X$ be a topological space and $A \subseteq X$. Let $i : A \rightarrow X$ be an inclusion. We say $A$ is a homotopy retract of $X$ if there exists a continuous map $r : X \rightarrow A$, s.t.:
+\begin{align*}
+    &r \circ i : A \overset{i}{\rightarrow} X \overset{r}{\rightarrow} A = id_A\\
+    &i \circ r : X \overset{r}{\rightarrow} A \overset{i}{\rightarrow} X \simeq id_X.
+\end{align*}
+Moreover, we call $r$ here a retraction.
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item The 1-sphere $\mathbb{S}^1 = [0,1]/\sim$ is a homotopy retract of Mobius band $M = [0,1]^2/\sim$.
+
+    Consider the inclusion $i:A \rightarrow M$ and the retraction $r:X\rightarrow A$ ve given by
+    \begin{align*}
+        &i([x]):= [(x,\frac{1}{2})]\\
+        &r([x,y]) := [x].
+    \end{align*}
+    Then we have $r \circ i = id_{\mathbb{S}^1}$ and $(i \circ r) ([(x,y)]) = [(x,\frac{1}{2})]$. Construct a cont map $H : M \times [0,1] \rightarrow M$ by
+    $$H([(x,y)] , t) := [(x, (1-t)y + \frac{t}{2})].$$
+    \textbf{Check:} $H$ is well-defined.
+    \begin{itemize}
+        \item The equivalence relation on $M$ is defined by
+        $$(x,y) \sim (x',y') \Leftrightarrow \begin{cases}
+            x=x',y=y'&if\;\;x,x'\in (0,1)\\
+            \{x,x'\} = \{0,1 \}, y' = 1-y&if \;\; x,x' \in \{0,1\}
+        \end{cases}.$$
+        Hence, it suffices to show that
+        $$H ([(0,y)],t) = H ([(1,1-y)],t) \;\;\forall y\in [0,1],$$
+        which holds immediately by a easy computation:
+        $$(1-t)y + \frac{t}{2} + (1-t)(1-y) + \frac{t}{2} = y-ty+ \frac{t}{2} + 1-y-t+ty + \frac{t}{2} = 1.$$
+    \end{itemize}
+    Then we have
+    \begin{align*}
+        &H([(x,y)],0) := [(x,y)] = id_M ([x,y])\\
+        &H([(x,y)],1) := [(x,\frac{1}{2})] = (i \circ r) ([(x,y)]).
+    \end{align*}
+    Hence, $id_M \simeq i \circ r$. 
+    \item The ($n-1$)-sphere $\mathbb{S}^{n-1} = \{ \mathbf{x} \in \mathbb{R}^n \mid \sum_{i} x_i^2 = 1 \}$ is a homotopy retract of $\mathbb{R}^n - \{0\}$.
+
+    Consider the usual inclusion $i : \mathbb{S}^{n-1} \rightarrow \mathbb{R}^n - \{0\}$ and $r: \mathbb{R}^n - \{ 0\} \rightarrow \mathbb{S}^{n-1}$ be given by
+    $$r (\mathbf{x}) := \frac{\mathbf{x}}{||\mathbf{x}||}.$$
+    Then $r \circ i = id_{\mathbb{S}^{n-1}}$ and $(i \circ r) (\mathbf{x}) = \frac{\mathbf{x}}{||\mathbf{x}||}$. Consider $H : (\mathbb{R}^n - \{0\}) \times [0,1] \rightarrow \mathbb{R}^n - \{0\}$ be given by
+    $$H (\mathbf{x},t) := (1-t) \mathbf{x} + t \frac{\mathbf{x}}{||\mathbf{x}||}.$$
+    It's neccesary but easy to check that $H$ is well-defined, i.e.: for all $t \in [0,1]$, $H (\mathbf{x},t) \neq 0$. Then we have
+    \begin{align*}
+        &H(\mathbf{x},0) = \mathbf{x} = id_{\mathbb{R}^n-\{0\}} \\
+        &H(\mathbf{x},1) = \frac{\mathbf{x}}{||\mathbf{x}||} = (i\circ r)(\mathbf{x})
+    \end{align*}
+    which gives $i \circ r \simeq id_{\mathbb{R}^n - \{0\}}$.
+\end{itemize}
+
+
+
+\section{Simplicial Approximation}
+
+\noindent\textbf{Goal/Question:} For any $f: X \rightarrow Y$ continuous, if $K_1,K_2$ are triangulations of $X,Y$, respectively, i.e.: $X \cong |K_1|$ and $Y\cong |K_2|$, then the question is: can we understand $f$ by just looking at $K_1,K_2$?
+
+\begin{definition}{Simplicial map}\\
+Let $K_1 = (V_1, \Sigma_1)$ and $K_2 = (V_2, \Sigma_2)$ be simplicial complices. A simplicial map between $K_1$ and $K_2$ is a map $f: K_1 \rightarrow K_2$ satisfying that
+\begin{itemize}
+    \item $f$ maps vertices to vertices, i.e.: $f(v) \in V_2$ for any $v \in V_1$;
+    \item $f$ maps simplicies to simplices, i.e.: $f(\sigma) \in \Sigma_2$ for any $\sigma \in \Sigma_1$.
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:}
+Let $K_1 = (V_1, \Sigma_1)$ where $V _ 1= \{ 1,2,3,4\}$ and $\Sigma_1 = \{ \{1\}, \cdots,\{4\}, \{1,2\},\cdots,\{3,4\}, \{1,2,3\}, \cdots, \{2,3,4\}\}$, and let $K_2=(V_2,\Sigma_2)$ where $V_2=\{1,2,3\}$ and $\Sigma_2 = \{ \{1\},\{2\},\{3\}, \{1,2\}, \{1,3\},\{2,3\},\{1,2,3\}\}$. In particular, $\{1,2,3,4\} \notin \Sigma_1$ and $\{1,2,3\} \in \Sigma_2$. Then define $f: K_1 \rightarrow K_2$ by
+$$f(1):= 1,f(2):= 2,f(3)=f(4):= 3. $$
+Then $f$ is a simplicial map. In particular, $f(\{1,2,4\}) = \{1,2,3\}$.
+
+
+\vspace{2em}
+Now we want to define the simplicial map between the topological realization. There are several observations:
+\begin{itemize}
+    \item $|K| \subseteq \mathbb{R}^{|V| -1}$;
+    \item for any $x \in |K|$, there exists a unique $\sigma \in \Sigma$, s.t.: $x \in \Delta_{\sigma}$;
+    \item let $V_1 = \{v_1,\cdots,v_n\} \subseteq \mathbb{R}^m$ be the vertices of $K_1$. Then for any $x \in K_1$, $x$ can be uniquely written as
+    $$x = \sum_{i=1}^k \alpha_i v_{\sigma_i}$$
+    where $\alpha_i \geq 0$, $\sum_{i} \alpha_i =1$ and $\sigma = \{ v_{\sigma_1}, \cdots ,v_{\sigma_k} \} \in \Sigma_1$ is the unique simplex where $x \in$ interior of $\Delta_\sigma$, e.g.: the center of an equilateral triangle can be uniquely written as $\frac{1}{3} (\mathbf{1} + \mathbf{2} + \mathbf{3}) \in$ interior of $\Delta_{\{ \mathbf{1} + \mathbf{2} + \mathbf{3}\}}$;
+    \item let $f: K_1 \rightarrow K_2$ be a simplicial map, where $V_2 = \{ u_1,\cdots,u_l \} \subseteq \mathbb{R}^m$. Then for any $i$, we have
+    $$f(v_i) = u_j$$
+    for some $j \in \{ 1,\cdots,l \}$.
+\end{itemize}
+
+\begin{definition}{Map induced from Simplicial Map}\\
+The simplicial map $f : K_1 \rightarrow K_2$ induces a map $|f| :|K_1| \rightarrow |K_2|$ between the topological realizations satisfying:
+\begin{itemize}
+    \item $|f|$ maps vertices to vertices, i.e.: $|f| (v_1) := f(v_1)$ for any $v_1 \in V_1$;
+    \item $|f| (\sum_{i=1}^k \alpha_i v_i) = \sum_{i=1}^k \alpha_i |f| (v_i)$.
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark:} $|f|$ is continuous.
+
+\begin{definition}{Subdivision}\\
+Let $K$ be a simplicial complex. A simplicial complex $K'$ is called a subdivision of $K$ if
+\begin{itemize}
+    \item each simplex of $K'$ is contained in $K$;
+    \item each simplex of $K$ equals the union of \textit{finitely} many simplicies of $K'$.
+\end{itemize}
+As a result, 
+\begin{itemize}
+    \item there exists a homeomorphism $h : |K'| \overset{\cong}{\rightarrow} |K|$, s.t.: for any $\sigma' \in \Sigma'$,
+    $$h([\Delta_{\sigma'}]) \subseteq [\Delta_\sigma]$$
+    for some $\sigma \in \Sigma$;
+    \item for any $\sigma \in \Sigma$,
+    $$\Delta_\sigma = \bigcup_{\sigma'' \in \Sigma''} [\Delta_{\sigma''}]$$
+    for a \textit{finite} subset $\Sigma'' \subseteq \Sigma'$.
+\end{itemize}
+\end{definition}
+
+
+\noindent\textbf{Example} (\textit{Barycentric Subdivision}):
+
+Let $K=(V,\Sigma)$. Define $V' := \Sigma= \{ \sigma_1, \cdots, \sigma_n \}$ and define $\Sigma'$ by
+$$\{ \sigma_{i_1},\cdots, \sigma_{i_k} \mid i_j \in \{1,\cdots,n\} \} \in \Sigma' \Leftrightarrow \sigma_{i_1'} \subseteq \cdots \subseteq \sigma_{i_k'} \;by\;\;reordering\;\; \{i_1,\cdots, i_k\}.$$
+
+
+\begin{definition}{Star}\\
+The star of $v$, denoted as $st_K(v)$, is
+$$\bigcup_{\sigma \in \Sigma,v \in \sigma} \Delta_\sigma^\circ ,$$
+where $\Delta_\sigma^\circ := inside(\Delta_\sigma) := \{ (x_1,\cdots,x_{n+1}) \in \Delta_\sigma \mid x_i > 0, \forall i \}$ for simplex $\Delta_\sigma$.
+\end{definition}
+
+\noindent\textbf{Remark} (obvious propositions):
+\begin{itemize}
+    \item $st_K(v)$ is open in $|K|$, since its complement is the simplicial subcomplex of $K$, spanned by $V \setminus \{v\}$.
+    \item Every $w \in st_K(v)$ is path-connected to $v$. In particular, $st_K(v)$ is path-connected.
+\end{itemize}
+
+\begin{proposition}
+    Suppose $f : |K| \rightarrow |L|$ is continuous. If there exists a map $g: K \rightarrow L$, s.t.: for any $v \in V_K$,
+    $$f(st_K(v)) \subseteq st_L (g(v))$$
+    then $g$ is simplicial and $$|g| \simeq f.$$
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item \textbf{Claim:} Suppose that $\sigma = \{ v_0, \cdots ,v_n\} \in \Sigma_K$ and that $x \in \sigma^\circ \subseteq |K|$. If $f(x) \in |L|$ lies in the inside of the (unique) simplex $\tau \in \Sigma_L$ (i.e.: $f(x)$ can be uniquely expressed as
+        $$\sum_{u_i \in \tau} \beta_i u_i$$
+        where $\beta_i >0$ and $\sum_{i} \beta_i =1$), then
+        $$g(v_0),\cdots,g(v_n)$$
+        are vertices of $\tau$.
+
+        \textit{Proof of claim:} By the def of $\sigma^\circ$,
+        $x = \sum_{i=1}^n \alpha_i v_i$
+        where $\alpha_i >0$ and $\sum_i \alpha_i = 1$. Hence, $x \in st_K(v_i)$ for $i=1,\cdots,n$, where
+        $$st_K(v_i) = \{av_i + \sum_{j=1}^m b_jw_j \mid a,b_j>0 ,a+\sum_jb_j =1, \{v_i,w_j,\cdots,w_m \} \in \Sigma_K\}.$$
+        Therefore, $f(x) \in f((st_K(v_i))^\circ ) \subseteq st_L(g(v))$. Then we get
+        $$f(x) = ag(v_i) + \sum_{j=1}^m b_ju_j$$
+        where $a,b_j >0$, $a+\sum_jb_j =1$ and $\{ g(v_i) ,u_1,\cdots,u_m \} \in \Sigma_L$. Then by the hypothesis on $f(x)$, $g(v_i)$ is a vertex of simplex $\tau$, for all $i$. 
+    \end{itemize}
+    Therefore, the map $g$ maps simplices to simplices which is a simplicial map. Then we can construct a homotopy between $f$ and $|g|$:
+    \begin{itemize}
+        \item (\textit{Construction of homotopy between $f$ and $|g|$}): Consider $x \in |K|$ and let $\tau \in \Sigma_L$ be such that $f(x) \in \tau^\circ$. Let $\sigma = \{ v_0 ,\cdots, v_n\} \in \Sigma_K$ be such that $x \in \sigma^\circ$. Then
+        $$|g| (x) := g(x) = \sum_{i=1}^n \lambda_i g(v_i)$$
+        where by claim $g(v_0) ,\cdots, g(v_n)$ are vertices of $\tau$. Since $f(x) = \sum_i \mu_i \tau_i$, then we can rewrite $|g| (x) = \sum_i \lambda_i' \tau_i$ (by adding some $\lambda_i := 0$ if necessary). Then we can define the map $H : |K| \times I \rightarrow |L|$ by
+        $$H(x,t) := \sum (t\lambda_i' + (1-t)\mu_i) \tau_i$$
+        which follows that $H$ is a homotopy between $|g| \simeq f$.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}{Simplicial Approximation Theorem}\\
+Let $K,L$ be two simplicial complices with $V_K$ finite and let $f: |K| \rightarrow |L|$ be continuous. Then there exists a subdivision $K'$ of $K$ and a simplicial map $g : K' \rightarrow L$, s.t.:
+$$|g| : |K'| \rightarrow |L| \simeq f.$$
+\end{theorem}
+
+\begin{proof}
+    Since $\{ st_L(w) \mid w \in L \}$ is an open cover of $L$, then
+    $$|K| \subseteq \bigcup_{i=1}^n f^{-1} (st_L(w_i)).$$
+    Then there exists a small $\delta >0$, s.t.: for any $x,y \in |K|$ with $d(x,y) < \delta$ and $x,y \in f^{-1}(st_L(w_i))$ for some $i$. Then we can construct a simplicial subdivision $K'$ of $K$ with the coarseness less that $\delta$, i.e.:
+    $$x,y \in st_{K'}(v),d(x,y) <\delta.$$
+    Therefore, for any $v \in V_K$, $st_{K'}(v) \subseteq f^{-1} (st_L(w_i))$ for some $i$, i.e.:
+    $$f(st_{K'} (v)) \subseteq st_L(w_i).$$
+    Then set $g(v) := w_i$ and then apply proposition 6.18.
+\end{proof}

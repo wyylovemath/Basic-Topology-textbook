@@ -1,5 +1,7 @@
 \chapter{From Metric to Topology}
 
+\section{Topology induced by Metric}
+
 \begin{definition}{Topology}\\
 The \textit{topology} induced from $(X,d)$ is the collection of all open sets in $(X,d)$, denoted as $\mathcal{T}$.
 \end{definition}
@@ -112,4 +114,398 @@ Furthermore, we say $f$ is continuous on $X$ if $f$ is continuous at all points 
             \item ($\Leftarrow$): For any $x \in X$, every open $U$ containing $f(x)$ can imply $f^{-1}(U)$ is open in $X$. Therefore, there is a positive $\delta$, s.t.: $B_\delta(x) \subset f^{-1}(U)$.
         \end{itemize}
     \end{enumerate}
+\end{proof}
+
+\section{Distance in Metric Space}
+
+\begin{definition}{Distance}\\
+Let $(X,d)$ be a metric space. Given two non-empty subsets $A$ and $B$ of $X$, we define by
+$$d(A,B):= \inf_{a\in A,b\in B} d(a,b)$$
+the \textit{distance between $A$ and $B$}. Furthermore, if $A= \{a\}$ consists of a single point, then we write
+$$d(a,B) := d(\{a\},B)$$
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item If $A \cap B\neq \emptyset$, then $d(A,B)=0$.
+\item But the converse does NOT hold in general: consider $X=\mathbb{R}, A=(0,1), B=[1,2]$. Then $d(A,B)=0$, but $A \cap B=\emptyset$.
+\end{itemize}
+
+\begin{proposition}{Distance-to-Subspace Proposition}\\
+Let $(X,d)$ be a metric space and let $B \subseteq X$ be a non-empty subset.
+\begin{enumerate}
+    \item The map
+    $$\substack{X \;\to\; \mathbb{R}_{\geq 0}\\
+    x \;\mapsto\; d(x,B)}$$
+    is continuous.
+
+    \item If $B$ is closed, then given $x\in X$, we have
+    $$d(x,B) \Leftrightarrow x\in B$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Disjoint Compact-Closed-Distance Proposition}\\
+Let $(X,d)$ be a metric space and let $K,L \subseteq X$ be two non-empty disjoint subsets. If one of $K,L$ is compact and if the other one is closed in $X$, then $d(K,L)>0$.
+\end{proposition}
+
+\begin{proof}
+    WLOG, let $K$ be compact and let $L$ be closed. Consider the map $\Phi:K \to \mathbb{R}_{\geq 0}$ given by
+    $$\Phi(x) := d(x,L)$$
+    which is continuous by the Distance-to-Subspace Proposition.1. Since $K$ is compact, then there exists $x \in K$, s.t.: for any $k \in K$, we have $\Phi(x) \leq \Phi(k)$. Hence, 
+    $$d(K,L) = \inf_{k \in K} d(x,L) = d(x,L)$$
+    By the closed-ness of $L$ together with the Distance-to-Subspace Proposition.2, $d(x,L) >0$.
+\end{proof}
+
+\begin{proposition}{Distance-Minimizer Proposition}\\
+Let $(X,d)$ be a metric space and let $K,L \subseteq X$ be two non-empty subsets of $X$. If one of followings hold:
+\begin{enumerate}
+    \item both $K$ and $L$ are compact;
+    \item $X=\mathbb{R}^n$, $K$ is compact and $L$ is closed in $X= \mathbb{R}^n$,
+\end{enumerate}
+then there exist $x \in K,y\in L$, s.t.:
+$$d(x,y) = d(K,L)$$
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item is obvious.
+        \item Set $s:= \max\{ ||x||: x \in K\} +1+ d(K,L)$ and then set $L':= L \cap \overline{B}^n_s (0)$. Since $L$ is closed, then $L'$ is compact. It's easy to verify that
+        $$d(K,L') = d(K,L)$$
+        since $L'\neq 0$ together with the choice of $s$ and the triangle inequality. Therefore, we goes back to 1.
+    \end{enumerate}
+\end{proof}
+
+\section{The Lebesgue Lemma}
+
+\begin{definition}{Diameter}\\
+Let $(X,d)$ be a metric space. The \textit{diameter} of a non-empty subset $A \subseteq X$ of $X$ is defined as
+$$diam (A):= \sup_{a,b \in A} d(a,b) \in \mathbb{R}_{\geq 0} \cup \{\infty\}$$
+Moreover, we define $diam (\emptyset) =0$.
+\end{definition}
+
+\begin{theorem}{Lebesgue Lemma}\\
+Let $(X,d)$ be a compact metric space and let $\{U_i\}_{i \in I}$ be an open cover of $K$. There exists a $\delta >0$, s.t.: for any $A \subseteq K$ with $diam(A)< \delta$, there is an $i \in I$ with $A \subseteq U_i$.
+\end{theorem}
+
+\noindent\textbf{Remark:} The $\delta$ that has the property stated in Lebesgue Lemma is usually called a \textit{Lebesgue number}.
+
+\begin{proof}
+    By the compact-ness of $K$, we can WLOG let $I= \{1,\cdots,n\}$ be a finite set. If $K=U_i$ for some $i \in I$, then every $\delta>0$ has the desired property. Now we suppose that for any $i \in I$, $U_i \subsetneq K$.
+    \begin{itemize}
+        \item \textbf{Claim 1:} The map $f:K \to \mathbb{R}$ given by
+        $$f(x) := \frac{1}{n} \sum_{i=1}^n d(x, K \setminus U_i)$$
+        is continuous and positive for every $x \in K$.
+
+        \item \begin{proof}
+            By the Distance-to-Subspace Proposition.1, $f$ is continuous. For ever $x \in K$, there exists $i \in I$, s.t.: $x \in U_i$. Since $U_i$ is open, then $K \setminus U_i$ is closed and hence by the Distance-to-Subspace Proposition.2, $d(x,K \setminus U_i) >0 \Rightarrow f(x) >0$.
+        \end{proof}
+
+        \item \textbf{Claim 2:} Let $A \subseteq K$ be a subset of $K$. If $diam(A) < \delta$, then $A\subseteq U_i$ for some $i \in I$.
+
+        \item \begin{proof}
+            If $A= \emptyset$, then we're done. Now we suppose that $A \neq \emptyset$. Pick $x \in A$ and then take an $m \in I$ to be such that $d(x, K\setminus U_m) \geq d (x,K \setminus U_i),\forall i\in I$. Since $diam(A)< \delta$, then $A \subseteq B_\delta (x)$. Note that
+            \begin{equation*}
+                d(x, K\setminus U_m) \geq \frac{1}{n} \sum_{i=1}^n d(x,K\setminus U_i) = f(x) \geq \delta \tag{*}
+            \end{equation*}
+            Hence, $A \subseteq B_\delta (x) \overset{(*)}{\subseteq} U_m$.
+        \end{proof}
+    \end{itemize}
+    Then we're done.
+\end{proof}
+
+
+\begin{corollary}{Lebesgue Lemma $\mathrm{II}$}\\
+Let $f: [0,1]^n \to X$ be a continuous map where $X$ is a topological space and let $\{V_i\}_{i \in I}$ be an open cover of $X$. There exists $N \in \mathbb{N}_+$, s.t.: $\forall a_1,\cdots,a_n \in \{0,\cdots, N-1\}$,
+$$f([\frac{a_1}{N}, \frac{a_1+1}{N}] \times \cdots \times [\frac{a_n}{N}, \frac{a_n+1}{N}]) \subseteq V_i$$
+for some $i\in I$.
+\end{corollary}
+
+\begin{proof}
+    Note that $[0,1]^n$ is compact and that $\{ f^{-1} (V_i)\}_{i \in I}$ is an open cover of $[0,1]^n$. Then by the Lebesgue Lemma, there exists $\delta>0$, s.t.: for any $A \subseteq [0,1]^n$ with $diam(A) < \delta$, $A \subseteq f^{-1}(V_i)$ for some $i\in I$. Hence, $f(A) \subseteq V_i$ for some $i \in I$. Take $N:= \frac{2\sqrt{n}}{\delta} > \frac{\sqrt{n}}{\delta}$. Since
+    $$diam ([\frac{a_1}{N}, \frac{a_1+1}{N}] \times \cdots \times [\frac{a_n}{N}, \frac{a_n+1}{N}]) = \frac{\sqrt{n}}{N} = \delta/2 <\delta$$
+    then we're done.
+\end{proof}
+
+\section{Complete Metric Space}
+
+\begin{definition}{Complete}\\
+We say that a metric space $(X,d)$ is \textit{complete} if every Cauchy sequence in $(X,d)$ converges. Otherwise, we say it is \textit{incomplete}.
+\end{definition}
+
+\begin{proposition}
+    Every closed subset of a complete space equipped with the same metric of the whole space is also complete.
+\end{proposition}
+
+\begin{proposition}
+    Every compact metric space is complete.
+\end{proposition}
+
+\begin{proposition}{Upper Bound-to-Metric Proposition}\\
+Let $(M,d)$ be a metric space.
+\begin{enumerate}
+    \item The map $\tilde{d}: M\times M \to \mathbb{R}_{\geq 0}$ given by
+    $$\tilde{d} (x,y) := \min \{1, d(x,y) \}$$
+    defines a metric on $M$.
+
+    \item $\mathcal{T}_{\tilde{d}} = \mathcal{T}_d$.
+    \item $(M,d)$ is complete $\Leftrightarrow$ $(M,\tilde{d})$ is complete.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Function Space-Metric Proposition}\\
+Let $(M,d)$ be a metric space and let $X$ be a non-empty topological space. The map $\overline{d} : C(X,M) \times C(X,M) \to \mathbb{R}_{\geq 0}$ given by
+$$\overline{d} (f,g) := \sup_{x \in X} \tilde{d} (f(x),g(x))$$
+where $\tilde{d}$ is the metric on $M$ defined in the Upper Bound-to-Metric Proposition, has the following properties:
+\begin{enumerate}
+    \item $\tilde{d}$ defines a metric on $C(X,M)$.
+    \item If $X$ is compact, then the map $\overline{d}': C(X,M) \times C(X,M) \to \mathbb{R}_{\geq 0}$ given by
+    $$\overline{d}' (f,g) := \sup_{x \in X} d(f(x),g(x))$$
+    also defines a metric on $C(X,M)$, which is equivalent to $\overline{d}$.
+
+    \item If $(M,d)$ is complete, then for any Cauchy $(f_n)_{n \in \mathbb{N}_+} \subseteq (C(X,M),\overline{d})$, the map $f:X \to M$ given by
+    $$f(x) := \lim_{n \to \infty} f_n(x)$$
+    exists, is continuous and in $(C(X,M), \overline{d})$ is a limit of $(f_n)_{n \in \mathbb{N}_+}$. Furthermore, $(C(X,M), \overline{d})$ is complete.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \textit{3.} \begin{itemize}
+        \item \textbf{Claim 1:} For any $x \in X$, $(f_n(x))_{n \in \mathbb{N}_+}$ converges.
+        \item \begin{proof}
+            By the def of $\overline{d}$,
+            $$\tilde{d} (f_n(x), f_m(x)) \leq \overline{d} (f_n,f_m)$$
+            Since $(f_n)_{n\in \mathbb{N}_+}$ is Cauchy, then so is $(f_n(x))_{n \in \mathbb{N}_+}$ in $(M,\tilde{d})$. By the Upper Bound-to-Metric Proposition.3, $(M,\tilde{d})$ is complete and hence $(f_n(x))_{n \in \mathbb{N}_+}$ converges.
+        \end{proof}
+
+        \item \textbf{Claim 2:} $\forall{\epsilon>0}, \exists{N \in \mathbb{N}_+}, \forall{n \geq N}, \forall {x \in X}$
+        $$ \tilde{d}(f_n(x), f(x))<\epsilon$$
+        \item \begin{proof}
+            $$\tilde{d} (f_n(x), f(x)) := \tilde{d} (f_n(x), \lim_{m \to \infty} f_m(x)) \overset{\tilde{d}\:cont}{=} \lim_{m\to \infty} \tilde{d} (f_n(x), f_m(x)) <\epsilon$$
+        \end{proof}
+
+        \item $f$ is continuous.
+        \item \begin{proof}
+            For any open $U \subseteq M$ in $M$, let $x \in f^{-1} (U)$. Since $U$ is open, there exists $\epsilon>0$, s.t.:
+            $$B_\epsilon (f(x)) \subseteq U$$
+            By claim 2 and by the def of $\tilde{d}$, there exists $n \in \mathbb{N}_+$, s.t.: for any $y \in X$, $d(f_n(y),f(y)) <\epsilon/3$. Since $f_n$ is cont, then there exists open $W \ni x$, s.t.: $f_n (W) \subseteq B_{\epsilon/3} (f(x))$. Then for any $y \in W$,
+            \begin{align*}
+                d(f(x),f(y))&= d(f(x),f_n(x))+ d(f_n(x),f_n(y))+ d(f_n(y),f(y)) < \epsilon/3 + \epsilon/3 +\epsilon/3 <\epsilon
+            \end{align*}
+            Hence, $W \subseteq B_\epsilon (f(x)) \subseteq U$.
+        \end{proof}
+    \end{itemize}
+    Then we're done.
+\end{proof}
+
+\section{Space-Filling Curves}
+
+\begin{definition}{Space-Filling Paths}\\
+Let $m\geq 2$. A surjective continuous map from $[0,1]$ to $[0,1]^m$ is called a \textit{space-filling path}.
+\end{definition}
+
+\noindent\textbf{Example:} Hilbert Curve
+
+\begin{theorem}{Space-Filling Curve Theorem}\\
+For any $m \in \mathbb{N}_+$, there exists a surjective continuous map $f: [0,1] \to [0,1]^m$.
+\end{theorem}
+
+\begin{proof}
+    The case when $m=1$ is obvious. We do induction on $m$ with the basic case when $m=2$. Now we deal with the basic case when $m=2$. For $n\in \mathbb{N}_+$, we set:
+    $$P_n:= \{0, \frac{1}{4^n}, \frac{2}{4^n} \cdots, \frac{4^n-1}{4^n} \}, Q_n:= \{ 0, \frac{1}{2^n}, \frac{2}{2^n} ,\cdots, \frac{2^n- 1}{2^n} \} \times \{ 0, \frac{1}{2^n}, \frac{2}{2^n} ,\cdots, \frac{2^n- 1}{2^n} \}$$
+    Furthermore, for $k \in P_n$, we set:
+    $$I_k^n:= [k,k +\frac{1}{4^n}]$$
+    and for $(k,l) \in Q_n$, we set:
+    $$W_{(k,l)}^n := [k,k +\frac{1}{2^n}] \times [l,l +\frac{1}{2^n}]$$
+
+    \begin{itemize}
+        \item \textbf{Claim 1:} For $n=0,1,2,\cdots$, we can find a bijection $\alpha_n: P_n \to Q_n$ and a continuous map $f_n: [0,1] \to [0,1] \times [0,1]$ satisfying the following conditions:
+        \begin{enumerate}
+            \item $\forall n \in \mathbb{N} \cup \{0\}, \forall k \in P_n$, we have $f_n (I_k^n) \subseteq W_{\alpha_n(k)}^n$.
+            \item $\forall n \in \mathbb{N} \cup \{0\}, \forall k \in P_n$, the two endpoints of the interval $I_k^n$ get sent to adjacent vertices of the square $W_{\alpha_n(k)}^n$.
+            \item $\forall n \geq s \in \mathbb{N} \cup \{0\}, \forall k \in P_n, l\in P_s$ with $I_k^n \subseteq I_l^s$, we have the inclusion $f_n (I_k^n) \subseteq W_{\alpha_s(l)}^s$.
+        \end{enumerate}
+
+        \item \begin{proof}
+            We define the maps iteratively.
+            \begin{itemize}
+                \item For $n=0$, $P_0=\{0\}$ and $Q_0 =\{(0,0)\}$. Let $\alpha_0: P_0 \to Q_0$ be the unique bijection $0 \mapsto (0,0)$. Furthermore, set
+                $$f_0: \substack{[0,1] \;\to\; [0,1] \times [0,1]\\
+                t \;\mapsto\; (t,0)}$$
+                It's clear that the desired properties 1,2 and 3 are satisfied.
+
+                \item Suppose that we have constructed bijections $\alpha_0 ,\cdots, \alpha_n$ and continuous maps $f_0 ,\cdots, f_n$ with the desired properties. Given $j \in P_n$. It suffices to define $f_{n+1}$ on $I_j^n= [j,j+ \frac{1}{4^n}]$ and $\alpha_{n+1}$ on $j, j+\frac{1}{4^{n+1}}, j+\frac{2}{4^{n+1}}, j+\frac{3}{4^{n+1}} \in P_{n+1}$. Let $(k,l) := \alpha_n(j) \in Q_n$. By 2, we can find a bijection
+                $$\alpha_{n+1} : \{ j, j+\frac{1}{4^{n+1}}, j+\frac{2}{4^{n+1}}, j+\frac{3}{4^{n+1}} \} \mapsto \{ (k,l),(k+ \frac{1}{2^{n+1}}, l),(k, l + \frac{1}{2^{n+1}}), (k+ \frac{1}{2^{n+1}}, l + \frac{1}{2^{n+1}}) \}$$
+                and a map $f_{n+1}: I_j^n \to W_{(k,l)}^n$ with the following three properties:
+                \begin{enumerate}[label=\Roman*]
+                    \item $f_{n+1}: I_j^n \to W_{(k,l)}^n$ agrees with the map $f_n$ on the endpoints.
+                    \item Each interval $I_{j+ \frac{i}{4^{n+1}}}^{n+1}$ gets sent to the square $W_{\alpha_{n+1}(j + \frac{i}{4^{n+1}})}^{n+1}$.
+                    \item The endpoints of each interval $I_{j+ \frac{i}{4^{n+1}}}^{n+1}$ get sent to adjacent vertices of the square $W_{\alpha_{n+1}(j + \frac{i}{4^{n+1}})}^{n+1}$.
+                \end{enumerate}
+            \end{itemize}
+        \end{proof}
+    \end{itemize}
+
+    Now we consider the metric space $(C([0,1], [0,1]\times [0,1]),d)$ of continuous maps from $[0,1]$ to $[0,1] \times [0,1]$, equipped with the metric $d$ defined as
+    $$d(f,g) := \sup_{t \in [0,1]} ||f(t)-g(t)||$$
+
+    \begin{itemize}
+        \item \textbf{Claim 2:} The sequence $(f_n : [0,1] \to [0,1] \times [0,1])_{n \in \mathbb{N} \cup \{0\}}$ of maps in claim 1 is a Cauchy sequence in the metric space $(C([0,1], [0,1]\times [0,1]),d)$.
+        \item \begin{proof}
+            For any $\epsilon>0$, pick $N \in \mathbb{N} \cup \{0\}$ with $\frac{1}{2^N} < \frac{\epsilon}{\sqrt{2}}$. For any $m,n \geq N$, any $t \in [0,1]$,
+            $$||f_m(t) - f_n(t)|| \leq \sqrt{2} \cdot \frac{1}{2^n} < \epsilon$$
+        \end{proof}
+    \end{itemize}
+
+    By claim 2 together with the Function Space-Metric Proposition,
+    $$f: \substack{[0,1] \;\to\; [0,1] \times [0,1]\\
+    t \;\mapsto\; f(t):= \lim_{n\to \infty} f_n(t)}$$
+    is continuous.
+
+    \begin{itemize}
+        \item \textbf{Claim 3:} $f([0,1])$ is dense in $[0,1] \times [0,1]$.
+        \item \begin{proof}
+            For any open $U \subseteq [0,1] \times [0,1]$ in $[0,1]\times [0,1]$, we need to show that $f([0,1]) \cap U \neq \emptyset$. Note that $\exists N \in \mathbb{N} \cup \{0\}, (k,l) \in Q_N$, s.t.: $W_{(k,l)}^N \subseteq U$. By the property 1 in claim 1, there exists $x \in [0,1]$ with $f_N (x) \in W_{(k,l)}^N$. Then by the property 3 in claim 1, for any $n \geq N$, $f_n (x) \in W_{(k,l)}^N$. By the closed-ness of $W_{(k,l)}^N$,
+            $$f(x):= \lim_{n \to \infty} f_n(x) \overset{closed-ness}{\in} W_{(k,l)}^N \subseteq U$$
+        \end{proof}
+
+        \item $f$ is surjective.
+        \item \begin{proof}
+            By the compact-ness of $[0,1]$ and the Hausdorff-ness of $[0,1] \times [0,1]$, $f([0,1])$ is closed in $[0,1]\times [0,1]$. By claim 3,
+            $$f([0,1]) =\overline{f([0,1])} = [0,1] \times [0,1]$$
+        \end{proof}
+    \end{itemize}
+    Then we're done for the basic case when $m=2$. Now we suppose that there exists a continuous surjective map $\varphi: [0,1] \to [0,1] ^m$. Then the proof is immediately done by the following:
+    $$[0,1] \overset{f}{\longrightarrow} [0,1] \times [0,1] \overset{id \times \varphi}{\longrightarrow} [0,1] \times [0,1]^m = [0,1]^{m+1}$$
+    i.e.: $(id \times \varphi) \circ f$ is continuous and surjective.
+\end{proof}
+
+\begin{proposition}{Injective Curve-but-Positive Area Proposition}\\
+There exists an injective continuous map $f:[0,1] \to [0,1] \times [0,1]$, s.t.: $f([0,1])$ has non-zero 2-dimensional Lebesgue measure.
+\end{proposition}
+
+\section{Baire Category Theorem}
+
+\begin{definition}{Nowhere Dense}\\
+Let $X$ be a topological space and let $A \subseteq X$. We say that $A$ is \textit{nowhere dense} in $X$ if there is \textbf{NO} open non-empty subset $U \subseteq X$ of $X$ satisfying that $U \cap A$ is dense in $U$.
+\end{definition}
+
+\noindent\textbf{Example:} The Cantor set is nowhere dense in $[0,1]$. Moreover, it is uncountable.
+
+\begin{lemma}{Nowhere Dense-Characterization Lemma}\\
+Let $X$ be a topological space and let $A \subseteq X$ be a subset of $X$. The followings are equivalent:
+\begin{enumerate}
+    \item $A$ is nowhere dense in $X$.
+    \item The interior of the closure $\overline{A}$ is empty, i.e.: $\overline{A}^\circ =\emptyset$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    $A$ nowhere dense in $X$ \\
+    $\Leftrightarrow$ $\forall \emptyset = U$ open in $X$, $U \cap A$ is NOT dense in $U$\\
+    $\Leftrightarrow$ $\forall \emptyset \neq U$ open in $X$, $\exists \emptyset \neq V$ open in $U$, s.t.: $A \subseteq (X \setminus V)$\\
+    $\Leftrightarrow$ $\forall \emptyset \neq U$ open in $X$, $\exists B \subsetneq X$ closed with $X \setminus U \subseteq B$, s.t.: $A \subseteq B$\\
+    $\Leftrightarrow$ $\forall \emptyset \neq U$ open in $X$, $\exists C \subseteq X$ closed with $A \subseteq C$, s.t.: $U \not \subseteq C$\\
+    $\Leftrightarrow$ $\overline{A}^\circ =\emptyset$.
+\end{proof}
+
+\begin{theorem}{Baire Category Theorem}\\
+Let $X$ be one of the following:
+\begin{enumerate}
+    \item $X$ is a complete metric space
+    \item $X$ is a regionally compact Hausdorff space.
+\end{enumerate}
+Then the union of countably many nowhere dense subsets of $X$ has empty interior.
+\end{theorem}
+
+\section{Baire Spaces and Completely Metrizable Spaces}
+
+\begin{definition}{Baire Spaces}\\
+A topological space having the property that the union of countably many nowhere dense subsets of $X$ has empty interior is called a \textit{Baire space}.
+\end{definition}
+
+\begin{lemma}{Baire Space Characterization Lemma}\\
+Let $X$ be a topological space. The followings are equivalent:
+\begin{enumerate}
+    \item $X$ is a Baire space.
+    \item For each countable collection of open dense subsets $\{ U_n \}_{n \in \mathbb{N}}$, the intersection $\bigcap_{n \in \mathbb{N}} U_n$ is dense.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    $X$ is a Baire space\\
+    $\Leftrightarrow$ for every family $\{W_n\}_{n \in \mathbb{N}}$ of nowhere dense subsets, $(\bigcup_{n \in \mathbb{N}} W_n)^\circ =\emptyset$\\
+    $\overset{Nowhere Dense-Characterization Lemma}{\Leftrightarrow}$ for every family $\{W_n\}_{n \in \mathbb{N}}$ of subsets with $(\overline{W}_n)^\circ =\emptyset$, $(\bigcup_{n \in \mathbb{N}} W_n)^\circ =\emptyset$\\
+    $\Leftrightarrow$ for every family $\{A_n \}_{n \in N}$ of closed subsets with $A_n ^\circ =\emptyset$, $(\bigcup_{n \in \mathbb{N}} A_n)^\circ =\emptyset$\\
+    $\Leftrightarrow$ for every family $\{U_n \}_{n \in N}$ of dense open subsets, $(\bigcup_{n \in \mathbb{N}} (X \setminus U_n))^\circ =\emptyset$\\
+    $\Leftrightarrow$ for every family $\{U_n \}_{n \in N}$ of dense open subsets, $X \setminus \bigcup_{n \in \mathbb{N}} (X \setminus U_n)$ is dense\\
+    $\Leftrightarrow$ for every family $\{U_n \}_{n \in N}$ of dense open subsets, $\bigcap_{n \in \mathbb{N}} U_n$ is dense.
+\end{proof}
+
+\begin{lemma}
+    If $X$ is a Baire space, then every open $V \subseteq X$ is also a Baire space.
+\end{lemma}
+
+\begin{definition}{Completely Metrizable Space}\\
+A topological space $(X,\mathcal{T})$ is called \textit{completely metrizable} if there is a \textit{complete} metric $d$ on $X$, s.t.: $\mathcal{T} = \mathcal{T}_d$.
+\end{definition}
+
+\begin{theorem}{Reformulation of the Baire Category Theorem.1}\\
+If $X$ is a topological space that is completely metrizable, then $X$ is a Baire space.
+\end{theorem}
+
+\begin{corollary}
+    $\mathbb{Q}$ is metrizable but NOT completely metrizable.
+\end{corollary}
+
+\section{Application of the Baire Category Theorem to the Sequences of Maps}
+
+\begin{proposition}{Limit Map-Discontinuous Proposition}\\
+Let $X$ be a topological space, let $(M,d)$ be a metric space and let $(f_n: X \to M)_{n \in \mathbb{N}}$ be a sequence of continuous maps which converges pointwisely. If $X$ is a Baire space, then the set of points at which the limit map $f: X \to M$ is continuous is dense in $X$.
+\end{proposition}
+
+\begin{proof}
+    Given $N \in \mathbb{N} \cup \{0\}$ an $\epsilon>0$, we set
+    $$A_N (\epsilon) := \{ x \in X \mid d(f_m(x), f_n(x)) \leq \epsilon, \forall m,n \geq N\}$$
+
+    \begin{itemize}
+        \item \textbf{Claim 1:} Each $A_N (\epsilon)$ is closed and $\bigcup_{n \in \mathbb{N} \cup \{ 0\}} A_N(\epsilon) =X$.
+        \item \begin{proof}
+            Note that $A_N (\epsilon) = \bigcap_{m,n \geq N} ((d \circ ((f_m,f_n):X \to M \times M)): X \to \mathbb{R})^{-1} ([- \epsilon,\epsilon])$. By the continuity of $d$, $A_N(\epsilon)$ is closed. The latter statement holds immediately from that $f_n$ conv. pointwisely.
+        \end{proof}
+    \end{itemize}
+
+    Given $\epsilon>0$, set
+    $$U(\epsilon) := \bigcup_{N \in \mathbb{N} \cup \{0\}} (A_N(\epsilon))^\circ$$
+    By the Baire Space Characterization Lemma, it suffices to prove the following claim:
+
+    \begin{itemize}
+        \item \textbf{Claim 2:} \begin{enumerate}
+            \item For each $\epsilon>0$, $U(\epsilon)$ is open and dense in $X$.
+            \item $f$ is continuous at every point in $\bigcap_{m \in \mathbb{N}_+} U(\frac{1}{m})$.
+        \end{enumerate}
+
+        \item \begin{proof}
+            \begin{enumerate}
+                \item It's clear that $U(\epsilon)$'s are open. As for the density of $U(\epsilon)$, for any open $V \subseteq X$ in $X$, we analyse in the following steps:
+                \begin{enumerate}
+                    \item $V \cap A_N(\epsilon)$ is closed in $V$.
+                    \item Since $X$ is a Baire space, then by the open-ness of $V$, $V$ is also a Baire space.
+                    \item By claim 1, $\{ V \cap A_N(\epsilon)\}_{N \in \mathbb{N}}$ covers $V$ and hence by (a)(b), none of $V \cap A_N(\epsilon)$ is nowhere dense in $V$.
+                    \item By the Nowhere Dense-Characterization Lemma, $\overline{V \cap A_N(\epsilon)}^\circ \neq \emptyset$.
+                    \item $(V \cap A_N(\epsilon))^\circ \neq \emptyset$ by (c)(d).
+                \end{enumerate}
+                In summary, there exists $N \in \mathbb{N}$, s.t.: $V \cap A_N(\epsilon)$ contains a subset $W \subseteq V$ that is open in $V$ and hence open in $X$. Therefore, $W \subseteq A_N(\epsilon)^\circ$.
+
+                \item For any $x \in \bigcap_{m \in \mathbb{N}_+} U(\frac{1}{m})$, it suffices to show that for any $\epsilon>0$, there exists open $W \ni x$, s.t.: $d(f(x),f(y))< \epsilon, \forall y \in W$. We first make a few preparations:
+                \begin{enumerate}
+                    \item Pick $k \in \mathbb{N}_+$ with $\frac{1}{k}< \epsilon/3$.
+                    \item $x \in U(\frac{1}{k}) \Rightarrow x \in A_n (\frac{1}{k})^\circ$.
+                    \item Since $f_n$ is continuous and $A_n(\frac{1}{k})^\circ$ is open, then there exists open $W \ni x$ with $W \subseteq A_n(\frac{1}{k})$, s.t.: $d(f_n(x),f_n(y)) < \epsilon/3$ for any $y \in W$.
+                \end{enumerate}
+                For any $z \in W$, 
+                $$d(f(z),f_n(z)) := d(\lim_{m \to \infty} f_m(z),f_n(z)) \overset{d\;cont}{=} \lim_{m \to \infty} d(f_m(z),f_n(z)) \leq \frac{1}{k} < \frac{\epsilon}{3}$$
+                which by triangle inequality gives $d(f(x),f(y)) < \epsilon$.
+            \end{enumerate}
+        \end{proof}
+    \end{itemize}
 \end{proof}

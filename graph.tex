@@ -1,0 +1,464 @@
+\chapter{Graph}
+
+\section{(Abstract) Graphs}
+
+\begin{definition}{(Abstract) Graph}\\
+A \textit{graph} $\Gamma = (V,E,l, \tau)$ is defined by
+\begin{itemize}
+    \item vertex set $V$ is a finite (or countably infinite) set;
+    \item edge set $E$ is a finite (or countably infinite) set;
+    \item a function $\delta : E \rightarrow V \times V$ is such that
+    $$\delta (e) := (l(e), \tau (e))$$
+    where $l$ denotes the leading part of $e$ and $\tau$ denotes the terminal part.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Category of (Abstract) Graphs}\\
+\begin{itemize}
+    \item Let $\Gamma= (V,E,l, \tau)$ and $\Gamma'= (V',E',l',\tau')$ be two (abstract) graphs. We define a \textit{morphism} from $\Gamma$ to $\Gamma'$ by a pair $(\alpha: V \to V', \beta: E \to E')$ of maps such that for each $e \in E$, we have
+    $$l' (\beta(e)) = \alpha(l(e)), \tau'(\beta(e)) =\alpha(\tau (e))$$
+    \item We refer to the category $\mathcal{A}bs\mathcal{G}raph$ with
+    \begin{itemize}
+        \item $Ob(\mathcal{A}bs\mathcal{G}raph) :=$ all (abstract) graphs
+        \item $Mor_{\mathcal{A}bs\mathcal{G}raph} (\Gamma,\Gamma') :=$ all maps from $\Gamma$ to $\Gamma'$ in the above sense
+    \end{itemize}
+    with the usual composition of maps as the \textit{category of (abstract) graph}.
+\end{itemize}
+\end{definition}
+
+
+\begin{definition}{Realization of graph}\\
+The \textit{realization} of a graph $\Gamma = (V,E,l, \tau)$ is given by
+$$|\Gamma| := \frac{(\bigsqcup_{|V|} 0-simplicies) \sqcup (\bigsqcup_{|E|} 1-simplicies)}{\sim_\delta} \cong (V \sqcup \bigsqcup_{e \in E} (\{e\} \times [0,1]))/\sim_{(e,0) \sim l(e),(e,1) \sim \tau(e)}$$
+\end{definition}
+
+\noindent\textbf{Remark:} \begin{itemize}
+    \item We later will use the second quotient space to construct maps but we can better understand the realization of graph the first quotient space.
+
+    \item Even though $\Gamma$ may NOT come from a simplicial complex, we can do "subdivision" $\Gamma'$ of $\Gamma$ so that
+    $$|\Gamma'| \cong |\Gamma|$$
+    and $\Gamma'$ comes from a simplicial complex.
+\end{itemize}
+
+
+\begin{definition}
+    Let $\Gamma = (V,E,l,\tau)$ be a graph.
+    \begin{itemize}
+        \item (\textit{Inverse of edges}): 
+        $$E^{-1} := \{ e^{-1} \mid e \in E \}$$
+        and a map $\delta^{-1}: E^{-1} \rightarrow V \times V$ with $\delta^{-1} (e^{-1}) := (\tau(e), l(e))$.
+        \item (\textit{Edge Path on $\Gamma$}): a sequence of elements $p= (e_1, e_2 ,\cdots, e_n)$ where $e_i \in E \cup E^{-1}$, s.t.:
+        $$\tau(e_i) = l(e_{i+1})$$
+        Furhermore, we say $p$ is an \textit{edge path of length $n$}.
+        \item (\textit{Parametrization of edge path}): for each edge path $p = (e_1, e_2 ,\cdots, e_n)$, we can define a path $|p| : [0,1] \rightarrow \Gamma$, s.t.: for any $i= 1,\cdots, n$
+        $$|p| [\frac{i-1}{n}, \frac{i}{n}] := e_i$$
+        called the \textit{parametrization} of $p$.
+        \item (\textit{Edge Loop}): an edge path $p = (e_1, e_2 ,\cdots, e_n)$ satisfying
+        $$l(e_1) = \tau(e_n)$$
+        \item (\textit{Embedded edge loop}): an edge loop $\alpha$ is \textit{embedded} if $|\alpha| (0,1)$ is injective.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Let $\Gamma= (V,E,l,\tau)$ be a graph and let $e \in E$.
+    \begin{itemize}
+        \item We refer to the map $$\Phi_e: [0,1] \overset{t \mapsto (e,t)}{\longrightarrow} \{e\} \times [0,1] \overset{p}{\to} |\Gamma|$$
+        where $p$ denotes the canonical projection map, as the \textit{characteristic map} of the edge $e$.
+        \item We write $|e|:= \Phi_e([0,1])$ and $\langle e\rangle := \Phi_e ((0,1))$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Graph-Topology Proposition}\\
+Let $\Gamma= (V,E,l,\tau)$ be a graph.
+\begin{enumerate}
+    \item For each $e \in E$, the characteristic map $\Phi_e: [0,1] \to |\Gamma|$ is continuous.
+    \item Let $U \subseteq |\Gamma|$ be a subset.
+    \begin{enumerate}
+        \item $U \subseteq |\Gamma|$ is open in $|\Gamma|$ $\Leftrightarrow \forall e \in E, \Phi_e^{-1} (U)$ is open in $[0,1]$.
+        \item $U \subseteq |\Gamma|$ is closed in $|\Gamma|$ $\Leftrightarrow \forall e \in E, \Phi_e^{-1} (U)$ is closed in $[0,1]$.
+    \end{enumerate}
+    \item Let $f:|\Gamma| \to X$ be a map to a topological space $X$.
+    $$f\;is\;continuous \Leftrightarrow \forall e \in E, f\circ \Phi_e: [0,1] \to X\;is\; continuous.$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Realization-Functor Proposition}\\
+The followings are equivalent:
+\begin{enumerate}
+    \item Let $\Gamma= (V,E,l,\tau)$ and $\Gamma'= (V',E',l',\tau')$ be two graphs, let $f:= (\alpha: V\to V',\beta: E\to E')$ be a map between $\Gamma$ and $\Gamma'$. Consider $|f|: |\Gamma| \to |\Gamma'|$ given by
+    $$|f|([x]) := \begin{cases}
+        [\alpha(x)] &,if\;x\in V\\
+        [\beta(x)] &,if \;x= (e,t)\; for\;some\; e \in E
+    \end{cases}$$
+    This map is well-defined and continuous.
+
+    \item The map $F:\mathcal{A}bs\mathcal{G}raph \to \mathcal{T}op$ given by the map
+    $$\substack{Ob(\mathcal{A}bs\mathcal{G}raph) \; \to \; Ob(\mathcal{T}op)\\
+    \Gamma \;\mapsto\; |\Gamma|}$$
+    together with the maps
+    $$\substack{Mor_{\mathcal{A}bs\mathcal{G}raph}(\Gamma,\Gamma') \;\to\; Mor_{\mathcal{T}op} (|\Gamma|,|\Gamma'|)\\
+    f\;\mapsto\; |f|}$$
+    forms a covariant functor from $\mathcal{A}bs\mathcal{G}raph$ to $\mathcal{T}op$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Realization-Properties Proposition}\\
+Let $\Gamma= (V,E,l,\tau)$ be a graph.
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item Every compact subspace $K$ of $|\Gamma|$ is contained in the realization of a finite subgraph.
+        \item $|\Gamma|$ is compact $\Leftrightarrow$ $\Gamma$ is finite.
+    \end{enumerate}
+
+    \item The followings are equivalent:
+    \begin{enumerate}
+        \item $\Gamma$ is connected.
+        \item $\forall v\neq w \in V$, $\exists$ an embedding $\gamma: [0,1] \to |\Gamma|$ with $\gamma(0)=v,\gamma (1)=w$, s.t.: $\gamma([0,1]) \subseteq |\Gamma|$ is the union of egdes.
+        \item $|\Gamma|$ is path-connected.
+        \item $|\Gamma|$ is connected.
+    \end{enumerate}
+
+    \item $|\Gamma|$ is Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item Set
+            $$\tilde{E} := \{ e\in E\mid K \cap \langle e\rangle \neq \emptyset\}, \tilde{V}:= \{ v \in V_K \mid v \notin |e| ,\forall e\in E\}$$
+            Furthermore,\begin{itemize}
+                \item for each $e \in \tilde{E}$, we pick $P_e \in K \cap \langle e\rangle$ and set $A_e:= \langle e\rangle$
+                \item for each $v\in \tilde{V}$, we set $B_v:= \{v\} \cup (\bigcup_{e\in E,l(e)=v} \bigcup_{e\in E,\tau(e)=v} \langle e\rangle)$
+                \item we set $C:= (|\Gamma| \setminus (\bigcup_{e\in \tilde{E}} \{P_e\})) \setminus \tilde{V}$.
+            \end{itemize}
+            By the Realization-Properties Proposition, $A_e,B_v$ and $C$ are open in $|\Gamma|$. Note that $\{A_e\}_{e \in \tilde{E}}, \{ B_v\}_{v \in \tilde{V}}$ and $C$ form an open cover of $K$. Since $K$ is compact, then we can cover $K$ by finitely many of these open subsets.\\
+            But each $A_e$ contains a point, namely $P_e$, of $K$, that does NOT lie in any of $B_v$ and $C$. Similarly, $B_v$ contains $v$ where $v \notin A_e \cap C$. These show that $\tilde{E}$ and $\tilde{V}$ are finite. Therefore, $K$ must be contained in the realization of a finite subgraph.
+
+            \item If $|\Gamma|$ is compact, then by 1.(a) $\Gamma$ is finite. If $\Gamma$ is finite, by the compact-ness of each $|e|$, we're done.
+        \end{enumerate}
+
+        \item Note that every graph is a simplicial complex. Hence, $(a) \Leftrightarrow (c) \Leftrightarrow (d)$. So we just need to prove $(a) \Rightarrow (b)$ and $(b) \Rightarrow (c)$.
+        \begin{itemize}
+            \item ((a)$\Rightarrow$(b)): $\forall v\neq w \in V$, it's clear that there is an injective path $e_1,\cdots, e_k$ from $v$ to $w$, i.e.: the vertices on this path are distinct. Consider the map $\gamma: [0,1] \to |\Gamma|$ given by $\gamma(0) =v$ such that on each $[ \frac{i-1}{n}, \frac{i}{n}]$, $\gamma$ is just a reparametrization of $\Phi_{e_i}$, which goes from $l(e_i)$ to $\tau(e_i)$. By the Graph-Topology Proposition and the Pasting Proposition.2, $\gamma$ is continuous. By the choice of the injective path, $\gamma$ is an embedding.
+
+            \item ((b)$\Rightarrow$(c)): $\forall P,Q \in |\Gamma|, \exists e,f\in E$, s.t.:
+            $$P \in |e|, Q \in |f|$$
+            Pick one of the vertices $e,f$, say $v$ of $e$, $w$ of $f$. By the continuity of $\Phi_e$ and $\Phi_f$, there exist a path from $P$ to $v$ and a path $w$ to $Q$. Furthermore, by 2.(b), there is a path from $v$ to $w$ and hence we're done.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\section{Topological Graphs}
+
+\begin{definition}{Topological Graphs}\\
+A \textit{topological graph} is a triple $(X, \Gamma= (V,E,l,\tau), \Theta: |\Gamma| \to X)$ where
+\begin{itemize}
+    \item $X$ is a topological space
+    \item $\Gamma= (V,E,l,\tau)$ is a graph
+    \item $\Theta: |\Gamma| \to X$ is a homeomorphism between the realization $|\Gamma|$ of $\Gamma$ and $X$.
+\end{itemize}
+Furthermore, given a topological graph $(X,\Gamma=(V,E,l,\tau), \Theta: |\Gamma| \to X)$, we introduce the following definitions:
+\begin{itemize}
+    \item \textit{Vertex:} Given $v \in V$, we refer to $\Theta(v)$ as a \textit{vertex of the topological graph}.
+    \item \textit{Edge:} Given $e\in E$, we refer to $\Theta(e)$ as a \textit{edge of the topological graph}.
+    \item \textit{Loop:} Given a loop $\alpha$, we refer to $\Theta (|\alpha|)$ as a \textit{loop of the topological graph}.
+    \item We call $\Gamma$ the \textit{underlying graph}.
+    \item Sometimes we refer, somewhat incorrectly, to $X$ as a \textit{realization of $\Gamma$}.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}{Realization-Embedding Proposition}\\
+Let $\Gamma=(V,E,l,\tau)$ be a graph and let $n \in \mathbb{N} \cup \{0\}$. Suppose we're given the followings:
+\begin{enumerate}
+    \item An injective map $\alpha: V \to \mathbb{R}^n$.
+    \item $\forall e\in E$, we're given a continuous map $\beta_e: [0,1] \to \mathbb{R}^n$ which is injective on $(0,1)$, which satisfies $\beta_e(0,1) \subseteq \mathbb{R}^n \setminus \alpha(V)$ and which satisfies $\beta_e (0)= \alpha(l(e)), \beta_e(1)= \alpha(\tau(e))$.
+    \item $\forall e\neq f \in E$, $\beta_e((0,1)) \cap \beta_f ((0,1)) =\emptyset$.
+\end{enumerate}
+If $\Gamma$ is infinite, then we also need that
+\begin{enumerate}[resume]
+    \item $\forall r \in \mathbb{R}_{\geq 0}$, there are finitely many $v \in V$ with $\alpha (v) \cap B_r^n(0) \neq \emptyset$ and there are finitely many $e \in E$ with $\beta_e ([0,1]) \cap B_r^n (0) \neq \emptyset$.
+\end{enumerate}
+Then the map $\varphi: |\Gamma| \to \mathbb{R}^n$ given by
+$$\varphi([x]) := \begin{cases}
+    \alpha(x) &,if\; x\in V\\
+    \beta_e(t) &,if\; x=(e,t) \;for\;some\;e \in E
+\end{cases}$$
+is a closed embedding.
+\end{proposition}
+
+\noindent\textbf{Remark:} \begin{itemize}
+    \item This proposition gives us a way to construct topological graphs with a given underlying graph.
+    \item Given any finite graph, there exists an embedding of $|\Gamma|$ into $\mathbb{R}^3$.
+\end{itemize}
+
+\section{Undirected Graphs}
+\begin{definition}{Undirected (Abstract) Graphs}\\
+An \textit{undirected (abstract) graph} $\Gamma$ is a triple $(V,E,\varphi)$ where $V$ is a set, $E$ is a set and $\varphi$ is a map from $E$ to $\mathcal{P}(V):=\{$subsets of $V\}$, s.t.: $\varphi(e)$ consists of one or two elements in $V$. Furthermore, we introduce the following definitions:
+\begin{itemize}
+    \item The elements of $V$ are called the \textit{vertices} of $\Gamma$ and the elements of $E$ are called the \textit{edges} of $\Gamma$.
+    \item We say that an edge $e \in E$ a \textit{loop} if $\# \varphi(e)=1$.
+    \item Given $e\in E$, the points in $\varphi(e)$ are called the \textit{vertices of $e$}.
+    \item We say that $\Gamma$ has \textit{multi-edges} if $\exists e \neq e' \in E$, s.t.:
+    $$\varphi(e) =\varphi(e')$$
+    \item We say that $\Gamma$ is \textit{finite} (\textit{countable}) if both $V$ and $E$ are finite (countable).
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Category of Undirected (Abstract) Graphs}\\
+\begin{itemize}
+    \item Let $\Gamma= (V,E,\varphi)$ and $\Gamma'= (V',E',\varphi')$ be two undirected (abstract) graphs. We define a \textit{morphism} from $\Gamma$ to $\Gamma'$ by a pair $(\alpha: V\to V', \beta: E \to E')$ of maps such that for any $e \in E$,
+    $$\varphi' (\beta(e)) = \alpha(\varphi (e))$$
+
+    \item We refer to the category $\mathcal{U}ndir\mathcal{A}bs\mathcal{G}raph$ with
+    \begin{itemize}
+        \item $Ob(\mathcal{U}ndir\mathcal{A}bs\mathcal{G}raph):=$ all undirected (abstract) graph
+        \item $Mor_{\mathcal{U}ndir\mathcal{A}bs\mathcal{G}raph} (\Gamma,\Gamma') :=$ all maps from $\Gamma$ to $\Gamma'$ in the above sense
+    \end{itemize}
+    with the usual composition of maps as the \textit{category of undirected (abstract) graphs}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+    \begin{itemize}
+        \item Let $n \in \mathbb{N} \cup\{0\}$. We denote by $I_n$ the graph that is given by $V=\{ 0,\cdots,n \}$, $E=\{0,\cdots, n-1\}$ and $\varphi(i) := \{i,i+1\}$ for $i \in E$.
+
+        \item We say that an undirected graph $\Gamma= (V,E,\varphi)$ is \textit{connected} if given any vertices $v,w \in V$, there exists a map $p: I_n \to \Gamma$, s.t.: $p(0)=v,p(n)=w$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Combinatorial-Connected-to-Discrete Proposition}\\
+Let $\Gamma= (V,E,l,\tau)$ be a graph or let $\Gamma= (V,E,\varphi)$ be an undirected graph. Let $f: V\to X$ be a map to a set $X$, s.t.: for any $e \in E$, the values of $f$ on the vertices of $e$ agree. If $\Gamma'$ is connected, then $f$ is constant.
+\end{proposition}
+
+\begin{definition}{Realization of Undirected Graphs}\\
+Let $\Gamma=(V,E,\varphi)$ be an undirected graph. We define the \textit{realization} of $\Gamma$ as the topological space
+$$|\Gamma| := (V \sqcup (\bigsqcup_{e\in E, \#\varphi(e)=1} [0,1]) \sqcup (\bigsqcup_{e\in E, \#\varphi(e)=2} [0,1] \times Bij(\{0,1\},\varphi(e)))) /\sim$$
+where is generated by th followings:
+\begin{itemize}
+    \item $\forall e\in E$ with $\#\varphi (e)=1$, we identify $0$ and $1$ in the corresponding $[0,1]$ with the unique point $\varphi(e)$ in $V$.
+    \item $\forall e \in E$ with $\#\varphi (e)=2$, we make the following identifications:
+    \begin{itemize}
+        \item $\forall \gamma \in Bij(\{0,1\} ,\varphi(e))$, set $(0, \gamma) \sim \gamma(0)$ and $(1,\gamma) \sim \gamma(1)$
+        \item $\forall \alpha \neq \beta \in Bij(\{0,1\}, \varphi(e))$, $\forall t \in [0,1]$, set $(t,\alpha) \sim (1-t,\beta)$.
+    \end{itemize}
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Undirected Topological Graphs}\\
+An \textit{undirected topological graph} is a triple $(X, \Gamma= (V,E,\varphi), \Theta: |\Gamma| \to X)$ with the followings:
+\begin{itemize}
+    \item $X$ is a topological space
+    \item $\Gamma$ is a undirected graph
+    \item $\Theta : |\Gamma| \to X$ is a homeomorphism between the realization $|\Gamma|$ of $\Gamma$ and $X$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}{Realization-Homeomorphism Proposition}\\
+Suppose we are given a graph $\Gamma= (V,E,l,\tau)$. As above, we consider the undirected graph $\Gamma' = (V,E,\varphi)$ where $\varphi :E \to \mathcal{P}(V)$ is the map given by
+$$\varphi(e) := \{l(e),\tau(e)\}$$
+The map $\Theta_\Gamma :|\Gamma| \to |\Gamma'|$ given by
+$$\Theta_\Gamma ([x]) := \begin{cases}
+    [x] &,if\;x\in V\\
+    [t] &,if\; x=(e,t)\;for\;some\;e \in E\;with\; l(e)=\tau(e)\\
+    [(t,\gamma)] &,if\; x=(e,t)\;for\;some\;e \in E\;with\; l(e) \neq \tau(e)
+\end{cases}$$
+where $\gamma \in Bij(\{ 0,1\}, \varphi (e))$ is given by $\gamma(0) :=l(e), \gamma(1):= \tau(e)$, is a homeomorphism.
+\end{proposition}
+
+\section{Tree}
+
+\begin{definition}
+    Let $\Gamma = (V,E,l,\tau)$ be a graph.
+    \item (\textit{Tree}): a connected graph $\Gamma = (V,E,l,\tau)$ is a \textit{tree} if $\Gamma$ has NO embedded edge loop.
+    \item (\textit{Subgraph}): a subgraph $\Gamma' = (V',E',l,\tau)$ of $\Gamma$ is given by
+    \begin{itemize}
+        \item $V' \subseteq V$
+        \item $E' \subseteq E$
+        \item $\delta': E' \rightarrow V' \times V' := \left. \delta \right|_{E'}$.
+    \end{itemize}
+    \item (\textit{Subtree}): a subgraph that is a tree is called a \textit{subtree}.
+    \item (\textit{Maximal Tree}): a \textit{maximal tree} $T = (V_T , E_T,l,\tau)$ of $\Gamma$ is defined by
+    \begin{itemize}
+        \item $T$ is a subgraph of $\Gamma$
+        \item $T$ is a tree
+        \item if we add an edge $e \in E \setminus E_T$ to $T$, then the new graph $T \cup \{e\}$ is NOT a tree.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Tree-Basics Proposition}\\
+\begin{enumerate}
+    \item Any connected non-empty subgraph of a tree is again is a tree.
+    \item Let $\Gamma$ be a graph. Let $T=(V,E)$ be a subtree of $\Gamma$ and let $\{e_i\}_{i\in I}$ be a family of edges of $\Gamma$ with the following properties:
+    \begin{enumerate}
+        \item one of $l(e_i)$ and $\tau(e_i)$, say $t_i$, lies in $T$ and the other one, say $v_i$, does NOT lie in $T$
+        \item the vertices $v_i$ are distinct.
+    \end{enumerate}
+    Then $(V \cup \bigcup_{i\in I}\{v_i\}, E \cup \bigcup_{i \in I} \{e_i\})$ is also a subtree of $\Gamma$.
+
+    \item Let $\Gamma$ be a graph. If $T_1 \subseteq T_2 \subseteq \cdots$ is a sequence of subtrees of $\Gamma$, then $\bigcup_{i \in \mathbb{N}_+} T_i$ is also a subtree of $\Gamma$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item is obvious.
+        \item Set $W:= V \cup \bigcup_{i \in I} \{v_i\}$ and $F:= E \cup \bigcup_{i \in I} \{e_i\}$. By the property (a), $(W,F)$ has no loops. Now, for any $w,w' \in W$, we want to show that there is a unique injective path from $w$ to $w'$. We only treat the case when $w=v_i,w'=v_j$ for some $i,j\in I$ and the other cases are treated in the similar way.
+        \begin{itemize}
+            \item \textit{Existence:} Since $(V,E)$ is a subtree, then $\exists!$ an injective path $\alpha$ in $(V,E)$ from $t_i$ to $t_j$. Then we find an injective path in $(W,F)$ from $w=v_i$ going through $\alpha$ to $w'= v_j$
+            \item \textit{Uniqueness:} Let $f_1,\cdots, f_k$ be an injective path in $(W,F)$ from $w$ to $w'$. By the properties (a),(b), $f_1=e_i$ and $f_k=e_j$ and then $f_2,\cdots,f_{k-1}$ forms an injective path in $(V,E)$ from $t_i$ to $t_j$. Hence, by the uniqueness of $\alpha$, we're done.
+        \end{itemize}
+
+        \item Note that $\bigcup_{i \in \mathbb{N}_+} T_i = (\bigcup_{i \in \mathbb{N}_+}V_{T_i}, \bigcup_{i \in \mathbb{N}_+} E_{T_i})$. For any $v_1,v_2 \in \bigcup_{i \in \mathbb{N}_+} V_{T_i}$, there exist $i_1,i_2\in I$, s.t.: $v_1 \in V_{T_{i_1}}, v_2 \in V_{T_{i_2}}$. WLOG, let $i_1 \leq i_2$. Then by the hypothesis, $T_{i_1} \subseteq T_{i_2}$ and hence $v_1 \in V_{T_{i_1}} \subseteq V_{T_{i_2}}$. Since $T_{i_2}$ is a subtree, then $\exists!$ an injective path $\beta$ in $T_{i_2}$ from $v_1$ to $v_2$. Suppose on the contrary that there is a natural $j \geq i_2$, s.t.: there is an injective path $\gamma \neq \beta$ in $T_j$ from $v_1$ to $v_2$. Then $\gamma \circ \beta^{-1}$ gives a loop in $T_j$, contradicting that $T_j$ is a tree.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    If $\Gamma = (V,E,l,\tau)$ is a \textit{tree} and $|V| < \infty$, then
+    $$|E| = |V| -1$$
+\end{proposition}
+
+\begin{theorem}
+    Let $\Gamma = (V,E,l,\tau)$ be a connected graph with $|V|< \infty$. Then $T$ is \textit{maximal tree} of $\Gamma$ \textit{if and only if}
+    $$|V_T| = |V|$$
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Rightarrow$): Suppose on the contrary that $|V_T| < |V|$. Take a vertex $v \in V \setminus V_T$. Since $\Gamma$ is connected and $|V| <\infty$, then we can find a \textit{shortest} path from $v' \in V_T \subseteq V$ to $v$. Then this path begins in $V_T$ and ends at $v \notin V_T$, say $p= (e_1 ,\cdots, e_n)$. Since
+        \begin{align*}
+            (V_T \ni)   v' =l(e_1) \neq  \tau(e_n) = v (\in V \setminus V_T)
+        \end{align*}
+        then $p$ is NOT an edge loop. Hence, $e_n \notin E_T$. Meanwhile, since $p$ is the shortest path between $v'$ and $v$, then $T \cup \{ e_n \}$ is a larger tree.
+        \item ($\Leftarrow$): Since $|V_T| = |V|$, then $V_T = V$ and hence for any $v_1 ,v_2 \in V = V_T$, there exists an edge path $p= (e_1 ,\cdots, e_n)$ with
+        $$l(e_1) = v_2\;\;and\;\; \tau(e_n) = v_1$$
+        Hence, if we add $(v_1,v_2)$ in $T$, then $\alpha = (e_1 ,\cdots, e_n ,(v_1, v_2))$ is an edge loop in $T \cup (v_1,v_2)$ which is NOT embedded in $T \cup (v_1,v_2)$ and hence $T \cup (v_1,v_2)$ is NOT a tree. Therefore, $T$ is a maximal tree.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    All graphs have \textit{maximal tree}.
+\end{corollary}
+
+\begin{corollary}
+    For any maximal tree $T$ of connected graph $\Gamma = (V,E,l,\tau)$, we always have: $T$ has $|V|$ vertices and $|V|-1$ edges.
+\end{corollary}
+
+\begin{definition}{Spanning Tree}\\
+Let $\Gamma$ be a(n undirected) graph. A \textit{spanning tree} for $\Gamma$ is a subtree of $\Gamma$ that contains all vertices of $\Gamma$.
+\end{definition}
+
+\begin{definition}
+    Let $\Gamma$ be a(n undirected) graph and let $\Gamma'$ be a subtree graph.
+    \begin{itemize}
+        \item We say that an \textit{edge} $e$ of $\Gamma$ is \textit{adjacent} to $\Gamma'$ if $e$ doesn't lie in $\Gamma'$ and if at least one vertex of $e$ lies in $\Gamma'$.
+        \item We say that an \textit{vertex} $v$ of $\Gamma$ is \textit{adjacent} to $\Gamma'$ if $v$ doesn't lie in $\Gamma'$ and if $v$ is a vertex of an edge that is adjacent of $\Gamma'$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Spanning Tree-Characterization Proposition}\\
+Let $\Gamma$ be a connected (undirected) graph and let $T \subseteq \Gamma$ be a tree. The followings are equivalent:
+\begin{enumerate}
+    \item $T$ is spanning tree.
+    \item $T$ is maximal in the sense that if $T$ is contained in a subtree $T'$ of $\Gamma$, then $T=T'$.
+    \item $T$ doesn't admit an adjacent vertex.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item (1$\Rightarrow$2): Let $H$ be a subgraph of $\Gamma$ with $T \subsetneq H$. Now we want to show that $H$ is NOT a tree. Take an edge $e$ lying in $H$ but not in $T$. If $e$ is a loop, then we're done immediately. Otherwise, let $v \neq w$ be the vertices of $e$. By the def of spanning tree, $v,w$ lie in $T$. Since $T$ is a tree, then there exists an injective path $\alpha$ in $T$ from $v$ to $w$. On the other hand, $e$ is an injective path in $H$ from $w$ to $v$. Then $\alpha$ and $e$ form a loop in $H$ and hence $H$ is NOT a tree
+
+        \item (2$\Rightarrow$3): It suffices to show that if $T=(W,F)$ is a subtree that admits an adjacent vertex $x$, then it is NOT maximal in the sense stated in 2. Let $f$ be an edge such that one vertex of $f$ is $x$ and the other one lies in $W$. By the Tree-Basics Prop.2, $(W \cup \{x\}, F \cup\{f\})$ is a subtree of $\Gamma$ that contains $T$.
+
+        \item (3$\Rightarrow$1): It suffices to show that if $T$ is NOT a spanning tree, then it admits an adjacent vertex. Suppose that $\exists$ a vertex $v$, s.t.: $v$ does NOT li in $T$. Let $w$ be a vertex in $T$. Since $\Gamma$ is connected, then there is a path $e_1,\cdots, e_n$ from $w$ to $v$. Then one of vertices of $e_i$ is adjacent to $T$ for some $i \in \{1,\cdots,n\}$.
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}{Spanning Tree-Existence Proposition}\\
+Every connected non-empty (undirected) graph admits a spanning tree.
+\end{proposition}
+
+\section{Euler Characteristic}
+
+\begin{definition}{Euler Characteristic}\\
+Let $\Gamma = (V,E)$ be a finite (undirected) graph. The \textit{Euler characteristic} of $\Gamma$ is defined as
+$$\chi (\Gamma) := \# V-\# E$$
+\end{definition}
+
+\begin{proposition}{Tree Characteristic Proposition}\\
+Let $\Gamma=(V,E)$ be a finite (undirected) graph. The followings are equivalent:
+\begin{enumerate}
+    \item $\Gamma$ is a tree.
+    \item $\Gamma$ is connected and $\chi (\Gamma) =1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{definition}{Valence}\\
+    \begin{itemize}
+        \item If $\Gamma= (V,E,l,\tau)$ is a graph, then the \textit{valence of a vertex $v$} is defined as
+        $$valence(v):= \# \{ e \in E\mid l(e) =v \}+ \#\{e \in E\mid \tau(e)=v\}$$
+        \item If $\Gamma =(V,E,\varphi)$ is an undirected graph, then the \textit{valence of a vertex $v$} is defined as
+        $$valence(v):= \#\{ e\in E\mid v\in \varphi(e), \#\varphi(e)=2\} + 2\cdot \#\{ e\in E \mid v \in \varphi(e), \#\varphi(e)=1\}$$
+    \end{itemize}
+    In a slightly less formal but more convenient way, the \textit{valence of a vertex $v$} is the number of edges at $v$, but hereby we have to count any loop at $v$ twice.
+    \end{definition}
+
+    \begin{lemma}{Tree-Valence One Edge Lemma}\\
+    Let $\Gamma=(V,E)$ be a finite (undirected) graph. If $\chi(\Gamma)=1$ and if $\Gamma$ has at least one edge, then $\Gamma$ admits at least two vertices of valence one.
+    \end{lemma}
+
+    \begin{proof}
+        \textit{of lemma:} We prove this lemma for graphs and the proof for undirected graphs is the same. Since $\chi(\Gamma)=1$ and $\Gamma=(V,E,l,\tau)$ has at least one edge, then $\Gamma$ must have NO vertices of valence 0, i.e.: $valence(v) \geq 1$ for any $v\in V$. Since
+        \begin{align*}
+            \sum_{v \in V} valence(v) &:= \sum_{v \in V} (\#\{e\in E\mid l(e)=v\} + \#\{e \in E \mid \tau(e)=v\}) =2\cdot\#E \overset{\chi(\Gamma)=1}{=} 2 \cdot\#V-2
+            \end{align*}
+            then $2 \cdot \#V-2 \geq \#V \Leftrightarrow \#V\geq 2$.
+    \end{proof}
+
+    Now we return to the \textit{proof of the Tree Characteristic Proposition}:
+    \begin{itemize}
+        \item (1$\Rightarrow$2): We've proven it in the previous proposition.
+        \item (2$\Rightarrow$1): Do induction on $\#E$.
+        \begin{itemize}
+            \item \textit{Basic Case:} $\#E=0$. Then by the connectivity of $\Gamma$ (assumption in 2), $\#V =1 \Rightarrow \Gamma$ is a trivial tree.
+            \item \textit{Inductive Step:} Suppose that the statement holds for $\#E=n$. Let $\Gamma=(V,E)$ be a connected (undirected) graph with $(n+1)$-edges and with $\chi(\Gamma)=1$. By the Tree-Valence One Edge Lemma, $\Gamma$ admits a vertex $v$ of valence one. Let $e$ be the corresponding edge. Note that $\Gamma'= (V \setminus \{v\}, E\setminus \{e\})$ is connected and that
+            $$\chi (\Gamma') =\#(V \setminus \{v\}) - \#( E\setminus \{e\}) =\#V-\#E= \chi(\Gamma)=1$$
+            Therefore, by the inductive hypothesis, $\Gamma'$ is a tree and hence by the Tree-Basic Proposition.2, $\Gamma$ is tree.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\section{Quotients of Graphs}
+
+\begin{definition}
+    Let $G=(V,E,l,\tau)$ be a graph and let $H=(W,F)$ be a non-empty subgraph.
+    \begin{itemize}
+        \item We define $\sim$ by the equivalence relation generated by $v \sim v'$ if $v$ and $v'$ are both vertices in $H$, i.e.: $v \sim v' \Leftrightarrow v,v'\in W$. Furthermore, we denote by $*$ the equivalence class defined by the vertices in $H$.
+        \item We denote by $\pi: V \to V/\sim$ the map that is given by $v \mapsto [v]$.
+        \item Finally, we define the graph
+        $$G/H:= (V/\sim, E \setminus F, \pi \circ l: E \setminus F \to V/\sim, \pi \circ \tau: E \setminus F \to V/\sim)$$
+        We refer to $G/H$ as the \textit{quotient of the graph $G$ by $H$}.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Graph-Quotient Proposition}\\
+Let $G= (V,E,l,\tau)$ be a graph and let $H=(W,F)$ be a non-empty subgraph.
+\begin{enumerate}
+    \item If $G$ is finite, then $\chi(G/H) = \chi(G) -\chi (H) +1$.
+    \item Consider the map $p: |G| \to |G/H|$ given by
+    $$p([x]) := \begin{cases}
+        * &,if\; x\in H\\
+        [\pi(x)] &,if\; x \in V \setminus W\\
+        [(e,t)] &,if\; x=(e,t)\;for\;some\;e \in E
+    \end{cases}$$
+    The induced map $\overline{p}: |G|/|H| \to |G/H|$ is well-defined and is a homeomorphism.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $$\chi (G/H) = \# (V/\sim) - \#(E \setminus F) = (\#V - \#W +1) - (\#E-\#F) = \chi(G) -\chi(H)+1$$
+    \end{enumerate}
+\end{proof}

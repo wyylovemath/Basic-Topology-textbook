@@ -201,12 +201,83 @@ $$U \in \mathcal{T}_Y \Rightarrow f^{-1}(U) \in \mathcal{T}_X.$$
     Suppose $f: X\rightarrow Y$ is cont between two topological spaces. Then $\{x_n\} \rightarrow x$ implies $\{f(x_n)\} \rightarrow f(x)$.
 \end{proposition}
 
+
 \begin{proof}
     $\forall$ open $U\ni f(x)$, $f^{-1}(U) \ni x$ is open, then $\exists N>0$, s.t.: $\{x_N, x_{N+1}, \cdots\} \subseteq f^{-1}(U)$, i.e: $\{f(x_N), f(x_{N+1}), \cdots\} \subseteq U$. Hence, $\{f(x_n)\}_{n\geq 1} \rightarrow f(x)$.
 \end{proof}
 
+\begin{lemma}
+    Let $X$ be a topological space and let $\{ X_i\}_{i \in I}$ be a family of subsets of $X$. Then the followings are equivalent:
+    \begin{enumerate}
+        \item For any $U \subseteq X$, $U$ is open in $X$ if $U \cap X_i$ is open in $X_i$ $\forall i$.
+        \item For any $U \subseteq X$, $U$ is closed in $X$ if $U \cap X_i$ is closed in $X_i$ $\forall i$.
+
+        \noindent Furthermore, if 1 or equivalently 2 holds, then one has
+
+        \item a map $f : X \to Y$ ($Y$ topological) is continuous if $f |_{X_i} : X_i \to Y$ continuous.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{itemize}
+        \item (1 $\Rightarrow$ 2): $U \cap X_i$ closed in $X_i$ implies that $X_i \setminus (U \cap X_i) = X_i \setminus U = (X \setminus U) \cap X_i$ is open in $X_i$. Then by 1, $X \setminus U$ is open in $X$, which follows that $U$ is closed in $X$.
+
+        \item (2 $\Rightarrow $ 1): Similar.
+
+        \item (1 $\Rightarrow $ 3): For any open $V$ in $Y$, since
+        $$(f|_{X_i})^{-1} (V) = f^{-1}(V) \cap X_i$$
+        is open in $X_i$, then by 1, $f^{-1}(V)$ is open in $X$. Hence, $f$ is continuous.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Local Finiteness}
+A family $\{ U_i \}_{i \in I}$ of subsets of $X$ is \textit{locally finite} if for any $x \in X$, there exists an open neighborhood $W \ni x$, s.t.:
+$$|\{ i \in I \mid U_i \cap W \neq \emptyset \}| < \infty$$
+\end{definition}
+
+\begin{proposition}{Pasting Proposition}\\
+Let $f: X \to Y$ be a map between topological spaces.
+\begin{enumerate}
+    \item If there is an open cover $\{ W_i \}_{i \in I}$ of $X$, s.t.: $f |_{W_i}$ is continuous, then $f$ is continuous.
+
+    \item If there is a locally finite closed cover $\{A_i\}_{i \in I}$ of $X$, s.t.: $f|_{A_i}$ is continuous, then $f$ is continuous.
+
+    \item If $X$ is Hausdorff and if there exists a locally finite cover $\{ A_i\}_{i \in I}$ of $X$, s.t.: $A_i$ is compact and $f|_{A_i}$ is continuous, then $f$ is continuous.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Note that if $f|_{U_i}$ is continuous, then for any open $V$ in $Y$, one has $(f|_{U_i})^{-1} (V) = f^{-1} (V) \cap U_i$ is open in $U_i$. Then by lemma 3.22, 1 immediately hods.
+
+        \item Similarly as 1.
+
+        \item holds immediately by 2.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Open and Closed Maps}\\
+Let $f: X \to Y$ be a continuous map between two topological spaces.
+\begin{itemize}
+    \item $f$ is called \textit{open} if for any $U \in \mathcal{T}_X$, $f(U) \in \mathcal{T}_Y$.
+    \item $f$ is called \textit{closed} if for any $V$ closed in $X$, $f(V)$ is closed in $Y$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be topological.
+    \begin{itemize}
+        \item $U$ is open in $X$ $\Rightarrow$ $i : U \to X$, inclusion map, is open.
+        \item $A$ is closed in $X$ $\Rightarrow$ $i : A \to X$, inclusion map, is closed.
+    \end{itemize}
+\end{proposition}
+
 \begin{definition}{Homeomorphism}\\
 A homeomorphism between two topological spaces $(X, \mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ is a bijection $f: (X, \mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ such that $f$ and $f ^{-1}$ are both continuous.
+\end{definition}
+
+\begin{definition}{Proper Maps}\\
+A map $f: X \to Y$ between two topological spaces is called \textit{proper} if the preimage of every compact subset of $Y$ is compact in $X$.
 \end{definition}
 
 \section{Subspace Topology}
@@ -288,9 +359,9 @@ Let $(X, \mathcal{T})$ be a topological space. A family of subsets $\mathcal{B}$
     For any interval $(a,b) \subseteq \mathbb{R}^1$, $(a,b)= \bigcup_{i \in I}(p_i,q_i)$ for $p_i ,q_i \in \mathbb{Q}$. Therefore, $\mathcal{B}$ is countable.
 \end{itemize}
 
-\begin{proposition}
-    If $(X,\mathcal{T})$ is a countable basis, e.g.: $\mathbb{R}^n$, then $(X,\mathcal{T})$ has a second-countable space.
-\end{proposition}
+\begin{definition}{Second-countability}\\
+If $(X,\mathcal{T})$ is a countable basis, e.g.: $\mathbb{R}^n$, then we say  $(X,\mathcal{T})$ is a second-countable space.
+\end{definition}
 
 \begin{proposition}
     Let $(X,\mathcal{T}_X),(Y,\mathcal{T}_Y)$ be topological spaces, and let $\mathcal{B}$ be a basis of $\mathcal{T}_Y$. Then:

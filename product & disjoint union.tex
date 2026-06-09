@@ -1,0 +1,376 @@
+\chapter{Product and Disjoint Unions of Topological Spaces}
+
+\noindent\textbf{Recall:} the defs of product topological and disjoint unions are introduced in the previous chapter.
+
+\section{Product of Topological Spaces}
+
+\subsection{Properties of Product Topological Spaces}
+
+\begin{proposition}{Product Metric}\\
+\begin{enumerate}
+    \item Let $(X_1 ,d_1) ,\cdots, (X_k,d_k)$ be metric spaces. We define the \textit{product metric} $d$ on the product $X_1 \times \cdots \times X_k$ as follows:
+    $$d((x_1,\cdots,x_k) , (y_1 ,\cdots, y_k)) := \sum_{i=1}^k d_i (x_i,y_i)$$
+    The product topology on $X_1 \times \cdots \times X_k$ agrees with the metric topology coming from the product metric.
+
+    \item Let $n_1,\cdots,n_m \in \mathbb{N} \cup \{0\}$. The map $\varphi: \mathbb{R}^{n_1 + \cdots + n_m} \to \mathbb{R}^{n_1} \times \mathbb{R}^{n_m}$ given by
+    $$\varphi(x_{1,1} ,\cdots, x_{1,n_1} ,\cdots, x_{m,1} ,\cdots, x_{m,n_m}) := ((x_{1,1} ,\cdots, x_{1,n_1}) , \cdots, (x_{m,1} ,\cdots, x_{m,n_m}))$$
+    is a homeomorphism. The analogous statement also holds if we replace "$\mathbb{R}$" by "$\mathbb{C}$".
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item We can only prove it with the case $k=2$ and then do induction on $k$. It's easy to verify that the product metric $d$ gives a metric on $X_1 \times X_2$. Denote the product topology as $\mathcal{T}_{product}$ and the topology induced by $d$ as $\mathcal{T}_d$.
+        \begin{itemize}
+            \item $\mathcal{T}_{product} \subseteq \mathcal{T}_d$: For any $U \in \mathcal{T}_{product}$, any $(x_1,x_2) \in U$, there exist $\epsilon_1 ,\epsilon_2 >0$, s.t.:
+            $$(x_1,x_2) \in B_{\epsilon_1}^{d_1} (x_1) \times B_{\epsilon_2}^{d_2} (x_2) \subseteq U$$
+            Take $\epsilon:= \min \{\epsilon_1 ,\epsilon_2 \}$. Note that
+            $$(x_1 ,x_2) \in B_{\epsilon}^d (x_1,x_2) \subseteq B_{\epsilon_1}^{d_1} (x_1) \times B_{\epsilon_2}^{d_2} (x_2) \subseteq U$$
+            Hence, $U \in \mathcal{T}_d$. Therefore, $\mathcal{T}_{product} \subseteq \mathcal{T}_d$.
+
+            \item Similarly for $\mathcal{T}_{d} \subseteq \mathcal{T}_{product}$.
+        \end{itemize}
+        Therefore, $\mathcal{T}_{d} = \mathcal{T}_{product}$.
+
+        \item By 1, it suffices to show that the product metric on $\mathbb{R}^{n_1} \times \cdots \times \mathbb{R}^{n_m}$ and the Euclidean metric on $\mathbb{R}^{n_1+\cdots+ n_m}$ define the same topological.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{Product Topology-Properties Proposition}\\
+Let $X_1,\cdots, X_k$ be non-empty topological spaces.
+\begin{enumerate}
+    \item $X_1 \times \cdots \times X_k$ is compact $\Leftrightarrow$ each $X_i$ is compact.
+    \item $X_1 \times \cdots \times X_k$ is (path-)connected $\Leftrightarrow$ each $X_i$ is (path-)connected.
+    \item $X_1 \times \cdots \times X_k$ is Hausdorff $\Leftrightarrow$ each $X_i$ is Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item ($\Leftarrow$): Directly by Tychonff Theorem.
+            \item ($\Rightarrow$): Consider the natural projections and then we're done.
+        \end{itemize}
+        \item \begin{itemize}
+            \item ($\Rightarrow$): Also consider the natural projections and then we're done.
+            \item ($\Leftarrow$): It suffices to show that the case when $k=2$ and then do induction on $k$.
+            \begin{itemize}
+                \item \textit{Path-connected-ness:} Let $(x,y)$ and $(x',y')$ be two points in $X \times Y$. Since $X$ and $Y$ are path-connected, then there exist paths $p: I \to X$ from $x$ to $x'$ and $q: I \to Y$ from $y$ to $y'$. Then
+                $$\substack{I \;\to\; X \times Y\\
+                t \;\mapsto\; (p(t),q(t)) }$$
+                is a path from $(x,y)$ to $(x',y')$.
+
+                \item \textit{Connected-ness:} Pick $a \in X$ and $b \in Y$. Note that for any $x \in X$, $\{x\} \times Y$ and $X \times \{b\}$ are connected. Since $(x,b) \in \{x\} \times Y$ and $\in X\times \{b\}$, then
+                $$(\{x\} \times Y) \cup (X \times \{b\})$$
+                is connected. Since for any $x \in X$, $(a,b) \in  (\{x\} \times Y) \cup (X \times \{b\})$, then
+                $$X\times Y = \bigcup_{x \in X} (\{x\} \times Y) \cup (X \times \{b\})$$
+                is connected.
+            \end{itemize}
+        \end{itemize}
+
+        \item \begin{itemize}
+            \item ($\Leftarrow$): $\forall (x,y) \neq (x',y') \in X \times Y$, WLOG, let $x\neq x'$. Then by the Hausdorff-ness of $X$, there exist $U,U'$ open in $X$, s.t.:
+            $$x \in U ,x'\in U', U\cap U' = \emptyset$$
+            Note that
+            $$(U \times Y) \cap (U' \times Y) = (U \cap U') \times Y = \emptyset \times Y =\emptyset$$
+            Then the disjoint open neighborhood of $(x,y)$ and $(x',y')$ can be $U \times Y$ and $U' \times Y$.
+            \item ($\Rightarrow$): It suffices to show that $X$ is Hausdorff. $\forall x \neq x' \in X$, let $y_0 \in Y$ and then there exist $W,W'$ open in $X \times Y$, s.t.:
+            $$(x,y_0) \in W, (x',y_0) \in W', W\cap W'=\emptyset$$
+            By the def of the product topology, there exist open $U \ni x, U'\ni x', V\ni y_0,V'\ni y_0$, s.t.: $(U \times V) \cap (U' \times V') = \emptyset$. Hence,
+            $$(U\cap U') \times \{y_0\} = (U \cap \{y_0\}) \times (U' \cap \{y_0\}) \subseteq (U\times V) \cap (U'\times V') = \emptyset$$
+            Therefore, $U \cap U' = \emptyset$.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{General-Product Topology-Properties Proposition}\\
+Let $\{X_i\}_{i \in I}$ be a family of non-empty topological spaces.
+\begin{enumerate}
+    \item $\Pi_{i \in I}X_i$ is compact $\Leftrightarrow$ each $X_i$ is compact.
+    \item $\Pi_{i \in I}X_i$ is (path-)connected $\Leftrightarrow$ each $X_i$ is (path-)connected.
+    \item $\Pi_{i \in I}X_i$ is Hausdorff $\Leftrightarrow$ each $X_i$ is Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    The proof of all statements is same as the proof of the corresponding statements of the above proposition, except, for the "$\Leftarrow$"-direction of 2 in the connected case.
+    \begin{lemma}{Closure-Connected Lemma}\\
+    Let $X$ be a topological space and let $A \subseteq X$ be a subset of $X$. If $A$ is connected, then so is its closure $\overline{A}$.
+    \end{lemma}
+    
+    \begin{proof}
+        Let $\overline{A} = C \cup D$ be a decomposition of $\overline{A}$ into two disjoint open subsets. Then $A= (A \cap C) \cup (A \cap D)$. Since $A$ is connected, then WLOG $A=A\cap C$. Hence, $A \subseteq C$. Since $C= \overline{A} \setminus D$ where $\overline{A}$ is closed and $D$ is open, then $C$ is closed in $\overline{A}$. Hence, $\overline{A} \subseteq C$. Therefore, $\overline{A} \subseteq C \subseteq \overline{A} \Leftrightarrow \overline{A} = C$.
+    \end{proof}
+
+    $\forall i \in I$, we pick a point $P_i \in X_i$. Furthermore, for each finite subset $F \subseteq I$, we set
+    $$Y_F:=\{ (x_i)_{i \in I} \in \Pi_{i \in I} X_i \mid x_i=P_i\;\forall i \notin F\}$$
+
+    \begin{itemize}
+        \item \textbf{Claim 1:} $Y:= \bigcup_{F \subseteq I\;finite} Y_F$ is connected.
+        \begin{proof}
+            Let $F \subseteq I$ be a finite subset. Note that there is an bijection between $Y_F$ and $\Pi_{i\in F}X_i$. It's easy to verify that the bijections are continuous and hence they are homeomorphisms. Then by Product Topology-Properties Proposition 2, $\Pi_{i \in F} X_i$ is connected $\Rightarrow$ $Y_F$ is connected. Since $(P_i)_{i \in I} \in Y_F$ for any $F$, then we're done.
+        \end{proof}
+
+        \item \textbf{Claim 2:} $Y:= \bigcup_{F \subseteq I\;finite} Y_F$ is dense in $\Pi_{i \in I} X_i$.
+        \begin{proof}
+            For any open non-empty $U$ in $\Pi_{i \in I}X_i$, there exist open non-empty $V_i$ in $X_i$, s.t.:
+            $\Pi_{i \in I} V_i \subseteq U$
+            and s.t.: for any $i \in F_0$, $V_i =X_i$ for some finite $F_0 \subseteq I$. Hence,
+            $$Y_{F_0} \cap \Pi_{i \in I} V_i \neq \emptyset \Rightarrow Y \cap U \neq \emptyset$$
+        \end{proof}
+    \end{itemize}
+\end{proof}
+
+\begin{definition}{Isolated Points}\\
+Let $X$ be a topological space. A point $x_0 \in X$ is called \textit{isolated} if $\{x_0\}$ itself is an open subset of $X$.
+\end{definition}
+
+\begin{definition}{Total Disconnected-ness}\\
+A topological space $X$ is called \textit{totally disconnected} if the only connected subsets are the empty set and the subsets consisting of a single point.
+\end{definition}
+
+\begin{proposition}{Cantor Set Characterization Proposition}\\
+Let $X$ be a topological space that is compact and totally disconnected. If $X$ contains no isolated point, then $X$ is homeomorphic to the Cantor set.
+\end{proposition}
+
+\subsection{Application of the Product Topology}
+
+\begin{proposition}{Hausdorff-Diagonal Proposition}\\
+$X$ is Hausdorff $\Leftrightarrow$ the diagonal $\Delta := \{ (x,x) \mid x \in X\}$ is closed in $X \times X$.
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\Rightarrow$): For any point in $X \times X \setminus \Delta$, it is $(x,y)$ for some distinct $x,y \in X$. By the Hausdorff-ness of $X$, there exist open $U \ni x, V \ni y$, s.t.: $U \cap V =\emptyset$. Hence, 
+        $$(U \times U) \cap (U \times V) = U \times (U \cap V) = \emptyset \Rightarrow (x,y) \in U \times V \subseteq X \times X \setminus U \times U$$
+        Therefore, $X \times X \setminus \Delta$ is open $\Rightarrow$ $\Delta$ is closed.
+
+        \item ($\Leftarrow$): $\forall x \neq y \in X$, $(x,y) \in X \times X \setminus \Delta$. Since $\Delta$ is closed, then there exists open $W$ in $X \times X$, s.t.:
+        $$(x,y) \in W, W \cap \Delta = \emptyset$$
+        Hence, by the def of the product topology, there exist open $U,V$, s.t.:
+        $$(x,y) ]\in U \times V \subseteq W$$
+        If $U \cap V \neq \emptyset$, then there is a point $z$ in $U \cap V \Rightarrow \emptyset \neq (z,z) \in W \cap \Delta$, contradicting the empty-ness of $W \cap \Delta$. Therefore, $U \cap V =\emptyset$.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}{Maps-agree-one-Closure Proposition}\\
+Let $f,g: X \to Y$ be two continuous maps between topological spaces. Suppose that $Y$ is Hausdorff.
+\begin{enumerate}
+    \item The set $\{ x \in X \mid f(x) =g(x) \}$ is a closed subset of $X$.
+    \item If $f$ and $g$ agree on a subset $A$, then $f$ and $g$ also agree on $\overline{A}$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Consider the diagonal $\Delta = \{ (y,y) \in Y \times Y \mid y \in Y\}$ and the map $(f,g): X \to Y \times Y$ given by $x \mapsto (f(x) , g(x))$. Note that by the Hausdorff-Diagonal Proposition, $\Delta$ is closed and that $(f,g)$ is continuous. Hence,
+        $$\{ x \in X \mid f(x) = g(x) \} = (f,g)^{-1} (\Delta)$$
+        is closed.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Pullback of Topological Spaces}
+
+\begin{proposition}{Topological-Pullback Proposition}\\
+Let $p: X \to B$ be a continuous map between two topological spaces, let $C$ be a topological space and let $f: C \to B$ be a continuous map. Consider the topological space
+$$f^* X:= \{ (c,x) \in C \times X \mid f(c) =p(x) \}$$
+and the maps
+$$\varphi :\substack{f^* X \;\to \; C\\
+(c,x) \;\mapsto\; c } \;\;\;and\;\; \psi: \substack{f^*X\;\to\; X\\
+(c,x) \;\mapsto\; x }$$
+The following statements holds:
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item $\varphi$ and $\psi$ are continuous.
+        \item Given a topological space $W$ and two continuous maps $\alpha: W \to C$ and $\beta: W \to X$, s.t.: $f \circ \alpha = p\circ \beta: W \to B$, the map $\Phi: W \to f^*X$ given by
+        $$\Phi(w) := (\alpha(w),\beta(w))$$
+        is continuous. In particular, the following diagram commutes:
+        $$\begin{tikzcd}[row sep=large, column sep=large]
+            W \arrow[dr, dashed, "\exists! \Phi"'] \arrow[drr, bend left=20, "\beta"] \arrow[ddr, bend right=20, "\alpha"'] & & \\
+            & f^*X \arrow[r, "\psi"] \arrow[d, "\varphi"'] \arrow[dr, phantom, "\lrcorner", pos=0.2] & X \arrow[d, "p"] \\
+            & C \arrow[r, "f"'] & B
+        \end{tikzcd}$$
+        \item $\Phi: W \to f^*X$ is continuous $\Leftrightarrow$ $\varphi \circ \Phi: W \to C$ and $\psi \circ \Phi: W \to X$ are continuous.
+    \end{enumerate}
+
+    \item $f^*X$ with the natural maps $\varphi:f^*X \to C$ and $\psi: f^*X \to X$ is the pullback, in the category $\mathcal{T}op$ of topological spaces.
+\end{enumerate}
+\end{proposition}
+
+\noindent\textbf{Example:} Let $p: X \to B$ be a continuous map between two topological spaces, let $C \subseteq B$ be a subspace of $B$ and let $\iota: C \hookrightarrow B$ be the inclusion map. One can verify that the maps
+$$\substack{p^{-1} (C) \;\to\; \iota^*X\\
+x\;\mapsto\; (p(x),x) } \;\;\;and\;\;\;\substack{\iota^*X \;\to\; p^{-1}(C)\\
+(c,x) \;\mapsto\; x }$$
+are continuous and inverses of one another. Hence, we see that $\iota^*X$ is naturally homeomorphic to $p^{-1}(C)$.
+
+\begin{proposition}{Pullback-Properties Proposition}\\
+Let $p:X \to B$ be a continuous map between two topological spaces, let $C$ be a topological space and let $f: C\to B$ be a continuous map.
+\begin{enumerate}
+    \item If $X$ and $C$ are compact and if $X,B,C$ are Hausdorff, then the pullback $f^*X$ is compact.
+    \item If $X$ and $C$ are Hausdorff, then the pullback $f^*X$ is alsp Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Consider the map $\mu: C \times X \to B \times B$ given by
+        $$\mu(c,x) := (f(c),p(x))$$
+        By the topological-product prop.1, $\mu$ is continuous. Consider the diagram $\Delta := \{ (b,b) \mid b \in B \} \subseteq B \times B$. Since $B$ is Hausdorff, then by the Hausdorff-diagonal prop, $\Delta$ is closed in $B \times B$. By the def of the pullback, one has
+        $$f^*X = \mu^{-1} (\Delta) \subseteq C \times X$$
+        Since $X$ and $C$ are compact and Hausdorff, then by the product topologicy-properties prop.1,3, $C \times X$ is compact and Hausdorff. Therefore, $f^*X$ is compact.
+    \end{enumerate}
+\end{proof}
+
+\section{Disjoint Union of Topological Spaces}
+
+\begin{definition}{Disjoint Union}\\
+Let $\{A_i\}_{i \in I}$ be a family of sets.
+\begin{itemize}
+    \item We define the \textit{disjoint union} as the set
+    $$\bigsqcup_{i \in I} A_i := \bigcup_{i \in I} (A_i \times \{ i\})$$
+    \item Given $j \in I$, we refer to the map
+    $$\substack{A_j \;\to\; \bigsqcup_{i \in I}A_i\\
+    a \;\mapsto \; (a,j)}$$
+    as the \textit{natural injection}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{Disjoint Union Topology}\\
+Let $\{ X_i\}_{i \in I}$ be a family of topological spaces. Then we define the topology $\mathcal{T}$ on the disjoint union $\bigsqcup_{i \in I} X_i$ by
+$$\mathcal{T} := \{U \subseteq \bigsqcup_{i \in I} X_i \mid U \cap X_i \in \mathcal{T}_{X_i}, \forall i \in I\}$$
+\end{definition}
+
+\begin{proposition}{Topological-Coproduct Proposition}\\
+Let $\{X_i\}_{i \in I}$ be a family of topological spaces.
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item Each natural injection $\iota_j: X_j \to \bigsqcup_{i \in I}X_i$ is a continuous open closed embedding.
+        \item If $Z$ is a topological space and if $\{f_i : X_i\to Z \}_{i \in I}$ is a family of continuous maps, then the map
+        $$F: \substack{\bigsqcup_{i \in I} X_i \;\to\; Z\\
+        (x,i) \;\mapsto\; f_i(x)}$$
+        is continuous.
+        \item $f: \bigsqcup_{i \in I} X_i \to Z$ is continuous $\Leftrightarrow$ $\forall i \in I$, $f\circ \iota_i : X_i \to Z$ is continuous.
+    \end{enumerate}
+    \item $(\bigsqcup_{i \in I}X_i, \{\iota_i\}_{i \in I})$ is a coproduct of $\{X_i\}_{i \in I}$ in the category $\mathcal{T}op$ of topological spaces.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \textit{2.} Let $Z$ be a topological space and let $\{f_i: X_i \to Z\}_{i \in I}$ be a family of continuous maps. By \textit{1.(b)}, we've shown that there exists a continuous map $F$, s.t.: $f_i= F \circ \iota_i$ $\forall i \in I$. It remains to show that such map is \textit{unique}.
+\end{proof}
+
+\begin{proposition}{Disjoint Union Topology-Properties Proposition}\\
+Let $\{X_i\}_{i \in I}$ be a family of topological spaces.
+\begin{enumerate}
+    \item $\bigsqcup_{ i\in I}X_i$ compact $\Leftrightarrow$ each $X_i$ is compact and there are only finitely many $i$'s such that $X_i \neq \emptyset$.
+    \item \begin{enumerate}
+        \item Each $X_i$ is open and closed in $\bigsqcup_{i \in I}X_i$.
+        \item The (path-)components of $\bigsqcup_{i\in I}X_i$ are precisely the (path-)components of $X_i$.
+    \end{enumerate}
+    \item $\bigsqcup_{i \in I}X_i$ Hausdorff $\Leftrightarrow$ each $X_i$ Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item ($\Leftarrow$): Let $\{U_j\}_{j \in J}$ be an open cover of $\bigsqcup_{i \in I}X_i$ (in particular, it is also an open cover of $X_i$ for any $i$). Let $i_1,\cdots, i_k$ be such that $X_{i_l} \neq \emptyset$ and that $X_i = \emptyset$ $\forall i \in I \setminus \{i_1,\cdots, i_k\}$. Then $\bigsqcup_{i\in I}X_i = X_{i_1} \sqcup \cdots \sqcup X_{i_k}$. By the compactness of $X_i$, $\forall i=1,\cdots, k$, $\exists$ finite $J_l \subseteq J$, s.t.:
+            $$\bigcup_{j \in J_l} (U_k \cap X_{i_l}) = X_{i_l}$$
+            Hence, $\{ U_j \mid j \in J_l\}_{j=1}^k$ is a finite subcover, which gives the compactness of $\bigsqcup_{i \in I}X_i$.
+
+            \item ($\Rightarrow$): Note that $\{X_i\}_{i \in I}$ is an open cover of $\bigsqcup_{i \in I}X_i$. By the compactness of $\bigsqcup_{i \in I}X_i$, $\exists i_1,\cdots, i_k \in I$, s.t.:
+            $$\bigcup_{l=1}^k X_{i_l} = \bigsqcup_{i \in I} X_i$$
+            Then it's easy to show that $X_{i_l}$'s are compact and $X_i=\emptyset$ $\forall i \neq i_1,\cdots,i_k$.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{Disjoint Union Embedding Proposition}\\
+Let $X$ be a topological space and let $\{A_i\}_{i \in I}$ be a family of disjoint subsets of $X$. The followings are equivalent:
+\begin{enumerate}
+    \item $\forall i \in I$, $\exists$ an open neighborhood $U_i$ of $A_i$, s.t.: for any $j \neq i$
+    $$U_i \cap A_j = \emptyset$$
+
+    \item The map $\Phi: \bigsqcup_{i \in I}A_i \to \bigcup_{i \in I} A_i$ given by
+    $$\Phi(a,i) := a$$
+    is a homeomorphism.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    First, note that $\Phi$ is a bijection since $A_i$'s are disjoint, and that $\Phi$ is continuous, since the inclusion maps $\iota_i :A_i \hookrightarrow \bigcup_{i \in I}A_i$ are continuous.
+    \begin{itemize}
+        \item (1$\Rightarrow$2): It suffices to show that $\Phi$ is open. For any open $U$ in $\bigsqcup_{i \in I}A_i$, $U \cap A_i$ is open in $A_i$ for any $i \in I$. Hence, for any $i \in I$, there exists $W_i$ open in $X$, s.t.: $A_i \cap U = A_i\cap W_i$. Therefore,
+        \begin{align*}
+            \Phi(U) = \Phi(\bigsqcup_{i \in I}A_i \cap U) := \bigcup_{i \in I} (A_i \cap U) = \bigcup_{i \in I} ((A_i \cap U) \cap U_i) = \bigcup_{i \in I} (A_i \cap (W_i \cap U_i))
+        \end{align*}
+        Since $A_i \subseteq W_i \cap U_i$ and $A_i \cap (U_j \cap W_j)=\emptyset$ $\forall j \neq i$, then
+        $$\Phi(U) = (\bigcup_{i\in I} A_i) \cap (\bigcup_{j \in I} (U_j \cap W_j))$$
+        Since $U_j \cap W_j$ is open in $X$, then so is $\bigcup_{j \in I} (U_j \cap W_j)$ and hence $\Phi(U)$ is open in $\bigsqcup_{i \in I} A_i$.
+
+        \item (2$\Rightarrow$1): Since $\Phi$ is homeomorphism, then for any $j \in I$, $\Phi(A_j) := A_j$ is open in $\bigcup_{i\in I}A_i$. Hence, $\exists$ open $V_j$ in $X$, s.t.:
+        $$\bigcup_{i \in I} (A_i \cap V_j) = V_j \cap (\bigcup_{i \in I}A_i) = A_j$$
+        Note that $\forall k \neq j$, $A_k \cap V_j \subseteq A_k \cap A_j = \emptyset$. Hence, $A_j \cap V_j = A_j$. Therefore, we get $V_i = U_i$ $\forall i \in I$ is the desired open neighborhoods.
+    \end{itemize}
+\end{proof}
+
+\section{Topological Groups}
+
+\begin{definition}{Topological Groups}\\
+A \textit{topological group} is a topological space with a group structure, s.t.: the maps
+$$\substack{X \times X \;\to\; X\\
+(x,y) \;\mapsto\; xy} \;\;and\;\; \substack{X \;\to\; X\\
+x \;\mapsto\; x^{-1}}$$
+are continuous.
+\end{definition}
+
+\begin{proposition}
+    $\forall n \in \mathbb{N}_+$, the matrix groups $GL(n,\mathbb{R})$ and $GL(n,\mathbb{C})$ are topological groups.
+\end{proposition}
+
+\begin{definition}
+    The category $\mathcal{T}op\mathcal{G}r$ of topological groups consists of 
+    \begin{itemize}
+        \item $Ob(\mathcal{T}op\mathcal{G}r) :=$ all topological groups
+        \item $Mor_{\mathcal{T}op\mathcal{G}r} (X,Y) :=$ all continuous homomorphisms from $X$ to $Y$
+    \end{itemize}
+    with the usual composition of maps.
+\end{definition}
+
+\begin{proposition}{Topological Subgroup Proposition}\\
+\begin{enumerate}
+    \item Let $X$ be a topological group and let $Y$ be a subgroup of $X$. If we equip $Y$ with the subspace topology, then $Y$ is also a topological group.
+    \item Let $\{X_i\}_{i \in I}$ be a family of topological groups. If we equip $\Pi_{i \in I} X_i$ with the product topology and the obvious group structure, then $\Pi_{i \in I}X_i$ is again a topological group.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Components-of-Topological Group Proposition}\\
+Let $G$ be a topological group.
+\begin{enumerate}
+    \item Given $g \in G$, the maps
+    $$l_g: \substack{G \;\to\; G\\
+    h \;\mapsto\; gh} \:\;\;and\;\; r_g: \substack{G \;\to\;G\\
+    h \;\mapsto\; hg}$$
+    are continuous.
+
+    \item If $G$ is a topological group, then any two path-components of $G$ are homeomorphic.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Note that $l_g = f \circ k$ where
+        $$f: \substack{G \;\to\; G\times G\\
+        h \;\mapsto\; (g,h)} \;\;\: and\;\; k: \substack{G \times G \;\to\; G\\
+        (x,y) \;\mapsto\; xy}$$
+        By the def of topological group, $k$ is continuous. $f$ is obviously continuous. Hence, $l_g$ is continuous. Similarly for $r_g$.
+
+        \item Let $X,Y$ be two path-components of $G$. Fix $x \in X$ and $y \in Y$. Consider the map $\varphi: G \to G$ given by
+        $$\varphi(g) := yx^{-1}g$$
+        By 1, $\varphi$ is continuous. Similarly, the map $\psi: G \to G$ with
+        $$\psi(g) := xy^{-1}g$$
+        is continuous. Note that
+        $$\varphi \circ \psi = \psi \circ \varphi = id_G$$
+        Since $\varphi(X) \subseteq Y$ and $\psi(Y) \subseteq X$, then $X \cong Y$ are homeomorphic.
+    \end{enumerate}
+\end{proof}

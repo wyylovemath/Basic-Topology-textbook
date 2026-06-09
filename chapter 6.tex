@@ -1,1 +1,73 @@
-\chapter{7}
+\chapter{Group Theory}
+
+
+
+\begin{definition}
+    Let $S:= \{ s_i \mid i \in I\}$ be a set of "alphabets".
+    \begin{itemize}
+        \item Define $S^{-1} := \{ s^{-1} \mid s\in S\}$ such that
+        \begin{itemize}
+            \item $S \cap S^{-1} = \emptyset$;
+            \item $(s^{-1})^{-1} \in (S^{-1})^{-1}$ satisfies $(s^{-1})^{-1} = s$. In particular,
+            $$(S^{-1})^{-1} = S.$$
+        \end{itemize}
+        \item A \textbf{word} in $S$ is a \textit{finite} sequence $$w=s_1 \cdots s_n$$ where $n \in \mathbb{N}_+$ and $s_i \in S \cup S^{-1}$.\\
+        In particular, if $n=0$, then $w= \emptyset$.
+        \item The \textit{concatenation} of two words $x_1 \cdots x_n$ and $y_1 \cdots y_m$ is the word
+        $$x_1 \cdots x_n y_1 \cdots y_m.$$
+        \item Two words $w,w'$ are \textit{equivalent}, denoted as $w \sim w'$, if there are words $w=w_1 ,\cdots, w_n=w'$, s.t.: for any $i$,
+        $$w_i = \cdots y_1 ss^{-1}y_2 \cdots, w_{i+1} = \cdots y_1y_2 \cdots$$
+        \textbf{OR}
+        $$w_i\cdots y_1 y_2 \cdots, w_{i+1} = \cdots y_1 ss^{-1}y_2 \cdots$$
+        for some $s \in S\cup S^{-1}$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}{Free Group}\\
+Let $S$ be a set. A \textit{free group with generator $S$} is given by
+$$F(S) := \{ [w] \mid w\;\;is\;\;a\;\;word\;\;in\;\;S \}.$$
+\end{definition}
+
+\noindent\textbf{Check:} $F(S)$ has group structure:
+\begin{itemize}
+    \item $[w] * [u] = [wu]$: If $w_1 \sim w_2$ and $u_1 \sim u_2$, then check $w_1u_1 \sim w_2u_2$.
+    \item $e_{F(S)} = [\emptyset]$.
+    \item $[x_1 \cdots x_n]^{-1} = [x_1^{-1} \cdots x_2^{-1}]$ where $x_i \in S \cup S^{-1}$.
+\end{itemize}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item $S = \{ a\}$. All elements in $F(S)$ are of the form $[a]^i$, $i \in \mathbb{Z}$. Therefore, $F(S) \cong \mathbb{Z}$.
+    \begin{proof}
+        Define a map $\phi : F(S) \rightarrow \mathbb{Z}$ by
+        $$\phi ([a]^{i}) := i.$$
+        Then check that $\phi$ is a group isomorphism.
+    \end{proof}
+    \item $S = \{a,b\}$ and $S^{-1} = \{ a^{-1},b^{-1} \}$.
+    \begin{itemize}
+        \item $F(\{ a_1,\cdots,a_n \}) \subseteq F(\{a,b\})$.
+        \item $[ab] \neq [ba]$ in general, and hence $F(S)$ is \textbf{NOT} abelian, which follows that
+        $$F(\{ a,b\} ) \not\cong \mathbb{Z} \times \mathbb{Z}.$$
+        \item $[ab^{-1}a^2b^2a^{-2}b]$ can \textbf{NOT} be reduced further.
+    \end{itemize}
+    \item Every subgroup of free group is a free group.
+\end{itemize}
+
+\begin{definition}{Group with Relations}\\
+Let $S$ be a set and let $R(S)$ be a set of words in $S$. A \textit{group with relations $R(S)$} is defined by
+$$G = \langle S \mid R(S) \rangle$$
+also called the group presentation, where elements in $G$ are equivalence class of words in $S$ given by:
+$$w \sim w' \Leftrightarrow $$
+\begin{itemize}
+    \item $w$ and $w'$ differ by some $xx^{-1}$, $x \in S \cup S^{-1}$; \textbf{OR}
+    \item $w$ and $w'$ differ by some element $z \in R(S)$, or its inverse.
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item $F(\{a,b\}) = \langle a,b \mid \emptyset \rangle$
+    \item $\langle a \mid a^5 \rangle \cong \mathbb{Z}_5$
+    \item $\langle a,b \mid a^2,b^2,abab^{-1}a^{-1}b^{-1} \rangle \cong S_3$
+\end{itemize}
+

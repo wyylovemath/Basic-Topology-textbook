@@ -1,0 +1,154 @@
+\chapter{Manifolds}
+
+\section{Topological Manifolds}
+
+\subsection{Definition and Examples}
+
+\begin{definition}
+    \begin{itemize}
+        \item Given $n \in \mathbb{N} \cup \{0\}$, we define the \textit{upper half-space in $\mathbb{R}^n$} as
+        $$\mathbb{H}^n := \{ (x_1, \cdots, x_n) \in \mathbb{R}^n \mid x_n \geq 0\} $$
+        Moreover, we define the \textit{boundary of $\mathbb{H}^n$} as
+        $$\partial\mathbb{H}^n := \{ (x_1, \cdots, x_n) \in \mathbb{R}^n \mid x_n=0\} $$
+        \textbf{Remark:} It's easy to show that the map 
+        $\substack{\mathbb{R}^{n-1} \;\to\; \partial \mathbb{H}^n\\
+        x \;\mapsto\; (x,0)}$
+        is a homeomorphism.
+    \end{itemize}
+    \noindent Let $X$ be a topological space.
+    \begin{itemize}
+        \item An \textit{$n$-dimensional chart for $X$ around a point $x \in X$} is a homeomorphism $\Phi: U \to V \subseteq \mathbb{R}^n$ where 
+        \begin{itemize}
+            \item $U$ is an open neighborhood of $x$
+            \item $V$ satisfies one of the following two axioms:
+            \begin{enumerate}
+                \item $V$ is an open subset of $\mathbb{R}^n$
+                \item an open subset of the upper half-space $\mathbb{H}^n$ and $\Phi(x) \in \partial \mathbb{H}^n$
+            \end{enumerate}
+            In the former case we say that $\Phi$ is a chart of type 1, while in the latter case we say that $\Phi$ is a chart of type 2.
+        \end{itemize}
+
+        \item We say that $X$ is an \textit{$n$-dimensional manifold} if $X$ is second-countable and Hausdorff, and if for any $x \in X$, there is an $n$-dimensional chart $\Phi : U \to V$ around $x$.
+
+        \item An \textit{$n$-dimensional atlas} for $X$ is a collection of $n$-dimensional charts $\{ \Phi_i : U_i \to V_i\}_{i \in I}$ satisfying that $\{U_{i}\}_{i \in I}$ covers $X$.
+    \end{itemize}
+    \noindent Let $X$ be a topological manifold.
+    \begin{itemize}
+        \item We say that a point $x$ on $X$ is a \textit{boundary point} if $x$ doesn't admit a chart of type 1. Furthermore, we denote by $\partial X$ th set of all boundary points of $X$. We refer to $\partial X$ as the \textit{boundary of $X$}.
+
+        \item We say that $X$ is \textit{closed} if $X$ is compact with $\partial X=\emptyset$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Countable Atlas-Second Countable Proposition}\\
+Let $X$ be a topological space.
+\begin{enumerate}
+    \item If $X$ admits a countable atlas, then $X$ is second-countable.
+    \item If $X$ is compact and if $X$ admits an atlas, then $X$ is second-countable.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Suppose that $X$ admits a countable atlas $\{ \Phi_i :U_i \to V_i\}_{i \in I}$. Since $V_i \subseteq \mathbb{R}^n$ are subsets of $\mathbb{R}^n$, then $V_i$'s are second-countable. Since $\Phi_i$'s are homeomorphisms, then $U_i$'s are second-countable and hence so is $X$.
+
+        \item By the compactness of $X$, the atlas can be reduced into the finite case and then by \textit{1}, we're done.
+    \end{enumerate}
+\end{proof}
+
+\noindent\textbf{Example:}
+\begin{itemize}
+    \item \textit{Examples:}
+    \begin{itemize}
+        \item Consider $\mathbb{S}^n$. Note that for any $P \in \mathbb{S}^n$, $\Phi_P: \mathbb{S}^n \setminus \{-P\} \to \mathbb{R}^n$ is a chart of type 1. Hence, $\mathbb{S}^n$ is a closed $n$-dimensional topological manifold.
+
+        \item Every open subset $U$ of $\mathbb{R}^n$ is an $n$-dimensional topological manifold with boundary $\emptyset$.
+
+        \item Let $M$ be an open subset of $\mathbb{H}^n$.
+        \begin{itemize}
+            \item For any $x = (x_1, \cdots, x_n) \in M$ with $x_n>0$, there exists $U$ open in both $\mathbb{H}^n$ and $\mathbb{R}^n$, s.t.: $x \in U \subseteq \mathbb{H}^n$. Then the identity map on $U$ gives a chart of type 1.
+            \item For any $x = (x_1, \cdots, x_n) \in M$ with $x_n=0$, the identity map is a chart of type 2.
+        \end{itemize}
+        Hence, $M$ is a topological manifold with boundary $\partial M = M \cap \partial \mathbb{H}^n$.
+        
+        \item $n$-ball $\overline{B}^n$ is an $n$-dimensional topological manifold:
+        \begin{itemize}
+            \item By the open-ness of $B^n$, every $x \in B^n$ admits an open neighborhood $U$ in $B^n$ and hence the identity map on $U$ gives a chart of type 1.
+            \item Consider $V:= \{ (x_1,\cdots,x_n) \in \overline{B}^n \mid x_n >0\}$. The map
+            $$\substack{V \;\to\; \mathbb{H}^n\\
+            (x_1,\cdots,x_n) \;\mapsto\; (x_1,\cdots,x_{n-1},\sqrt{1-x_1^2 - \cdots -x_{n-1}^2}-x_n) }$$
+            is a chart of type 2 around any $x= (x_1,\cdots,x_n) \in \mathbb{S}^{n-1} = \overline{B}^n \setminus B^n$ with $x_n >0$. Similarly for $x = (x_1,\cdots,x_n) \in \mathbb{S}^{n-1}$ with $x_n<0$.
+        \end{itemize}
+
+        \item $X$ is a $0$-dimensional $\Leftrightarrow$ $X$ is countable and is equipped with $\mathcal{T}_{discrete}$.
+
+        \item The empty set $\emptyset$ is a topological manifold of any dimension.
+    \end{itemize}
+
+    \item \textit{Non-examples:}
+    \begin{itemize}
+        \item $X=\mathbb{R}$ equipped with $\mathcal{T}_{dicrete}$ is \textbf{NOT} second-countable and hence $X$ is \textbf{NOT} a topological manifold.
+
+        \item The line with two zeros is \textbf{NOT} Hausdorff and hence it is \textbf{NOT} a topological manifold.
+
+        \item In the later section, we will see that there exists a connected Hausdorff space which admits a 1-dimensional atlas, but which is not second-countable. In particular this topological space is not a topological manifold
+    \end{itemize}
+\end{itemize}
+
+\begin{proposition}{Chart-to-Balls Proposition}\\
+Let $X$ be an $n$-dimensional topological manifold, let $P \in X$ be a point in $X$ and let $N$ be a neighborhood of $P$.
+\begin{enumerate}
+    \item If $P \in X \setminus\partial X$, then $\exists$ a chart $\Phi: U \to B^n$ with $\Phi(P) =0$ and $U \subseteq N$.
+    \item If $P \in \partial X$, then $\exists$ a chart $\Phi: U \to B^n_{\geq 0}$ with $\Phi(P) =0$ and $U \subseteq N$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item By the def of $\partial X$, $\exists$ a chart $\Psi:V \to W$ around $P$ of type 1. WLOG, we can take $V$ to be such that $V \subseteq N^\circ \subseteq N$. By the def of charts of type 1, $W$ is open and hence there exists $r>0$, s.t.:
+        $$B_r^n (\Psi (P)) \subseteq W$$
+        Denote $B:= B_r^n (\Psi (P))$. Then $\Phi := \Psi|_{\Psi^{-1}(B)} : \Psi^{-1}(B)\to B$ is the desired chart.
+
+        \item Similarly as 1.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{Topological Manifold Product Proposition}\\
+Let $X$ be a $m$-dimensional topological manifold and let $Y$ be an $n$-dimensional topological manifold.
+\begin{enumerate}
+    \item $X\times Y$ is an $(m+n)$-dimensional topological manifold.
+    \item \begin{enumerate}
+        \item Each point in $(X\times Y) \setminus ((\partial X \times Y) \cup (X \times \partial Y))$ admits a chart of type 1.
+        \item Each point in $(\partial X \times Y) \cup (X \times \partial Y)$ admits a chart of type 2.
+        \item $\partial (X\times Y) \subseteq (\partial X \times Y) \cup (X \times \partial Y)$.
+    \end{enumerate}
+
+    \item If $X$ and $Y$ are closed topological manifolds, then so is $X \times Y$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item Since $X$ and $Y$ are Hausdorff and second-countable, then so is $X \times Y$.
+        \item Let $(x,y) \in X \times Y$.
+        \begin{itemize}
+            \item \textbf{Case 1:} $x \in X \setminus \partial X, y\in Y \setminus \partial Y$. Then we have two charts $\Phi_x:U_x \to V_x, \Phi_y :U_y \to V_y$ around $x$ respectively $y$ of type 1. Then consider the "product chart" $\Phi_x \times \Phi_y: U_x \times U_y \to V_x \times V_y$ given by
+            $$(\Phi_x \times \Phi_y) (u_1,u_2) := (\Phi_x(u_1), \Phi_y(u_2))$$
+            which is a chart around $(x,y)$ of type 1.
+
+            \item \textbf{Case 2:} $x\in X \setminus\partial X,y \in \partial Y$ or $x\in \partial X,y \in Y\setminus\partial Y$. Similarly the "product chart" is a chart around $(x,y)$ of type 2.
+
+            \item \textbf{Case 3:} $x\in \partial X,y \in \partial Y$. Note that the image of the "product chart" 
+            $$\Phi_x \times \Phi_y: U_x \times U_y \to V_x \times V_y \subseteq \mathbb{R}^{m+n-2} \times \mathbb{R}_{\geq 0} \times \mathbb{R}_{\geq 0}$$
+            is \textbf{NOT} $\mathbb{H}^{m+n} := \mathbb{R}^{m+n-1} \times \mathbb{R}_{\geq 0}$, so we need an extra step: consider the map $\Psi: \mathbb{R}^{m+n-2} \times \mathbb{R}_{\geq 0} \times \mathbb{R}_{\geq 0} \to \mathbb{H}^{m+n}  \mathbb{R}^{m+n-2} \times \mathbb{R} \times \mathbb{R}_{\geq 0}$ given by
+            $$\Psi(x_1 ,\cdots, x_{m+n-2} ,r\cos \varphi, r\sin \varphi) := (x_1 ,\cdots, x_{m+n-2} ,r^2\cos 2\varphi, r^2\sin 2\varphi)$$
+            It's easy to verify that $\Psi$ is a homeomorphism and hence
+            $$\Psi \circ (\Phi_x \times \Phi_y)$$
+            is a chart around $(x,y)$ of type 2.
+        \end{itemize}
+        
+        \item We've proven that (a) and (b) hold in 1 and (c) holds immediately by the def of the boundary of topological manifolds.
+
+        \item $X,Y$ closed $\Leftrightarrow$ $\partial X=\partial Y=\emptyset$ $\overset{2.(c)}{\Rightarrow}$ $\partial (X\times Y)=\emptyset$ $\Leftrightarrow$ $X \times Y$ closed.
+    \end{itemize}
+\end{proof}

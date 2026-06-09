@@ -194,6 +194,111 @@ called Topologist's comb, which is connected but NOT path-connected.
     \item $X$ is connected. The proof is omitted here, but it relies on showing that any separation would disconnect the horizontal interval from the vertical combs, which is impossible.
 \end{itemize}
 
+\begin{definition}{Concatenation}\\
+Let $X$ be a topological space and let $\alpha, \beta: [0,1] \to X$ be two paths with $\alpha(1) = \beta (0)$. Then define the \textit{concatenation} of $\alpha$ and $\beta$, denoted as $\alpha * \beta$, by $\alpha * \beta: [0,1] \to X$ with
+$$\alpha * \beta (t) := \begin{cases}
+    \alpha (2t) &,if\; \; t\in [0,1/2]\\
+    \beta (1-2t) &,if\;\; t\in [1/2,1]
+\end{cases}$$
+\end{definition}
+
+\begin{definition}{Path-Equivalence}\\
+Let $x,y \in X$, topological space. We say $x$ and $y$ are path-equivalent if there exists a path $\gamma : [0,1] \to X$, s.t.:
+$$\gamma (0) = x, \gamma (1) = y$$
+\end{definition}
+
+\begin{proposition}
+    For every topological $X$, path-equivalence defines an equivalence relation.
+\end{proposition}
+
+\begin{definition}{Path-components}\\
+Let $X$ be a topological space. We call the path-equivalence classes of points the \textit{path-components} of $X$, denoted as $\Pi_0 (X)$.
+
+In particular, if $X$ is non-empty, consisting of a simple path-component, then we write $\Pi_0(X) =0$.
+\end{definition}
+
+\begin{proposition}{Path-Component Proposition}\\
+Let $X$ be a topological space.
+\begin{enumerate}
+    \item $X$ is the disjoint union of its path-components.
+    \item Each path-component of $X$ is path-connected.
+    \item Each path-component $C$ of $X$ is a maximal path-connected subsets, i.e.: if $C \subsetneq D$, then $D$ is NOT path-connected.
+    \item Let $A \subseteq X$ be a subset of $X$.
+    \begin{enumerate}
+        \item If no point in $A$ is path-equivalent to a point in $X \setminus A$, then $A$ is the union of path-components of $X$.
+        \item If $A$ is path-connected, then $A$ is contained in a path-component of $X$.
+        \item If $A$ is path-connected and if no point in $A$ is path-component to a point in $X \setminus A$, then $A$ is a path-component of $X$.
+    \end{enumerate}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    It's trivial for 1,2,3,4(b),4(c). As for 4(a), suppose on the contrary that there are path-components $\{C_i\}_{i \in I}$, s.t.:
+    $$\bigcup_{i \neq j} C_i \subsetneq A \subsetneq \bigcup_{i\in I} C_i$$
+    for some $j \in I$. Consider $a \in A \setminus \bigcup_{i \neq j} C_i \subseteq C_j$ and $b \in C_j \setminus A$. Note that $a,b \in C_j$, contradicting the assumption of 4(a).
+\end{proof}
+
+\begin{definition}{Connectable}\\
+Let $x$ and $y$ be two points in a topological space $X$. We say $x$ and $y$ are connectable if there exists a connected subset of $X$ containing both $x$ and $y$.
+\end{definition}
+
+\begin{proposition}
+    For every topological $X$, the notion of being connectable gives an equivalence relation.
+\end{proposition}
+
+\begin{definition}{Component}\\
+Let $X$ be topological. We call the equivalence classes of connectable points on $X$ the \textit{component} of $X$.
+\end{definition}
+
+\begin{proposition}{Component Proposition}\\
+Let $X$ be a topological space.
+\begin{enumerate}
+    \item As a set $X$ is the disjoint union of its components.
+    \item Each component of $X$ is connected.
+    \item Each component $C$ of $X$ is a maximal connected subset of $X$, i.e.: if $C \subsetneq D$, then $D$ is NOT connected.
+    \item Let $A \subseteq X$ be a subset of $X$.
+    \begin{enumerate}
+        \item If $C$ is a component of $X$, then $A \cap C$ is a component of $A$.
+        \item If $A$ is both closed and open in $X$, then $A$ is the union of components of $X$.
+        \item If $A$ is both closed the open in $X$ and if $A$ is connected, then $A$ is a component of $X$.
+    \end{enumerate}
+    \item Each component of $X$ is the union of path-components of $X$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    It's trivial for 1,2,3,4(a),4(c),5. As for 4(b), let $C$ be a component of $X$. Note that $A \cap C$ is both closed and open in $C$. By (2), the connectivity of $C$, $A \cap C = \emptyset$ or $A \cap C = C$.
+\end{proof}
+
+\begin{proposition}
+    Let $X$ be a topological space.
+    \begin{enumerate}
+        \item Every component of $X$ is closed subset of $X$.
+        \item If $X$ has only finitely many components, then each component is also an open subset of $X$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $C$ be a component of $X$. If $C=X$, then we're done, since $\emptyset \in \mathcal{T}_X$. Otherwise, take $P \in X \setminus C$. Then by the component proposition 3, $C \cup \{P\}$ is NOT connected. Therefore, by def there exist open (in $C\cup \{P\}$) nonempty disjoint $U,V$, s.t.:
+        $$C \cup \{P\} = U \sqcup V$$
+        WLOG, let $C \cap U \neq \emptyset$. Since $C$ is connected and $C= (U \cap C) \sqcup (V \cap C)$, then $V \cap C = \emptyset$. Hence, $V=\{P\}$, open in $C \cup \{P\}$. Therefore, by the subspace topology, there exists an open subset $W$ in $X$, s.t.:
+        $$W \cap (C \cup \{P\}) = V = \{P\}$$
+        Hence, $W\cap C = \emptyset$ and $P \in W$, which follows that $X \setminus C$ is open $\Leftrightarrow$ $C$ is closed.
+
+        \item Let $C$ be a component of $X$. By assumption, $$X \setminus C = \bigcup_{i=1}^n C_i$$
+        where $C_i$'s are components of $X$. Since the union is finite and each $C_i$ is closed by 1, then $X \setminus C$ is closed and hence $C$ is open.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $f: X \to Y$ be a continuous map between two topological spaces.
+    \begin{enumerate}
+        \item Let $C$ be a (path-)component of $Y$. The preimage $f^{-1} (C)$ is the union of (path-)components $X$.
+        \item Let $B$ be a (path-)component of $X$. There exists a (path-)component $C$ of $Y$, s.t.: $f (B) \subseteq C$.
+    \end{enumerate}
+\end{proposition}
+
 \section{Compactness}
 
 \begin{definition}{Cover}\\
@@ -251,7 +356,7 @@ $A \subseteq X$ is cpt if the following two equivalent conditions hold:
 \end{corollary}
 
 \begin{proof}
-    For any $x \in X-K$, by lemma 3.24, there exists an open set $U_x \ni x$ s.t.: $U_x \subseteq X-K$. Then $X-K$ is open.
+    For any $x \in X-K$, by lemma 4.25, there exists an open set $U_x \ni x$ s.t.: $U_x \subseteq X-K$. Then $X-K$ is open.
 \end{proof}
 
 \begin{proposition}
@@ -313,7 +418,7 @@ Let $\{X_i \mid i\in I \}$ be cpt topological spaces. Then $\Pi_{i\in I} X_i$ is
         $$X_1 \times X_2 \times \cdots \subseteq \bigcup_{j=1}^p U_{x_j} \times X_2 \times X_3 \times \cdots \subseteq \bigcup_{j=1}^p \bigcup_{i=1}^{m_{x_j}} W_{x_j ,i}.$$
         Therefore, $\mathcal{B}$ covers $X_1 \times X_2 \times X_3 \times \cdots$ finitely, contradiction!
     \end{itemize}
-    Then by claim 1 and lemma 3.28, if we regard $U_1$ in claim 1 as $X$ in lemma 3.28, $X_2$ as $Y$ in lemma 3.28, and $X_3 \times X_4 \times \cdots$ as $Z$ in lemma 3.28, then there exists an point $x_2 \in X_2$, s.t.: for any open $U_1, \ni x_1,U_2,\ni x_2$, $\mathcal{B}$ does NOT cover $U_1 \times U_2 \times X_3 \times X_4 \times \cdots$ finitely.
+    Then by claim 1 and lemma 4.29, if we regard $U_1$ in claim 1 as $X$ in lemma 3.28, $X_2$ as $Y$ in lemma 4.29, and $X_3 \times X_4 \times \cdots$ as $Z$ in lemma 3.28, then there exists an point $x_2 \in X_2$, s.t.: for any open $U_1, \ni x_1,U_2,\ni x_2$, $\mathcal{B}$ does NOT cover $U_1 \times U_2 \times X_3 \times X_4 \times \cdots$ finitely.
 
     Repeat this procedure. Then we get (*): $\exists \mathbf{x} = (x_1, \cdots, x_n,\cdots) \in \Pi_{i=1}^\infty X_i$, s.t.: for any $n \in \mathbb{N}_+$, $\forall U_i \ni x_i,(i=1,\cdots n)$, $U_1 \times \cdots \times U_n \times X_{n+1} \times \cdots$ can NOt be covered by $\mathcal{B}$ finitely.
     \begin{itemize}
@@ -344,3 +449,298 @@ Let $\{X_i \mid i\in I \}$ be cpt topological spaces. Then $\Pi_{i\in I} X_i$ is
 
 \noindent\textbf{Example:} Consider $f : S^1 \times S^1 \rightarrow \mathbb{R}^3$ with $f(\theta , \phi ) : = \{ (R + r\cos \theta) \cos \phi , (R + r\cos \theta) \sin \phi , r \sin \phi \}$, where $S ^1 := \{ (\cos\theta , \sin \theta) \mid \theta \in \mathbb{R} \}$. Then $f(S^1 \times S^1)$ forms a torus, which can be denoted by $T^2$.\\
 It's easy to check that $f$ is cont, $ S^1 \times S^1$ is cpt (i.e.: closed and bdd in $\mathbb{R} ^2$), and $f( S^1 \times S^1)$ is Hausdorff. Then by theorem 3.30, $ S^1 \times S^1 \cong  f(S^1 \times S^1) = T^2$ are homeomorphic.
+
+\begin{definition}{Cantor Set}\\
+Let $C_0 := [0,1]$. Then we define $\{ C_i\}_{i=1}^\infty$ iteratively as follows:
+$$C_i := \{ \frac{1}{3} x \mid x \in C_{i-1} \} \cup \{ \frac{2}{3} + \frac{1}{3} x \mid x \in C_{i-1} \} (= \frac{1}{3}C_{i-1} \cup (\frac{2}{3} + \frac{1}{3}C_{i-1}))$$
+Then we define \textit{Cantor Set} by
+$$C:= \bigcap _{i=0}^\infty C_{i}$$
+\end{definition}
+
+\begin{proposition}
+    The Cantor Set is compact in $\mathbb{R}$.
+\end{proposition}
+
+\section{Normal Topological Space}
+
+\begin{definition}{Normal Topological Space}\\
+A topological space $X$ is called \textit{normal} if any two disjoint closed subsets $A,B$ of $X$ can be separated by open neighborhoods, i.e.: there exists two open sets $U,V$, s.t.: $A \subseteq U, B \subseteq V$ and $U \cap V =\emptyset$.
+\end{definition}
+
+\begin{proposition}
+    Every compact Hausdorff space is normal.
+\end{proposition}
+
+\begin{proposition}{Metric Spaces-Normal Proposition}\\
+Let $(X,d)$ be a metric space. Then $(X,\mathcal{T}_{d})$ is a normal topological space.
+\end{proposition}
+
+\begin{proof}
+    Given two disjoint closed subsets $A,B$ of $B$, if one of $A$ or $B$ is empty, then the desired open neighborhoods are $\emptyset$ and $X$. Otherwise, $A,B$ are both non-empty. Note that $\forall x \in X$,
+    $$d(x,A)+ d(x,B) >0$$
+    So we can consider a well-defined map $f:X \to \mathbb{R}$ given by
+    $$f(x) := \frac{d(x,A)}{d(x,A) + d(x,B)}$$
+    which is continuous by the Distance-to-Subspace Proposition.1. It's clear that $f|_A \equiv 0, f|_B \equiv 1$. Then
+    $$A \subseteq U:= f^{-1}((-\infty, \frac{1}{4})), B\subseteq V:= f^{-1}((\frac{3}{4}, \infty))$$
+    are the two desired open neighborhoods.
+\end{proof}
+
+\begin{proposition}{Normal-Open-Closed-Neighborhood Proposition}\\
+Let $X$ be a topological space and let $A \subseteq X$ be a closed subset and $U \subseteq X$ be an open subset with $A \subseteq U$. If $X$ is normal, then there exists an open $V \subseteq X$ in $X$, s.t.:
+$$A \subseteq V \subseteq \overline{V} \subseteq U$$
+\end{proposition}
+
+\begin{proof}
+    Since $A \subseteq U$, then $A \cap (X \setminus U)= \emptyset$, where $A,X\setminus U$ are closed. By the normality of $X$, there are disjoint open neighborhoods $V$ of $A$, $W$ of $X\setminus U$. It suffices to show that $\overline{V} \subseteq U$. Note that $V \subseteq X \setminus W$ with $X \setminus W$ closed. Hence,
+    $$\overline{V} \subseteq \overline{X \setminus W} = X \setminus W\subseteq U$$
+\end{proof}
+
+\begin{proposition}{Closed Disjoint Embedding Proposition}\\
+Let $Y$ be a normal space.
+\begin{enumerate}
+    \item Let $A_1,\cdots, A_k \subseteq Y$ be distinct subsets. If $A_i$'s are closed in $Y$, then the natural map $A_1 \sqcup \cdots \sqcup A_k \to A_1 \cup \cdots \cup A_k$ is a homeomorphism.
+
+    \item Let $X_1,\cdots, X_k$ be compact spaces and let $\varphi_i: X_i \to Y$ be embeddings with disjoint images. If $Y$ is Hausdorff, then the map
+    $$\bigsqcup_{i=1}^k \varphi_i : \bigsqcup_{i=1}^k X_i \to Y$$
+    is an embedding.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Given $j \in \{1,\cdots,k\}$, note that $\bigcup_{i \neq j} A_i$ is closed and that it is disjoint with $A_j$ closed in $Y$. Then by the normality of $Y$, there exists an open neighborhood of $A_j$ that doesn't intersect any of the other $A_i$. Hence, by the Disjoint Embedding Proposition, we're done.
+
+        \item By the compact-ness of $X_i$ and the Hausdorff-ness of $Y$, the images of embeddings $\varphi_i(X_i)$'s are closed in $Y$. Then by 1, we're done.
+    \end{enumerate}
+\end{proof}
+
+\section{Urysohn's Lemma}
+
+\begin{lemma}{Urysohn's Lemma}\\
+Let $X$ be a topological space. The followings are equivalent:
+\begin{enumerate}
+    \item For any two disjoint closed subsets $A,B$, any $r<s \in \mathbb{R}$, there exists a continuous map $f: X \to [r,s]$ with $f|_A \equiv r, f|_B \equiv s$.
+    \item $X$ is normal.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{itemize}
+        \item (1$\Rightarrow$2): For any disjoint closed $A,B$ in $X$, by 1, $f^{-1}((-\infty, \frac{r+s}{2}))$ and $f^{-1}((\frac{r+s}{2},\infty))$ are the desired disjoint open neighborhoods of $A$ respectively $B$.
+        \item (2$\Rightarrow$1): Given two disjoint closed $A,B$ subsets of $X$, it suffices to show that there is a continuous map $f:X \to [0,1]$, s.t.: $f|_A\equiv 0,f|_B \equiv 1$.
+        \begin{itemize}
+            \item \textbf{Claim 1:} Set $P:= [0,1] \cap \mathbb{Q}$. There exists a fammily $\{U_s\}_{s \in P}$ of open subsets of $X$ with the following properties:
+            \begin{enumerate}
+                \item $A \subseteq U_0$
+                \item $\forall p\in P$ with $p<1$, we have $U_p \subseteq X \setminus B$
+                \item $\forall s,t\in P$ with $s<t$, we have $\overline{U}_s \subseteq U_t$.
+            \end{enumerate}
+
+            \item \begin{proof}
+                \textit{of claim 1:} Since $P$ is countable, then there is a bijective $\varphi: \mathbb{N} \cup \{0\} \to P$. WLOG, let $\varphi(0)=0$ and $\varphi (1)=1$. Set $U_1:= X\setminus B$, which is open by the closed-ness of $B$. Since $X$ is normal and since $A$ is closed, then by the Normal-Open-Closed-Neighborhood Proposition, there is an open neighborhood $U_1$ of $A$, s.t.: $\overline{U}_0 \subseteq U_1$.\\
+                Now we suppose that we're already constructed $U_{\varphi(0)}= U_0, U_{\varphi(1)}= U_1 ,U_{\varphi(2)} ,\cdots, U_{\varphi(n)}$ with the required properties. Then set $P_n:= \{ \varphi(0) ,\cdots, \varphi (n)\}$ and $y:= \varphi(n+1)$. By the injectivity of $\varphi$, since $\varphi(0)=0$ and $\varphi(1)=1$, then $y \in (0,1)$. Since $P_n$ is finite, then $\exists x,z \in P_n$, s.t.:
+                $$p\leq x<y,\forall p\in P_n \;\;and\;\; y< z\leq q ,\forall q\in P_n$$
+                Then by the property 3, $\overline{U}_x \subseteq U_z$. Hence, by the Normal-Open-Closed-Neighborhood Proposition, there is an open $U_y$, s.t.:
+                $$\overline{U}_x \subseteq U_y \subseteq \overline{U}_y \subseteq U_z$$
+                Therefore, we're done.
+            \end{proof}
+        \end{itemize}
+
+        $\forall p \in (-\infty,0) \cap \mathbb{Q}$, we set $U_p := \emptyset$ and $\forall p\in (1,\infty) \cap \mathbb{Q}$, we set $U_p :=X$. Consider $f: X \to \mathbb{R}$ given by
+        $$f(x) := \inf \{p \in \mathbb{Q} \mid x\in U_p\}$$
+        By the properties 1,2, $f|_A \equiv 0,f|_B \equiv 1$ and $f(X) \subseteq [0,1]$. Then it remains to prove the continuity of $f$.
+
+        \begin{itemize}
+            \item \textbf{Claim 2:} Let $r \in \mathbb{Q}$.
+            \begin{enumerate}
+                \item $x \in \overline{U}_r \Rightarrow f(x) \leq r$, i.e.: $f(x) >r \Rightarrow x \notin \overline{U}_r$.
+                \item $x \notin U_r \Rightarrow f(x) \geq r$, i.e.: $f(x) <r \Rightarrow x \in U_r$.
+            \end{enumerate}
+
+            \item \begin{proof}
+                \textit{of claim 2:} It's trivial for 1,2 in claim 2 if $r<0$ of $r >1$. Now we suppose that $r \in P= [0,1] \cap \mathbb{Q}$. Then by the property 3 in claim 1, 
+                $$x \in \overline{U}_r \overset{3}{\Rightarrow} x \in U_s, \forall s \in P,with \;s>r \overset{P\;dense\;in\;[0,1]}{\Longrightarrow} f(x) \leq r$$
+                and similarly for 2.
+            \end{proof}
+
+            \item \textbf{Claim 3:} Given any $r \in \mathbb{Q}$, we have
+            $$f^{-1} ([0,r]) = \bigcap_{n \in \mathbb{N}_+} \overline{U}_{r+ \frac{1}{n}}, f^{-1}([0,r)) = \bigcup_{n \in \mathbb{N}_+} U_{r-\frac{1}{n}}$$
+            \item \begin{proof}
+                \textit{of claim 3:}
+                \begin{itemize}
+                    \item $f^{-1}([0,r]) = f^{-1} (\bigcap_{n \in \mathbb{N}_+} [0, r+\frac{1}{n})) = \bigcap_{n \in \mathbb{N}_+} f^{-1} ([0,r+\frac{1}{n})) \overset{claim.2.2}{\subseteq} \bigcap_{n \in \mathbb{N}_+}  U_{r+\frac{1}{n}} \subseteq \bigcap_{n \in \mathbb{N}_+}  \overline{U}_{r+\frac{1}{n}} \overset{claim.2.1}{\subseteq} \bigcap_{n \in \mathbb{N}_+} f^{-1}([0, r+\frac{1}{n}]) = f^{-1} (\bigcap_{n \in \mathbb{N}_+} [0,r+\frac{1}{n}]) =f^{-1}([0,r])$.
+
+                    \item $f^{-1}([0,r)) = f ^{-1} (\bigcup_{n \in \mathbb{N}_+} [0,r- \frac{1}{n})) = \bigcup_{n \in \mathbb{N}_+} f^{-1} ([0,r- \frac{1}{n})) \overset{claim.2.2}{\subseteq} \bigcup_{n \in \mathbb{N}_+} U_{r- \frac{1}{n}} \subseteq \bigcup_{n \in \mathbb{N}_+} \overline{U}_{r- \frac{1}{n}} \overset{claim.2.1}{\subseteq} \bigcup_{n \in \mathbb{N}_+} f^{-1} ([0,r -\frac{1}{n}]) = f^{-1}(\bigcup_{n \in \mathbb{N}_+} [0,r- \frac{1}{n}]) = f^{-1} ([0,r))$.
+                \end{itemize}
+            \end{proof}
+
+            \item \textbf{Claim 4:} $f$ is continuous.
+            \item \begin{proof}
+                \textit{of claim 4:} $\forall c<d \in \mathbb{Q}$,
+                $$f^{-1} ((c,d)) = f^{-1} ([0,d)) \setminus f^{-1} ([0,c]) \overset{claim.3}{=} \bigcup_{n \in \mathbb{N}_+} U_{d-\frac{1}{n}} \setminus \bigcap_{n \in \mathbb{N}_+} \overline{U}_{c+\frac{1}{n}}$$
+                is open in $X$.
+            \end{proof}
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\section{Tietze Extension Theorem}
+
+\begin{theorem}{Tietze Extension Theorem}\\
+Let $X$ be a topological space, let $A \subseteq X$ be a closed subset of $X$ and let $f: A \to \mathbb{R}$ be a continuous map. If $X$ is normal, then $\exists$ a continuous map $g: X \to \mathbb{R}$ with $g|_A=f$. If $A$ is non-empty, then one can find such $g$, s.t.:
+$$\inf g(X)=\inf f(A) \in \mathbb{R} \cup \{-\infty\}, \sup g(X)= \sup f(A) \in \mathbb{R} \cup \{\infty \}$$
+\end{theorem}
+
+
+
+
+
+\section{Local and Regional Properties}
+
+\begin{definition}
+    Let $P$ be a property of topological spaces and let $X$ be a topological space.
+    \begin{itemize}
+        \item We say $X$ is \textit{regionally $P$} if for any $x \in X$, any $U \ni x$, there exists $V \subseteq X$ with property $P$, s.t.:
+        $$x \in V \subseteq U$$
+        \item We say $X$ is \textit{locally $P$} if for any $x \in X$, any $U \ni x$, there exists \textbf{open} $V \subseteq X$ with property $P$, s.t.:
+        $$x \in V \subseteq U$$
+    \end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark:} Locally property $\Rightarrow$ regionally property.
+
+\begin{proposition}{Basis-with-property Proposition}\\
+Let $P$ be a property of topological spaces and let $X$ be a topological space. If $X$ is locally $P$, then the open subsets of $X$ that have $P$ form a basis for the topology of $X$.
+\end{proposition}
+
+\begin{proposition}{Locally Path-Connected Proposition}\\
+Let $X$ be a topological space.
+\begin{enumerate}
+    \item If $X$ is locally path-connected, then the following statements hold:
+    \begin{enumerate}
+        \item $X$ is connected $\Leftrightarrow$ $X$ is path-connected.
+        \item The components of $X$ are precisely the path-components of $X$.
+    \end{enumerate}
+    \item $X$ is locally path-connected, then it is also locally connected.
+    \item If $X$ is locally connected, then every component of $X$ is both closed and open.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item ($\Leftarrow$): Obviously. ($\Rightarrow$) is a special case of $(b)$.
+            \item \begin{itemize}
+                \item \textbf{Claim 1:} Each path-component of $X$ is open.
+                \begin{proof}
+                    Let $P$ be a path-component of $X$. Pick $x \in X$. For any $y \in P$, since $X$ is path-connected, then we can take a path $\gamma : [0,1] \to X$ given by $\gamma (0) = x$ and $\gamma (1) =y$. Since $X$ is locally path-connected, then there exists an open path-connected $U$, s.t.: $y \in U \subseteq P$. Hence, $\gamma ([0,1]) \cup U$ is path-connected. Therefore, by the path-component proposition 4(b), $\gamma ([0,1]) \cup U \subseteq P$. Then we have:
+                    $$y \in U \subseteq \gamma ([0,1]) \cup U \subseteq P$$
+                    with $U$ open which follows that $P$ is open.
+                \end{proof}
+                \item \textbf{Claim 2:} Each path-component of $X$ is closed.
+                \begin{proof}
+                    Let $P$ be a path-component of $X$. By the path-component proposition 1, $X \setminus P = \bigsqcup_i P_i$, where $P_i$'s are the components of $X$. By claim 1, $X \setminus P$ is open and hence $P$ is closed.
+                \end{proof}
+            \end{itemize}
+            Let $C$ be a component of $X$. By the component proposition 2,5, $C$ is connected and there exists a family of path-components $\{P_i \}_{i\in I}$, s.t.:
+            $$C= \bigsqcup_{i \in I} P_i$$
+            By claim 1 and claim 2, each $P_i$ is both open and closed. Since $C$ is connected, then $I$ consists of a single element, i.e.: $C$ is path-component of $X$.
+        \end{enumerate}
+        \item Obviously.
+        \item Let $C$ be a component of $X$. Then by proposition 4.29.1, $C$ is closed. For any $x \in C$, since $X$ is locally connected, then there exists an open connected $U$, s.t.: $x \in U \subseteq C$. Therefore, $C$ is open.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $X$ be a Hausdorff topological space.
+    \begin{enumerate}
+        \item If $X$ is compact, then $X$ is also regionally compact.
+        \item If $\forall x \in X$, there exists a compact neighborhood of $x$, then $X$ is regionally compact.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $x \in X$ and let $U$ be a neighborhood of $x$.
+
+        \noindent\textbf{Claim:} There exists an open neighborhood $A$ of $x$ with $\overline{A} \subseteq U$.
+        \begin{proof}
+            Since $X$ is Hausdorff, then $\{x\}$ is closed in $X$. By proposition 4.46, $X$ is normal. Hence, we can separate the closed sets $\{x\}$ and $X \setminus U^\circ$ by open disjoint neighborhoods $A$ and $B$, i.e.: $A \cap B =\emptyset$, $x \in A$ and $X \setminus U^\circ \subseteq B \Rightarrow X \setminus B \subseteq U^\circ \subseteq U$. Hence, 
+            $$x \in A \subseteq X \setminus B \subseteq U$$
+            Since $B$ is open, then $X \setminus B$ is closed and hence 
+            $$x \in A \subseteq \overline{A} \subseteq X \setminus B \subseteq U$$
+        \end{proof}
+        Since $\overline{A}$ is closed and $X$ is compact, then $\overline{A}$ is compact.
+
+        \item For any $x \in X$, any $U \ni x$, by hypothesis, there exists a compact $K \ni x$. By 1, $K$ is regionally compact. Hence, there exists a compact $L$, s.t.: 
+        $$x \in L \subseteq U \cap K \subseteq U$$
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}{Precompact}\\
+Let $X$ be a topological space. A subset $A \subseteq X$ is called \textit{precompact} if $\overline{A}$ is compact.
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be a Hausdorff space that is regionally compact. Then for any $x \in X$, any open $U \ni x$, there exists an open $V \ni x$, s.t.: $\overline{V}$ is compact and s.t.: $x \in V \subseteq \overline{V} \subseteq U$, i.e.: $X$ is locally precompact.
+\end{proposition}
+
+\begin{definition}
+    Let $P$ be a property of maps between two topological spaces and let $f : X \to Y$ be a map between two topological spaces.
+    \begin{itemize}
+        \item We say $f$ is \textit{locally $P$ at $x \in X$} if there exist an open $U \ni x$ and an open $V \ni f(x)$, s.t.: $f: U \to V$ has the property $P$.
+        \item We say $f$ is \textit{locally $P$} if it is locally $P$ at any $x \in X$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    If a map $f: X \to Y$ between two topological spaces is bijective and a local homeomorphism, then it is a homeomorphism.
+\end{proposition}
+
+\begin{proposition}
+    Let $f: X \to Y$ be a continuous map. If $Y$ is Hausdorff and regionally compact, then
+    \begin{enumerate}
+        \item $f$ proper $\Rightarrow$ $f$ closed.
+        \item $f$ injective and proper $\Leftrightarrow$ closed embedding.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $A \subseteq X$ be a closed subset of $X$. For any $y \in Y \setminus f(A)$, since $Y$ is regionally compact and Hausdorff, then by proposition 4.52, there exists an open $U \ni y$, s.t.: $y \in U \subseteq \overline{U}$ with $\overline{U}$ compact. Since $f$ is proper, then $f^{-1} (\overline{U})$ is compact and hence so is $f^{-1} (\overline{U}) \cap A$. Therefore, $f(A) \cap \overline{U} = f(f^{-1} (\overline{U}) \cap A)$ is compact. Since $Y$ is Hausdorff, then $f(A) \cap \overline{U}$ is closed in $Y$. Set $V:= U \setminus (f(A) \cap \overline{U}) = U \setminus f(A)$ is an open neighborhood of $y \in Y \setminus f(A)$ that is contained in $Y \setminus f(A)$. Therefore, $Y \setminus f(A)$ is open, i.e.: $f(A)$ is closed.
+
+        \item \begin{itemize}
+            \item ($\Rightarrow$): By a, we already then get $f$ is closed. Furthermore, $f$ is closed $\Rightarrow$ $f(X)$ is closed in $Y$ $\Rightarrow$ $f(X)$ is compact in $Y$ $\Rightarrow$ $X$ is compact. Then by theorem 4.42, $f$ is a homeomorphism between $X \cong f(X)$.
+            \item ($\Leftarrow$): It suffices to show that $f$ is proper. Let $K \subseteq Y$ be a compact subset of $Y$. Since $f$ is closed, then $f(X)$ is closed $\Rightarrow$ $f(X) \cap K$ is compact. Since $f$ is embedding, then $f^{-1} (f(X) \cap K) = X \cap f^{-1} (K) = f^{-1} (K)$ is compact.
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{Closed-Embedding-to-$\mathbb{R}^n$ Proposition}\\
+Let $X$ be a topological space, $n \in \mathbb{N}_+$ and let $f: X \to \mathbb{R}^n$ be an injective continuous map. Suppose that $X$ is the union of compact subsets $\{K_i\}_{i\in I}$, s.t.: for any $r>0$, there are finitely many $i_1, \cdots, i_l \in I$, s.t.:
+$$f(K_j) \cap \overline{B}_r^n \neq \emptyset$$
+Then $f$ is a closed embedding.
+\end{proposition}
+
+\begin{proof}
+    \begin{lemma}{Proper Criterion}\\
+    Let $f:X \to Y$ be a continuous map between two topological spaces with $Y$ Hausdorff.
+    \begin{enumerate}
+        \item Let $\{ L_j\}_{j \in J}$ be a family of compact subsets of $Y$ satisfying that each compact subset of $Y$ is contained in some $L_j$. If each $f^{-1} (L_j)$ is compact, then $f$ is proper.
+
+        \item Let $X$ be covered by compact subsets $\{K_i\}_{i \in I}$ and let $L \subseteq Y$ be compact in $Y$. If there are finitely many $i \in I$, s.t.: $f(K_i) \subseteq L$, then $f^{-1} (L)$ is compact in $X$.
+    \end{enumerate}
+    \end{lemma}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item For any compact $L$ in $Y$, there exists $j \in J$, s.t.: $L \subseteq L_j$. Hence,
+            $$f^{-1} (L) = f^{-1} (L \cap L_j) = f^{-1}(L) \cap f^{-1} (L_j)$$
+            is compact in $X$ since $f^{-1}(L)$ is closed and $f^{-1} (L_j)$ is compact.
+            \item $$f^{-1} (L) = f^{-1} (L) \cap \bigcup_{i\in I,f(K_i \subseteq L)} K_{i}$$
+            is compact since $f^{-1} (L)$ is closed and $\bigcup_{i\in I,f(K_i \subseteq L)} K_{i}$ is compact.
+        \end{enumerate}
+    \end{proof}
+    Since $\mathbb{R}^n$ is Hausdorff, then by lemma above (proper criterion)2, for any $r>0$, $f^{-1} (\overline{B}_r^n)$ is compact in $X$. Hence, by lemma above (proper criterion)1, $f$ is proper. Since $\mathbb{R}^n$ is Hausdorff and regionally compact, then proposition 4.55, $f$ is injective and proper $\Leftrightarrow$ $f$ is a closed embedding.
+\end{proof}
+

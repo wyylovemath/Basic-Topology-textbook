@@ -56,6 +56,12 @@ Then $\widetilde{\mathcal{T}}$ is a topology for $X/\sim$ and we say $(X/\sim,\w
     $$p^{-1} (\bigcup _{i\in I} \widetilde{U}_i) = \bigcup_{i\in I} p^{-1} (\widetilde{U}_i) \in \mathcal{T} \Rightarrow \bigcup _{i\in I} \widetilde{U}_i \in \widetilde{\mathcal{T}}.$$
 \end{itemize}
 
+\begin{definition}{Induced Map}\\
+Let $f: X \to Y$ be a map such that $f(x)=f(y)$ whenever $x \sim y$. Then there exists a well-defined unique map $g: X/\sim \to Y$, s.t.:
+$$g([x]) := f(x)$$
+i.e.: $f= g \circ p$ where $p$ denotes the canonical projection map. We refer to this map $g$ as the induced map, often denoted by $g= \overline{f}$.
+\end{definition}
+
 \begin{definition}{Open Map}\\
 A function $f : (X,\mathcal{T}_X) \rightarrow (Y,\mathcal{T}_Y)$ is an open map if for each open $U \in \mathcal{T}_X$, $f(U) \in \mathcal{T}_Y$.
 \end{definition}
@@ -157,12 +163,418 @@ Then $X= \{0,1\} \cup (\bigcup _{x\in (0,1)} \{ x\})$. Then intuitively, $X \con
 
 \noindent\textbf{Example:} Consider $X =\mathbb{R}$ and define $\sim$ by $x \sim y \Leftrightarrow x-y \in \mathbb{Z}$. Then consider $q : \mathbb{R} \rightarrow \mathbb{S}^1$ with $q(x) := (\cos 2\pi x, \sin 2\pi x)$. Then $q$ is a cont surjective open map. Therefore, $\mathbb{R} / \mathbb{Z := \mathbb{R}/\sim \; \cong \mathbb{S}}^1$.
 
+\begin{definition}{Closed Equivalence Relation}\\
+Let $X$ be a topological space and let $\sim$ be an equivalence relation on $X$. The relation is called \textit{closed} if
+$$\sim = \{ (x,y) \in X \times X \mid x \sim y \}$$
+is closed in $X \times X$.
+\end{definition}
+
+\begin{proposition}{Quotient Topology-Properties Proposition}\\
+Let $\sim$ be an equivalence relation on a topological space $X$.
+\begin{enumerate}
+    \item If $X$ is compact, then so is $X/\sim$.
+    \item If $X$ is (path-)connected, then so is $X/\sim$.
+    \item If $X$ is Hausdorff and compact and if $\sim$ is closed, then $X/\sim$ is Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \textit{1,2} immediately holds by the continuity of $p$.
+    \textit{3.} \begin{itemize}
+        \item \textbf{Claim 1:} Given any closed subset $C$ of $X$, $p(C)$ is closed in $X/\sim$.
+        \item \begin{proof}
+            By the def of quotient topology, it suffices to show that $p^{-1}(p(C))$ is closed in $X$. Let $p_1,p_2: X\times X \to X$ be the projection maps onto the first respectively the second factor. Note that
+            $$p^{-1}(p(C)) = \{y \in X\mid y \sim x\; for\; some\;x \in C \} = p_2 (p_1^{-1}(C) \cap \sim)$$
+            Since $p_1^{-1}(C) = C \times X$ is closed in $X \times X$ ($C$ and $X$ are closed in $X$), then $p_1^{-1} (C) \cap \sim$ is closed in $X \times X$. Since $X$ is compact, then so is $X \times X$ and hence so is $p_1^{-1} (C) \cap \sim$. Therefore, $p^{-1} (p(C)) = p_2 (p_1^{-1} \cap \sim)$ is compact (by the continuity of $p_2$) and hence it is closed in $X$.
+        \end{proof}
+    \end{itemize}
+    Now let $[x],[y] \in X/\sim$ be two disjoint points in $X/\sim$. By the Hausdorff-ness of $X$, $\{x\}$ and $\{y\}$ are closed in $X$. Hence, by claim 1,
+    $$\{[x]\} = p(\{x\}) \;\;and\;\; \{[y]\} = p(\{y\})$$
+    are closed in $X/\sim$. By the continuity of $p$, 
+    $$p^{-1}([x]) = p^{-1} (\{[x]\}) \;\;and\;\; p^{-1}([y]) = p^{-1} (\{[y]\})$$
+    are two disjoint closed subsets of $X$. Since $X$ is Hausdorff and compact, then $X$ is normal and hence $\exists$ open neighborhoods $U,V$ of $p^{-1} ([x]), p^{-1} ([y])$ respectively, s.t.: $U\cap V=\emptyset$.
+    \begin{itemize}
+        \item \textbf{Claim 2:} $(X/\sim) \setminus p(V^C)$ and $(X/\sim) \setminus p(U^C)$ are disjoint open neighborhoods of $[x]$ and $[y]$ in $X /\sim$.
+        \item \begin{proof}
+            By claim 1, $U^C,V^C$ closed can imply that $p(V^C),p(U^C)$ are closed. As for the "disjoint-ness",
+            \begin{align*}
+                ((X/\sim)\setminus p(U^C)) \cap ((X/\sim) \setminus p(V^C)) &= (X/\sim) \setminus (p(U^C) \cup p(V^C)) = (X/\sim) \setminus p(U^C \cap V^C) \\
+                &= (X/\sim) \setminus p(X \setminus (U\cap V)) = (X/\sim) \setminus p(X) \overset{p\;surj}{=} \emptyset
+            \end{align*}
+            Since $p^{-1} ([x]) \cap V^C =\emptyset$, then $[x] \in (X/\sim) \setminus p(V^C)$. Similarly, $[y] \in (X/\sim) \setminus p(U^C)$. Therefore, by claim 2, we're done.
+        \end{proof}
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}{Twice Quotient Proposition}\\
+\begin{enumerate}
+    \item Let $X$ be a topological space, let $\sim_1$ be an equivalence relation on $X$ and let $\sim_2$ be an equivalence relation on $X/\sim_1$. Given $x,y \in X$, we define
+    $$x \sim y :\Leftrightarrow [x]_{\sim_1} \sim_2 [y]_{\sim_1}$$
+    \begin{enumerate}
+        \item $\sim$ gives an equivalence relation.
+        \item The map $X/\sim \to (X/\sim_{1})/\sim_2$ given by $[x] \mapsto [[x]_{\sim_1}]_{\sim_2}$ is a homeomorphism.
+    \end{enumerate}
+
+    \item Let $f:X \to Y$ be a continuous map between two topological spaces and let $\sim_X$ and $\sim_Y$ be equivalence relations on $X$ and $Y$ respectively. If $x_1 \sim_X x_2$ implies $f(x_1) \sim_Y f(x_2)$, then the map
+    $$\substack{X/\sim_X \;\to\; Y/\sim_Y\\
+    [x] \;\mapsto\; [f(x)]}$$
+    is well-defined and continuous.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}{Quotients by subspace}\\
+Let $X$ be a topological space and let $A \subseteq X$ be a subset. If $A= \emptyset$, then we define
+$$X / \emptyset := X \sqcup \{*\}$$
+Otherwise, we define $\sim_A$ by
+$$x \sim_A y :\Leftrightarrow x=y\;\; or\;\; x,y \in A$$
+which can easily be verified an equivalence relation on $X$. Then we define
+$$X/ A := X /\sim_A$$
+equipped with the quotient topology.
+\end{definition}
+
+\noindent\textbf{Remark:} \begin{itemize}
+    \item $X /A \cong (X\setminus A) \cup \{[A]\}$ are homeomorphic.
+    \item Given any subset $Z \subseteq X/A = (X\setminus A) \cup \{[A]\}$, we have
+    $$p^{-1}(Z) =\begin{cases}
+        Z &,if\;[A] \notin Z\\
+        Z \cup A &,if\; [A] \in Z
+    \end{cases}$$
+\end{itemize}
+
+\begin{proposition}{Cylinder Quotient-Ball Proposition}\\
+\begin{itemize}
+    \item The map
+    $$\substack{([0,1] \times \mathbb{S}^n)/(\{0\} \times \mathbb{S}^n) \;\to\;\overline{\mathbb{B}}^{n+1}\\
+    [(r,v)] \;\mapsto\; rv}$$
+    is a homeomorphism.
+    \item Let $X$ be a topological space and let $f: [0,1] \times \mathbb{S}^n \to X$ be a continuous map. If $f(0,v) = f(0,w)$ for any $v,w \in \mathbb{S}^n$, then the map
+    $$\substack{\overline{\mathbb{B}}^{n+1} \;\to\; X\\
+    r\cdot v\;\mapsto\; f(r,v)}$$
+    is well-defined and continuous.
+\end{itemize}
+\end{proposition}
+
+\section{Group Actions on Topological Spaces}
+
+\begin{definition}
+    Let $X$ be a set and let $G$ be a group.
+    \begin{itemize}
+        \item An \textit{(group) action} of $G$ on $X$ is a map
+        $$\substack{G \times X \;\to\; X\\
+        (g,x) \;\mapsto\; g\cdot x}$$
+        with the following axioms: for any $x \in X$, any $g,h \in G$,
+        $$e \cdot x =x, (g\cdot h) \cdot x= g \cdot (h\cdot x)$$
+
+        \item The action is called \textit{free} if $g\cdot x =x$ for some $x \in X$ implies that $g=e$.
+
+        \item If $X$ is a topological space, then we say that the action is \textit{continuous} if for any $g\in G$, the map
+        $$\substack{X \;\to\; X\\
+        x \;\mapsto\; g \cdot x}$$
+        is continuous.
+
+        \item Let $X$ be a topological space and let $G$ be a group that acts on $X$. We define an equivalence relation on $X$ by
+        $$x \sim_G y :\Leftrightarrow g \cdot x=y \;for\;some\;g \in G$$
+        Then we define
+        $$X/G := X/\sim_G$$
+        equipped with the quotient topology.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Torus-as-Quotient Proposition}\\
+\begin{enumerate}
+    \item The map
+    $$\substack{\mathbb{Z}^n \times \mathbb{R}^n \;\to\; \mathbb{R}^n\\
+    (z,v) \;\mapsto\; z+v}$$
+    defines a free and continuous action of the group $(\mathbb{Z}^n ,+)$ on the topological space $X= \mathbb{R}^n$.
+
+    \item The map
+    $$\varphi: \substack{\mathbb{R}^n/\mathbb{Z}^n \;\to\; (\mathbb{S}^1)^n\\
+    [(t_1,\cdots,t_n)] \;\mapsto \; (\exp (2\pi it_1), \cdots, \exp (2\pi it_n))}$$
+    is a homeomorphism.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}{Proper Action}\\
+Let $X$ be a topological space and let $G$ be a group that acts on $X$. We say that $G$ acts \textit{properly} if $\forall$ two points $x,y \in X$, $\exists$ open $U \ni x,V\ni y$, s.t.:
+$$|\{g \in G \mid gU \cap V\neq \emptyset\} | < \infty$$
+\end{definition}
+
+\noindent\textbf{Example:} \begin{itemize}
+    \item The action of any finite group is proper.
+    \item Consider the action of $G=\mathbb{Z}$ on $X= \mathbb{R} \times [0,1]$ given by
+    $$\substack{\mathbb{Z} \times (\mathbb{R} \times [0,1]) \;\to\; \mathbb{R} \times [0,1] \\
+    (n,(x,y)) \;\mapsto\; (x+n,y)}$$
+    which is proper. For example, given $(x,s), (y,t) \in \mathbb{R}\times [0,1]$,
+    $$U:= \{(a,b) \in \mathbb{R} \times [0,1] : |a-x| <1\} \;\;and\;\; V:= \{(a,b) \in \mathbb{R} \times [0,1] : |b-y| <1\}$$
+    have the desired properties in the def of proper action.
+\end{itemize}
+
+\begin{proposition}{Group Action-Hausdorff Quotient Proposition}\\
+Let $G$ be a group that acts on a Hausdorff topological space $X$. If the action is proper and continuous, then $X/G$ is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+    \begin{lemma}{Group Action-Canonical Projection Map Lemma}\\
+    Let $X$ be a topological space and let $G$ be a group that acts continuously on $X$.
+    \begin{enumerate}
+        \item The canonical projection map $p$ is open.
+        \item If $A \subseteq X$ is a closed subset with $GA =A$, then $p(A)$ is closed in $X /G$.
+    \end{enumerate}
+    \end{lemma}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item For any open $U$ in $X$, it suffices to show that $p^{-1}(p(U))$ is open in $X$. Note that
+            $$p^{-1}(p(U)) = \bigcup_{g \in G} gU$$
+            Since $G$ acts contly, then the map $x \mapsto gx$ is a homeomorphism. Hence, $gU$ is open for any $g \in G$. Therefore, $p^{-1}(p(U))$ is open in $X$.
+
+            \item Note that $$(X/G) \setminus p(A) = p(X\setminus A)$$
+            Since $X \setminus A$ is open, then by 1, so is $p(X\setminus A)$.
+        \end{enumerate}
+    \end{proof}
+
+    \begin{lemma}{Disjoint Translated Neighborhoods Lemma}\\
+    Let $G$ be a group that acts continuously and properly on a topological space. If $X$ is Hausdorff, then $\forall$ two points $a,b\in X$, $\exists$ open $A \ni a, B\ni b$, s.t.: for any $g \in G$ with $ga=b$, we have
+    $$gA \cap B =\emptyset$$
+    \end{lemma}
+
+    \begin{proof}
+        Since the action is proper, then there exists open $U \ni a,V \ni b$, s.t.:
+        $$|\{ g \in G \mid gU \cap V \neq \emptyset \}| < \infty$$
+        Denote the above set as $\{g_1 ,\cdots, g_n\}$ and then set $I:= \{ i \in \{1,\cdots, n\} \mid g_i a=b\}$. By the Hausdorff-ness of $X$, for any $i \in I$, there exists open $U_i \ni g_ia,V_i \ni b$, s.t.: $U_i \cap V_i = \emptyset$. Now take
+        $$A:= U \cap (\bigcap_{i \in I} g^{-1}_i U_i) \;\;and\;\; B:= V \cap (\bigcap_{i \in I} V_i)$$
+        which are the intersection of finitely many open subsets and hence which are open. Therefore, $A$ is an open neighborhood of $a$ and $B$ is an open neighborhood of $b$. 
+        
+        Let $g \in G$ with $ga\neq b$. If $g \notin \{g_1 ,\cdots, g_n\}$, then $gU \cap V =\emptyset$ and hence $gA \cap B =\emptyset$. Otherwise, $g=g_i$ for some $i \in I$. Then
+        $$g_i(g_i^{-1}U) \cap V_i = U_i \cap V_i =\emptyset \Rightarrow gA\cap B= g_i A \cap B=\emptyset$$
+    \end{proof}
+
+    \begin{lemma}{Disjoint Quotient Lemma}\\
+    Let $G$ be a group acts on a set $X$. Let $A$ and $B$ be subsets of $X$. Then
+    $$p(A) \cap p(B) =\emptyset \Leftrightarrow \forall g \in G, \;we\;have\; gA \cap B=\emptyset$$
+    or equivalently
+    $$p(A) \cap p(B) \neq \emptyset \Leftrightarrow \exists g \in G, s.t.: gA \cap B \neq \emptyset$$
+    \end{lemma}
+
+    \begin{proof}
+        We prove the second statement:
+        \begin{align*}
+            p(A) \cap p(B) \neq \emptyset &\Leftrightarrow p(a) = p(b) \;for\;some\; a\in A,b\in B\\
+            &\Leftrightarrow ga=b \;for\;some\;a\in A,b\in B,g \in G\\
+            &\Leftrightarrow g A\cap B \neq \emptyset \;for\;some\;g \in G
+        \end{align*}
+    \end{proof}
+
+    Now we back to the proof of the Group Action-Hausdorff Quotient Proposition. For any $x \neq y \in X/G$, there exist $a,b \in X$, s.t.:
+    $$p(a)=x  \neq p(b) =y$$
+    Hence, by the def of $\sim_G$, for any $g \in G$, $ga \neq b$. By the Disjoint Translated Neighborhoods Lemma, there exist open $A\ni a,B\ni b$, s.t.: $\forall g \in G$
+    $$gA \cap B= \emptyset $$
+    Then by the Disjoint Quotient Lemma, 
+    \begin{equation*}
+        p(A) \cap p(B) =\emptyset \tag{*}
+    \end{equation*}
+    By the open-ness of $p$ (Group Action-Canonical Projection Map Lemma.1) and $A,B$, then $p(A)$ and $p(B)$ are open. Therefore, $p(A)$ and $p(B)$ are respectively the disjoint open neighborhoods of $x=p(a)$ and $y=p(b)$.
+\end{proof}
+
+
+\noindent\textbf{Remark} for the Group Action-Canonical Projection Map Lemma: Even if $G$ acts contly on $X$, it is NOT true in general that the projection $p: X \to X/G$ is closed. For example, let $X=\mathbb{R}$ and $G= \mathbb{Z}$ with the additive action on $\mathbb{R}$. The set $A:=\{ n+\frac{1}{n} \mid n \in \mathbb{Z} \}$ is closed in $X =\mathbb{R}$ but $p(A)$ is \textbf{NOT} closed in $X/G = \mathbb{R} / \mathbb{Z}$.
+
+
+
+
+
+
+
+
+
+\begin{proposition}{Mobius Band-as-Quotient Proposition}\\
+\begin{enumerate}
+    \item The map 
+    $$\substack{\mathbb{Z} \times (\mathbb{R} \times [-1,1]) \;\to\; \mathbb{R} \times [-1,1] \\
+    (n,(x,y)) \;\mapsto\; (x+n, (-1)^ny)}$$
+    defines an action of the group $(\mathbb{Z},+)$ on the topological space $X=\mathbb{R} \times [-1,1]$ that is free, continuous and proper.
+
+    \item Consider $([0,1] \times [0,1])/\sim$ with $(0,y) \sim (1,1-y)$, giving a mobius band. The map
+    $$\substack{([0,1] \times [0,1])/\sim \;\to\; (\mathbb{R} \times [-1,1])/\mathbb{Z}\\
+    [(x,y)] \;\mapsto\; [(x,2y-1)]}$$
+    is a homeomorphism.
+
+    \item The mobius band $M= ([0,1] \times [0,1])/\sim$ is compact and Hausdorff.
+\end{enumerate}
+\end{proposition}
+
+\section{Projective Spaces}
+
+\begin{definition}{Projective Spaces}\\
+\begin{itemize}
+    \item The map
+    $$\substack{(\mathbb{R} \setminus \{0\}) \times (\mathbb{R}^{n+1} \setminus \{0\}) \;\to\; \mathbb{R}^{n+1}\setminus \{0\}\\
+    (z,P) \;\mapsto\; z\cdot P}$$
+    defines a continuous action of $(\mathbb{R} \setminus \{0\},\cdot)$ on $\mathbb{R}^{n+1} \setminus \{0\}$. The quotient space $\mathbb{R}^{n+1} \setminus \{0\} / \mathbb{R} \setminus \{0\}$ is called the \textit{n-dimensional real projective space $\mathbb{R}P^n$}. Particularly, we often call the \textit{real projective plane} the 2-dimensional real projective space$\mathbb{R}P^2$.
+
+    \item We define the \textit{n-dimensional complex projective space $\mathbb{C}P^n := (\mathbb{C}^{n+1} \setminus \{0\}) / (\mathbb{C} \setminus \{0\})$} by replacing "$\mathbb{R}$" by "$\mathbb{C}$".
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Remark} (\textit{Notation}): For $(x_0,\cdots,x_n) \in \mathbb{R} \setminus \{0\}$, we denote by $[x_0 :\cdots: x_n]$ the corresponding point in $\mathbb{R}P^n$. Similarly for points in $\mathbb{C}P^n$.
+
+\begin{proposition}{Projective Space-Sphere Quotient Proposition}\\
+Let $n \in \mathbb{N} \cup \{0\}$.
+\begin{enumerate}
+    \item The map
+    $$\substack{\{ \pm 1\} \times \mathbb{S}^n \;\to\; \mathbb{S}^n\\
+    (w,(x_1, \cdots, x_{n+1})) \;\mapsto\; (w \cdot x_1 ,\cdots, w \cdots x_{n+1})}$$
+    defines a continuous action of $\{ \pm1\}$ on $\mathbb{S}^n$. The maps
+    $$\substack{\mathbb{S}^n/ \{ \pm1\} \;\to\; \mathbb{R}P^n\\
+    [x] \;\mapsto\; [x]} \;\;\;and\;\;\; \substack{\mathbb{R}P^n \;\to\; \mathbb{S}^n/ \{ \pm1\}\\
+    [x] \;\mapsto\; [\frac{x}{||x||}]}$$
+    are inverses of one another and they are homeomorphisms.
+
+    \item The map 
+    $$\substack{\mathbb{S}^1 \times \mathbb{S}^{2n+1} \;\to\; \mathbb{S}^{2n+1}\\
+    (w,(z_1 \in \mathbb{C} ,\cdots, z_{n+1} \in \mathbb{C})) \;\mapsto\; (w \cdot z_1 ,\cdots, w \cdot z_{n+1})}$$
+    defines a continuous action of $(\mathbb{S}^1,\cdot)$ on $\mathbb{S}^{2n+1}$. The maps
+    $$\substack{\mathbb{S}^{2n+1} /\mathbb{S}^1 \;\to\; \mathbb{C}P^n\\
+    [z] \;\mapsto\; [z]} \;\;\;and\;\;\; \substack{\mathbb{C}P^n \;\to\; \mathbb{S}^{2n+1}/\mathbb{S}^1\\
+    [z_1: \cdots: z_{n+1}] \;\mapsto\; [\frac{(z_1, \cdots, z_{n+1})}{\sqrt{|z_1|^2 + \cdots+ |z_{n+1}|^2}}]}$$
+    are inverses of one another and they are homeomorphisms.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Projective Spaces Properties Proposition}\\
+$\mathbb{R}P^n$ and $\mathbb{C}P^n$ are compact, path-connected and Hausdorff.
+\end{proposition}
+
+\begin{proof}
+    By the previous proposition, it suffices to show that $\mathbb{S}^n /\{ \pm1\}$ and $\mathbb{S}^{2n+1}/\mathbb{S}^1$ are compact, path-connected and Hausdorff. I follows immediately from the fact that $\mathbb{S}^n$ and $\mathbb{S}^{2n+1}$ are compact and path-connected together with the Quotient Topology-Properties 1,2 that both quotients are compact and path-connected.
+    
+    As for the Hausdorff-ness, note that the action of $\{\pm1\}$ on $\mathbb{S}^n$ is proper and then by the Group Action-Hausdorff Quotient Prop, $\mathbb{S}^n/ \{\pm1\}$ is Hausdorff.
+
+    Now it remains to show that $\mathbb{S}^{2n+1}/ \mathbb{S}^1$ is Hausdorff. It suffices to show that $\sim_{\mathbb{S}^1}$ is closed by the Quotient Topology-Properties Prop.3, i.e.:
+    $$G:= \{(v_1,v_2) \in \mathbb{S}^{2n+1} \times \mathbb{S}^{2n+1} \mid w \cdot v_1= v_2\; for\;some\; w\in \mathbb{S}^1\}$$
+    is closed in $\mathbb{S}^{2n+1} \times \mathbb{S}^{2n+1}$. Consider the map $\Phi: \mathbb{S}^1 \times \mathbb{S}^{2n+1} \to \mathbb{S}^{2n+1} \times \mathbb{S}^{2n+1}$ given by
+    $$\Phi (z,v) := (v, z\cdot v)$$
+    Note that $G= \Phi(\mathbb{S}^1 \times \mathbb{S}^{2n+1})$ and that $\Phi$ is continuous and $\mathbb{S}^1 \times \mathbb{S}^{2n+1}$ is compact. Therefore, $G$ is compact and hence it is closed.
+\end{proof}
+
+\begin{proposition}{Projective Space-Avatar Proposition}\\
+\begin{enumerate}
+    \item The maps
+    $$\substack{\mathbb{S}^2 \cong \mathbb{C} \cup \{ \infty\} \;\to\; \mathbb{C}P^1\\
+    z \;\mapsto\; \begin{cases}
+        [z:1] &,if\;z \in \mathbb{C}\\
+        [1:0] &,if \;z= \infty
+    \end{cases} } \;\;\;and\;\;\; \substack{\mathbb{C}P^1 \;\to\; \mathbb{C}\cup \{ \infty\} \cong \mathbb{S}^2 \\
+    [z_0:z_1] \;\mapsto\; \begin{cases}
+        z_0 \cdot z_1^{-1} &,if\;z_1 \neq 0\\
+        0 &,otherwise
+    \end{cases} }$$
+    are inverses of one another and both are homeomorphisms. Similarly we can see that
+    $$\mathbb{R}P^1 \cong \mathbb{R} \cup \{\infty\} \cong \mathbb{S}^1$$
+    are homeomorphic.
+
+    \item Let $n \in \mathbb{N} \cup \{0\}$. If we denote by $\sim$ the equivalence relation on $\overline{B}^n$ that is generated by $P \sim -P$ for $P \in \mathbb{S}^{n-1} = \partial \overline{B}^n$, then the maps
+    $$\substack{\overline{B}^n/ \sim \;\to \mathbb{R}P^n\\
+    [x] \;\mapsto\; \; [(x, \sqrt{1- ||x||^2})] } \;\;\;and\;\;\; \substack{\mathbb{R}P^n \;\to\; \overline{B}^n/ \sim\\
+    [(v,x_{n+1})] \;\mapsto\; \begin{cases}
+        [v] &,if\; x_{n+1} \geq 0\\
+        [-v] &,if\; x_{n+1} <0
+    \end{cases} }$$
+    are homeomorphisms that are inverses of one another.
+
+    \item As in 2, let $\sim$ be the equivalence relation on $\overline{B}^3$ that is generated by $x\sim -x$ for $x \in \mathbb{S}^2$. The map
+    $$F:= \substack{\overline{B}^3/\sim \;\to\; SO(3)\\
+    [r\cdot v] \;\mapsto\; A_{r,v} }$$
+    where $A_{r,v}$ denotes the matrix in $SO(3)$ which represents rotation by the angle $\pi \cdot r$ around the axis $\mathbb{R}_{\geq 0} \cdot v$ where the rotation direction is given by the right-hand rule, is a homeomorphism. In particular, $SO(3) \cong \mathbb{R}P^3$ are homeomorphic.
+\end{enumerate}
+\end{proposition}
+
+\noindent\textbf{Remark:} Now we get the identifications:
+$$\mathbb{S}^1 =_i \mathbb{R}P^1, \mathbb{S}^2 =_i \mathbb{C}P^1, \mathbb{R}P^n=_i \overline{B}^n/\sim$$
+with $\sim$ defined in the second statement of the above proposition (Projective Space-Avatar Proposition).
+
+\section{Surfaces}
+
+\begin{definition}
+    Given $g \in \mathbb{N}_+$, take a regular $4g$-gon $E_{4g}$ in $\mathbb{R}^2=_i \mathbb{C}$ and for $j=0, \cdots, g-1$, we use reflections to identify the $(4j+1)$-st edge with the $(4j+3)$-rd edge and the $(4j+2)$-nd edge with the $(4j+4)$-th edge. We refer to the quotient space $E_{4g}/\sim$ as the \textit{surface $\Sigma_g$ of genus $g$}. Furthermore, we refer to $\mathbb{S}^2$ as the \textit{surface of genus 0}.
+\end{definition}
+
+\begin{definition}
+    Given $g \in \mathbb{N}_{\geq 2}$, consider the regular $2g$-gon $E_{2g}$ with the identification of the boundary segments shown for example in the figure below. We refer to this topological space as the \textit{non-orientable surface $N_g$ of genus $g$}. Furthermore, we refer to $\mathbb{R}P^2$ as the \textit{non-orientable suface of genus 1}.
+
+    \begin{center}
+\begin{tikzpicture}[scale=1.8]
+    
+    \def\R{2}
+    \def\H{1.732} 
+    
+    
+    \begin{scope}
+        \clip (0:\R) -- (60:\R) -- (120:\R) -- (180:\R) -- (240:\R) -- (300:\R) -- cycle;
+        
+        \foreach \x in {-1.6, -1.1, -0.4, 0.3, 1.0, 1.6} {
+            \draw[line width=0.8pt, black!80] (\x, -2) -- (\x, 2);
+        }
+    \end{scope}
+    
+    \draw[line width=1.2pt, black] (0:\R) -- (60:\R) -- (120:\R) -- (180:\R) -- (240:\R) -- (300:\R) -- cycle;
+    
+    
+    
+    
+    \begin{scope}[shift={(90:\H)}, rotate=180]
+        \draw[line width=1.2pt, line cap=round] (-0.12, 0.1) -- (0,0) -- (-0.12, -0.1);
+    \end{scope}
+    \node[above=3pt] at (90:\H) {$\alpha_1$};
+
+    
+    \begin{scope}[shift={(150:\H)}, rotate=240]
+        \draw[line width=1.2pt, line cap=round] (-0.12, 0.1) -- (0,0) -- (-0.12, -0.1);
+    \end{scope}
+    \node[above left] at (150:\H) {$\alpha_1$};
+
+
+    
+    \begin{scope}[shift={(210:\H)}, rotate=300]
+        \draw[line width=1.2pt, line cap=round] (-0.06, 0.1) -- (0.06,0) -- (-0.06, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.16, 0.1) -- (-0.04,0) -- (-0.16, -0.1);
+    \end{scope}
+    \node[below left] at (210:\H) {$\alpha_2$};
+
+    
+    \begin{scope}[shift={(270:\H)}, rotate=0]
+        \draw[line width=1.2pt, line cap=round] (-0.06, 0.1) -- (0.06,0) -- (-0.06, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.16, 0.1) -- (-0.04,0) -- (-0.16, -0.1);
+    \end{scope}
+    \node[below=4pt] at (270:\H) {$\alpha_2$};
+
+
+    
+    \begin{scope}[shift={(330:\H)}, rotate=60]
+        \draw[line width=1.2pt, line cap=round] (0, 0.1) -- (0.1, 0) -- (0, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.1, 0.1) -- (0, 0) -- (-0.1, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.2, 0.1) -- (-0.1, 0) -- (-0.2, -0.1);
+    \end{scope}
+    \node[below right] at (330:\H) {$\alpha_3$};
+
+    
+    \begin{scope}[shift={(30:\H)}, rotate=120]
+        \draw[line width=1.2pt, line cap=round] (0, 0.1) -- (0.1, 0) -- (0, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.1, 0.1) -- (0, 0) -- (-0.1, -0.1);
+        \draw[line width=1.2pt, line cap=round] (-0.2, 0.1) -- (-0.1, 0) -- (-0.2, -0.1);
+    \end{scope}
+    \node[above right] at (30:\H) {$\alpha_3$};
+
+\end{tikzpicture}
+\end{center}
+\end{definition}
+
 \section{Simplicial Complex}
 
 \begin{definition}{n-simplex}\\
 $$ \Delta ^n :=\{ (x_1, \cdots , x_{n+1}) \in \mathbb{R}^{n+1} \mid x_i \geq 0, \sum _{i=1}^{n+1} x_i =1 \}$$
 \begin{itemize}
-    \item Vertice of $\Delta ^n := \{ (x_1, \cdots , x_{n+1}) \in  \Delta^n \mid x_i = 1$ for some $i \}$.
+    \item Vertices of $\Delta ^n := \{ (x_1, \cdots , x_{n+1}) \in  \Delta^n \mid x_i = 1$ for some $i \}$.
     \item For any given $\mathcal{A} \subseteq \{ 1, \cdots ,n+1 \}$, the face of $\Delta ^n$ is defined by $\{ (x_1, \cdots , x_{n+1}) \in \Delta^n \mid x_i = 0, \forall i \in \mathcal{A} \}$.
     \item Interior of $\Delta ^n := \{ (x_1, \cdots , x_{n+1}) \in  \Delta^n \mid x_i \neq 0, \forall i \}$.
 \end{itemize}
