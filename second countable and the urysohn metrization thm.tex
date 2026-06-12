@@ -1,0 +1,242 @@
+\chapter{Second-Countability and the Urysohn Metrization Theorem}
+
+\section{Second-Countable Topological Space}
+
+\begin{lemma}{Second Countability Lemma}\\
+\begin{enumerate}
+    \item $\mathbb{R}^n$ is second-countable.
+    \item If $X$ is a topological space that is second-countable, then so is every subspace of $X$.
+    \item \begin{enumerate}
+        \item If $X_1 ,\cdots, X_k$ are topological spaces that are second-countable, then $X_1 \times \cdots \times X_k$ is second-countable.
+        \item Let $\{X_i\}_{i \in I}$ be a countable family of topological spaces. If each $X_i$ is second-countable, then so is $\Pi_{i \in I}X_i$.
+    \end{enumerate}
+    \item Let $X$ be a topological space. If there exists a countable family of open subsets $\{U_{i}\}_{i \in I}$ such that $\bigcup_{i \in I} U_i=X$ and such that each $U_i$ is second-countable, then $X$ itself is second-countable.
+    \item Let $X$ be a topological space and let $\sim$ be an equivalence relation on $X$. If $X$ is second-countable and if the canonical projection map $p: X \to X/\sim$ is an open map, then $X/\sim$ is also second-countable.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{lemma}{Quotient Topology-Basis Lemma}\\
+    Let $X$ be a topological space and let $\sim$ be an equivalence relation on $X$. Furthermore,, let $\mathcal{B}$ be a basis for the topology of $X$. If the canonical projection map $p:X \to X/\sim$ is an open map, then
+    $$p(\mathcal{B}) = \{p(B) \mid B \in \mathcal{B} \}$$
+    is a basis for the topology of $X$.
+    \end{lemma}
+
+    \begin{proof}
+        \textit{of the Quotient Topology-Basis Lemma:} \begin{itemize}
+            \item Since $p$ is open, then every sets in $p(\mathcal{B})$ is open in $X/\sim$.
+            \item Let $U \subseteq X/\sim$ be an open subset and let $y \in U$. Since $p$ is surjective, then $\exists x\in X$, s.t.: $p(x)=y$. Since $\mathcal{B}$ is a basis of $X$, then $\exists B \in \mathcal{B}$, s.t.:
+            $$x \in B \subseteq p^{-1}(U)$$
+            Therefore, $y=p(x) \in  p(B) \subseteq U$.
+        \end{itemize}
+    \end{proof}
+
+    Now we return to the \textit{proof of the Second Countability Lemma:} 
+    \begin{enumerate}
+        \item Omitted.
+        \item Omitted.
+        \item \begin{enumerate}
+            \item Omitted.
+            \item For each $i \in I$, let $\mathcal{B}_i$ be a countable basis of $X_i$. Then
+            $$\mathcal{C} :=\bigcup_{i_1,\cdots, i_r \in I} \{ \Pi_{i \in I} U_i \mid \forall i\notin \{i_1 ,\cdots, i_r\}, U_i=X_i;\; \forall j =1,\cdots, r, U_{i_j} \in \mathcal{B}_{i_j} \} $$
+            is a basis for $\Pi_{i \in I} X_i$. Since $I$ is countable, then there are countably many subsets of $I$. Note that given any $\{i_1 ,\cdots, i_r\}$, the $\Pi_{i \in I}U_i$'s with the properties in $\mathcal{C}$ are countably many. Therefore, $\mathcal{C}$ is countable.
+        \end{enumerate}
+
+        \item For each $i \in I$, let $\mathcal{B}_i$ be a countable basis of $U_i$. Then $\bigcup_{i \in I} \mathcal{B}_i$ is a basis of $X$ and hence we're done.
+        \item holds immediately the Quotient Topology-Basis Lemma.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}{Countable Covering Proposition}\\
+Let $X$ be a topological space and let $\{U_i\}_{i \in I}$ be an open cover of $X$. If $X$ is second-countable, then there exists a countablesubset $J \subseteq I$, s.t.:
+$$X = \bigcup_{j \in J} U_j$$
+\end{proposition}
+
+\begin{proof}
+    Let $\mathcal{B}$ be a countable basis of $X$. Define
+    $$\mathcal{B}':= \{V \in \mathcal{B} \mid V \subseteq U_i, for\;some\; i\in I\}$$
+    and then define $J$ by
+    $$J := \{j \in I \mid V \subseteq U_j,for\;some\; V \in \mathcal{B}' \}$$
+    Since $\mathcal{B}'$ is countable, then so is $J$. For any $x \in X$, by the hypothesis, there is an $i \in I$, s.t.: $x \in U_i$. Since $\mathcal{B}$ is a basis and since $U_i$ is open, then there exists $V \in \mathcal{B}$, s.t.:
+    $$x \in V \subseteq U_i$$
+    Hence, $V \in \mathcal{B}'$. Then by the def of $J$, $i\in J$.
+\end{proof}
+
+\begin{definition}{Exhaustion}\\
+ Let $X$ be a topological space. We say that a sequence $\{P_i\}_{i \in \mathbb{N}_+}$ of subsets of $X$ is an \textit{exhaustion} if the followings are satisfied:
+ \begin{itemize}
+     \item $X= \bigcup_{i \in \mathbb{N}_+} P_i$
+     \item for any $i \in \mathbb{N}_+$, we have $\overline{P}_i \subseteq P_{i+1} ^\circ$.
+ \end{itemize}
+ Furthermore, we say that the exhaustion is \textit{compact} if each $P_i$ is compact.
+\end{definition}
+
+\begin{proposition}{Compact Exhaustion Proposition}\\
+Let $X$ be a topological space which is second-countable, Hausdorff and regionally compact.
+\begin{enumerate}
+    \item There is an exhaustion of $X$ by compact subsets.
+    \item Given any compact subset $K \subseteq X$, there exists an open neighborhood $P$ of $K$, s.t.: $\overline{P}$ is compact.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \textit{Recall} that we say $A \subseteq X$ is \textit{precompact} in $X$ if $\overline{A}$ is compact in $X$. Since $X$ is Hausdorff and regionally compact, then by the previous proposition, $X$ is locally precompact, which implies that $X$ admits a basis of precompact open subsets. Since $X$ is second-countable, then by the Countable Covering Proposition, $X$ is covered by a countable family $\{U_i\}_{i \in \mathbb{N}_+}$ of precompact open subsets. It suffices to prove the following claim:
+        \begin{itemize}
+            \item \textbf{Claim:} There exists a sequence $\{K_i\}_{i \in \mathbb{N}_+}$ of compact subsets of $X$, s.t.: for any $i \in \mathbb{N}_+$, $U_i \subseteq K_i$ and s.t.: for any $i \geq 2$, $K_{i-1} = \overline{K}_{i-1} \subseteq K_i^\circ $.
+
+            \item \begin{proof}
+                \textit{of claim:} First set $K_1:= \overline{U}_1$. Now suppose that we've already constructed $K_1 ,\cdots, K_n$ with the properties stated in the claim. Since $K_n$ is compact, then there exists $r \in \mathbb{N}_+$, s.t.:
+                $$K_n \subseteq U_1 \cup \cdots \cup U_r$$
+                Set $K_{n+1}:= \overline{U_1} \cup \cdots \cup \overline{U}_r \cup \overline{U}_{r+1}$. Since $U_i$'s are precompact, then $\overline{U}_{i}$' are compact. Hence, $K_{n+1}$ is also compact. Now we check whether $K_{n+1}$ satisfies the properties:
+                \begin{itemize}
+                    \item It's clear that $U_{n+1} \subseteq \overline{U}_{n+1} \subseteq K_{n+1}$.
+                    \item $\overline{K}_n = K_n \subseteq U_1 \cup \cdots \cup U_r \subseteq K_{n+1}^\circ \subseteq K_{n+1}$.
+                \end{itemize}
+            \end{proof}
+        \end{itemize}
+
+        Let $K$ be a compact subset of $X$ and continue with the notations from $1$. The sets $K_n ^\circ$ form an open cover of $K$. By the compact-ness of $K$ and the property that $K_n^\circ \subseteq K_{n+1}^\circ ,K \subseteq K_n^\circ$ for some $n \in \mathbb{N}_+$. Then set $P:= K_n ^\circ$ and then we're done.
+    \end{enumerate}
+\end{proof}
+
+\section{Urysohn Metrization Theorem}
+
+\begin{theorem}{Urysohn Metrization Theorem}\\
+Let $X$ be a topological space. If $X$ is second-countable, then the followings are equivalent:
+\begin{enumerate}
+    \item $X$ is normal and every one-point subset is closed.
+    \item $X$ is metrizable.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{definition}
+        $$\mathbb{R}^\mathbb{N} := \{ all\;maps\;\mathbb{N}_+ \to \mathbb{R} \} \cong \{ (x_1,x_2 ,\cdots) \mid x_i \in \mathbb{R} \}$$
+        We equipped $\mathbb{R}^\mathbb{N}$ with the product topology, i.e.: the topology induced by the basis given by the sets
+        $$U_1 \times \cdots \times U_k \times \mathbb{R} \times \mathbb{R} \times \cdots \subseteq \mathbb{R}^\mathbb{N}$$
+        where $U_i \subseteq \mathbb{R}$ is open in $\mathbb{R}$.
+    \end{definition}
+
+    \begin{lemma}
+        The topological space $\mathbb{R}^\mathbb{N}$ is metrizable.
+    \end{lemma}
+
+    \begin{proof}
+        \textit{of lemma:} Throughout the proof we need adopt the following natations:
+        \begin{itemize}
+            \item Given $a,b \in \mathbb{R}$, we write $d(a,b) := \min \{ |b-a|,1 \}$.
+            \item Given $x \in \mathbb{R}^\mathbb{N}$, we denote by $x_1,x_2 ,\cdots$ the "coordinates" of $x$.
+            \item Given $x,y \in \mathbb{R}^\mathbb{N}$, we set
+            $$D(x,y) := \sup_{k \in \mathbb{N}_+} \{ \frac{1}{k} \cdot d(x_k, y_k) \} \in \mathbb{R}$$
+        \end{itemize}
+
+        \begin{itemize}
+            \item \textbf{Claim 1:} The map $D$ defines a metric on $\mathbb{R}^\mathbb{N}$.
+            \item \begin{proof}
+                \textit{of claim 1:} It's clear that $D$ is symmetric and reflective. As for the triangle inequality, let $x,y,z \in \mathbb{R}^\mathbb{N}$.
+                $$D(x,z) := \sup_{k \in \mathbb{N}_+} \{\frac{1}{k} \cdot d(x_k, z_k) \} \overset{d\;metric}{\leq} \sup_{k \in \mathbb{N}_+} \{\frac{1}{k} \cdot d(x_k, y_k) + \frac{1}{k} \cdot d(y_k, z_k) \} \leq D(x,y) +D(y,z)$$
+            \end{proof}
+        \end{itemize}
+        It remains to prove the following claim:
+        \begin{itemize}
+            \item \textbf{Claim 2:} $\mathcal{T}_D = \mathcal{T}_{product}$ on $\mathbb{R}^\mathbb{N}$.
+            \item \begin{proof}
+                \textit{of claim 2:} \begin{itemize}
+                    \item $\mathcal{T}_D \subseteq \mathcal{T}_{product}$: For any $U \in \mathcal{T}_D$, any $x \in U$, there exists $\epsilon>0$, s.t.: $x \in B_\epsilon^D (x) \subseteq U$. Pick $n \in \mathbb{N}_+$ with $\frac{1}{n}< \epsilon$ and then set
+                    $$V:= (x_1-\epsilon,x_1 + \epsilon) \times \cdots \times  (x_n-\epsilon, x_n+\epsilon) \times \mathbb{R} \times \mathbb{R} \times \cdots \in \mathcal{T}_{product}$$
+                    It's clear that $V \subseteq B_\epsilon^D(x)$. Hence, $x \in V \subseteq U$. Therefore, $U \in \mathcal{T}_{product}$.
+
+                    \item $\mathcal{T}_{product} \subseteq \mathcal{T}_D$: It suffices to show that $\mathcal{B} \subseteq \mathcal{T}_D$. For any
+                    $$U:= U_1 \times \cdots\times U_k \times \mathbb{R} \times \mathbb{R} \times \cdots \in \mathcal{B}$$
+                    with $U_1,\cdots,U_k$ open in $\mathbb{R}$, any $x \in U$, any $i \in \{1,\cdots,k\}$, there exists $\mu_i \in (0,1)$, s.t.: $(x_i -\mu_i,x_i+\mu_i) \subseteq U$. Set
+                    $$\epsilon:= \min\{ \frac{\mu_1}{1} ,\frac{\mu_2}{2} ,\cdots, \frac{\mu_k}{k}\}$$
+                    Then $x \in B_\epsilon^D (x) \subseteq U \Rightarrow U \in \mathcal{T}_D$.
+                \end{itemize}
+            \end{proof}
+        \end{itemize}
+    \end{proof}
+    Now we return to the \textit{proof of the Urysohn Metrization Theorem:}
+    \begin{itemize}
+        \item (2$\Rightarrow$1): Since $X$ is metrizable, then it is normal and Hausdorff where the Hausdorff-ness implies that every one-point subset is closed.
+
+        \item (1$\Rightarrow$2): \begin{itemize}
+            \item \textbf{Claim 3:} There exists a family $\{ \varphi_n: X\to [0,1] \}_{n \in \mathbb{N}_+}$ of continuous maps with the property that for any $x \in X$, any open $U \ni x$ in $X$, there exists $n \in \mathbb{N}_+$, s.t.:
+            $$\varphi_n(x) =1,\varphi_n |_{X \setminus U} \equiv 0$$
+
+            \item \begin{proof}
+                \textit{of claim 3:} Let $\{B_j\}_{j \in J}$ be a countable basis of $X$. For any $i,j \in J$ with $\overline{B}_i \subseteq B_j$, applying Urysohn's Lemma to the disjoint closed subsets $\overline{B}_i$ and $X\setminus B_j$, we obtain a map $g_{i,j}: X \to [0,1]$ with
+                $$g_{i,j}|_{\overline{B}_i} \equiv 1, g_{i,j}|_{X \setminus B_j} \equiv 0$$
+                Since $J$ is countable, then so is the set
+                $$K:= \{(i,j) \in J \times J \mid \overline{B}_i \subseteq B_j\} \subseteq J \times J$$
+                and hence in bijection with a subset of $\mathbb{N}_+$. Then it suffices to show that $\{g_{i,j} \}_{(i,j) \in K}$ has the desired property. For any $x \in X$, any open $U \ni x$ open in $X$, there exists $j \in J$, s.t.: $x \in B_j \subseteq U$. By the hypothesis and the Normal-Open-Closed-Neighborhood prop, there exists an open $V$, s.t.:
+                $$x \in \{ x\} \subseteq V \subseteq \overline{V} \subseteq B_j$$
+                Also, since $V$ is open, then there exists $i \in J$, s.t.:
+                $x \in B_i \subseteq V$. Hence,
+                $$\overline{B}_i \subseteq \overline{V} \subseteq B_j$$
+                Therefore, by the def of $g_{i,j}$, we're done.
+            \end{proof}
+
+            \item \textbf{Claim 4:} The map $\Phi: X \to \mathbb{R}^\mathbb{N}$ given by $x \mapsto (\varphi_1 (x), \varphi_2 (x),\cdots)$ is an embedding.
+
+            \item \begin{proof}
+                \begin{itemize}
+                    \item Since $\varphi_i$'s are continuous, then so is $\Phi$.
+                    \item \textit{$\Phi$ is injective:} For any $x \neq y \in X$, since $X$ is normal and since $\{x\}$ and $\{y\}$ are closed in $X$ by hypothesis, then there is an open $U$, s.t.: $x \in U$ and $y \notin U$. By the property in claim 3, there is an $n \in \mathbb{N}_+$, s.t.:
+                    $$\varphi_n(x)=1 \neq 0= \varphi _n(y)$$
+                    Hence, $\Phi(x) \neq \Phi(y)$.
+                    \item \textit{$\Phi$ is open:} For any open $U$ in $X$, any $z_0 \in \Phi(U)$, there is a $x_0 \in U$, s.t.: $\Phi(x_0)=z_0$. By the property in claim 3, $\varphi_n (x_0)=1, \varphi_n |_{X\setminus U} \equiv 0$. Denote by $\pi_n: \mathbb{R}^\mathbb{N} \to \mathbb{R}$ the projection onto the $n$-coordinate, which is continuous. Set
+                    $$V:= \pi_n^{-1}((0,\infty)), W:= V \cap \Phi(X)$$
+                    By the continuity of $\pi_n$, $V$ is open in $\mathbb{R}^\mathbb{N}$ and hence $W$ is open in $\Phi(X)$. It remains to show that $z_0 \in W$ and that $W \subseteq \Phi(U)$.
+                    \begin{itemize}
+                        \item $\pi_n(z_0) =(\pi_n \circ \Phi) (x_0) =\varphi_n(x_0) =1>0 \Rightarrow z_0 \in W$.
+                        \item For any $z \in W$, there exists $x \in X$, s.t.: $\Phi(x) =z$. Note that $\pi_n (z) =(\pi_n \circ \Phi) (x) =\varphi_n(x) =1>0$. Since $\varphi_n|_{X \setminus U} \equiv 0$, then $x \in U$ and hence $z = \Phi(x) \subseteq \Phi(U)$.
+                    \end{itemize}
+                \end{itemize}
+            \end{proof}
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\section{Regular Topological Spaces}
+
+\begin{definition}{Regular}\\
+A topological space $X$ is called \textit{regular} if given any $x \in X$ and any closed subset $A \subseteq X$ with $x \notin A$, there are two disjoint open subsets $U$ and $V$, s.t.: $x \in U$ and $A \subseteq V$.
+\end{definition}
+
+\begin{proposition}{Regular-Open-Closed-Neighborhood Proposition}\\
+Let $X$ be a topological space, let $x\in X$ and let $U \subseteq X$ be an open neighborhood of $x$. If $X$ is regular, then there exists open $V \subseteq X$ in $X$, s.t.:
+$$x \in V \subseteq \overline{V} \subseteq U$$
+\end{proposition}
+
+\begin{proof}
+    Similarly as the proof of the Normal-Open-Closed-Neighborhood Proposition.
+\end{proof}
+
+\begin{proposition}{Regular $+$ Second Countable Proposition}\\
+Let $X$ be a topological space. If $X$ is a regular and if $X$ is second-countable, then $X$ is normal.
+\end{proposition}
+
+\begin{proof}
+    Let $\{B_j\}_{j \in J}$ be a countable basis of $X$. Pick two disjoint closed subsets of $X$.
+    \begin{itemize}
+        \item \textbf{Claim 1:} There are open subsets $\{U_m\}_{m \in \mathbb{N}_+}$, s.t.:
+        $$C \subseteq \bigcup_{m \in \mathbb{N}_+} U_m \subseteq \bigcup_{m \in \mathbb{N}_+} \overline{U}_m \subseteq X \setminus D$$
+        \item \begin{proof}
+            \textit{of claim 1:} Since $J$ is countable, then so is $J'= \{j \in J \mid \overline{B}_j \subseteq X \setminus D\} \subseteq J$. It suffices to show that $C \subseteq \bigcup_{j \in J'} B_j$. For any $c \in C$, since $X$ is regular and $D$ is closed, then by the Regular-Open-Closed-Neighborhood Proposition, there exists an open $U \ni c$, s.t.: $\overline{U} \subseteq X\setminus D$. By the def of basis, there exists $j \in J$, s.t.:
+            $$c \in B_j \subseteq U \Rightarrow \overline{B}_j \subseteq \overline{U} \subseteq X \setminus C$$
+            and then we're done.
+        \end{proof}
+    \end{itemize}
+    Similarly, there exist open subsets $\{ V_n\}_{n \in \mathbb{N}_+}$, s.t.:
+    $$D \subseteq \bigcup_{n \in \mathbb{N}_+} V_n \subseteq \bigcup_{n \in \mathbb{N}_+} \overline{V}_n \subseteq X \setminus C$$
+    Set $\tilde{U}_m:= U_m \setminus \bigcup_{i=1}^m \overline{V}_i$ and $\tilde{V}_n := V_n \setminus \bigcup_{i=1}^n \overline{U}_i$, which are open. Since $\overline{V}_i \cap C=\emptyset$, then $\{ \tilde{U}_m\}_{m \in \mathbb{N}_+}$ covers $C$ and similarly $\{\tilde{V}_n \}_{n \in \mathbb{N}_+}$ covers $D$. Hence it suffices to prove the following claim:
+    \begin{itemize}
+        \item \textbf{Claim 2:} $(\bigcup_{m \in \mathbb{N}_+} \tilde{U}_m) \cap (\bigcup_{n \in \mathbb{N}_+} \tilde{V}_n) =\emptyset$.
+        \item \begin{proof}
+            \textit{of claim 2:} It suffices wo show that for any $m,n$, $\tilde{U}_m \cap \tilde{V}_n = \emptyset$. If $m\leq n$, then by the construction, we have
+            $$\tilde{V}_n \subseteq V_n \subseteq \overline{V}_n \subseteq X \setminus \tilde{U}_m$$
+            Similarly if $n\leq m$, then $\tilde{U}_m \subseteq X \setminus \tilde{V}_n$.
+        \end{proof}
+    \end{itemize}
+\end{proof}

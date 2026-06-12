@@ -591,7 +591,9 @@ Let $X$ be a topological space, let $A \subseteq X$ be a closed subset of $X$ an
 $$\inf g(X)=\inf f(A) \in \mathbb{R} \cup \{-\infty\}, \sup g(X)= \sup f(A) \in \mathbb{R} \cup \{\infty \}$$
 \end{theorem}
 
-
+\begin{theorem}{Tietze Extension Theorem $\mathrm{II}$}\\
+Let $X$ be a topological space and let $A \subseteq X$ be a closed subset of $X$. Suppose that for $i= 1,\cdots, n$, we're given a closed interval $I_i \subseteq \mathbb{R}$ and suppose that we're given a continuous map $f: A \to I_1 \times \cdots \times I_n \subseteq \mathbb{R}^n$. If $X$ is normal, then there is a map $g: X \to I_1 \times \cdots \times I_n$ with $g|_A =f$.
+\end{theorem}
 
 
 
@@ -681,8 +683,8 @@ Let $X$ be a topological space.
 Let $X$ be a topological space. A subset $A \subseteq X$ is called \textit{precompact} if $\overline{A}$ is compact.
 \end{definition}
 
-\begin{proposition}
-    Let $X$ be a Hausdorff space that is regionally compact. Then for any $x \in X$, any open $U \ni x$, there exists an open $V \ni x$, s.t.: $\overline{V}$ is compact and s.t.: $x \in V \subseteq \overline{V} \subseteq U$, i.e.: $X$ is locally precompact.
+\begin{proposition}{Regionally Compact–Locally Precompact Proposition}\\
+Let $X$ be a Hausdorff space that is regionally compact. Then for any $x \in X$, any open $U \ni x$, there exists an open $V \ni x$, s.t.: $\overline{V}$ is compact and s.t.: $x \in V \subseteq \overline{V} \subseteq U$, i.e.: $X$ is locally precompact.
 \end{proposition}
 
 \begin{definition}
