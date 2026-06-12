@@ -5,11 +5,22 @@
 \noindent\textbf{General Idea:} To understand a space $X$, we can study continuous maps $f: A \rightarrow X$ or $g: X\rightarrow B$. For example, $A = [0,1] \leftrightarrow$ path-connected; $A = \mathbb{S}^1 \leftrightarrow$ loops.
 
 \begin{definition}{Homotopy}\\
-Let $X,Y$ be two topological spaces. A homotopy between two continuous maps $f,g :X \rightarrow Y$ is a continuous map $H : X\times [0,1] \rightarrow Y$, s.t.:
-$$H(x,0) = f(x) \;\;\;\;and\;\;\;\;  H(x,1) = g(x).$$
-If such $H$ exists, we say $f$ and $g$ are homotopic, denoted as
-$$f \simeq g.$$
+Let $X,Y$ be two topological spaces.
+\begin{itemize}
+    \item A \textit{homotopy} between two continuous maps $f,g :X \rightarrow Y$ is a continuous map $H : X\times [0,1] \rightarrow Y$, s.t.:
+    $$H(x,0) = f(x) \;\;\;\;and\;\;\;\;  H(x,1) = g(x).$$
+    If such $H$ exists, we say $f$ and $g$ are \textit{homotopic}, denoted as
+    $$f \simeq g.$$
+
+    \item A continuous map $f: X \to Y$ is called \textit{null-homotopic} if it is homotopic to a constant map.
+\end{itemize}
 \end{definition}
+
+\begin{proposition}{Convex Homotopy Proposition}\\
+Let $X$ be a topological space. Given any two continuous maps $f,g :X \to Y (\subseteq  \mathbb{R}^n)$ to a convex subspace of $\mathbb{R}^n$, the map $H: X \times [0,1] \to Y$ given by
+$$H(x,t) := f(x) (1-t) +g(x) t$$
+is a homotopy between $f$ and $g$.
+\end{proposition}
 
 \noindent\textbf{Example:} $Y= \mathbb{R}^2$. Consider two arbitrary cont maps $f,g: X \rightarrow Y$. Then define:
 $$H(x,t) := (1-t) f(x) + tg(x),$$
